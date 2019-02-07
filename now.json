@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "our-project-name",
+    "name": "hotel-hopper",
     "builds": [
         { "src": "package.json", "use": "@now/static-build" }
     ],
