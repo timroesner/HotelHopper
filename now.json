@@ -4,6 +4,7 @@
     "builds": [
         { "src": "package.json", "use": "@now/static-build" }
     ],
+    "alias": ["hotelhopper.cf", "www.hotelhopper.cf"],
     "routes": [
         {"src": "^/static/(.*)", "dest": "/static/$1"},
         {"src": "^/favicon.ico", "dest": "/favicon.ico"},
