@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react/prefer-stateless-function */
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -9,11 +10,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit
-            {' '}
-            <code>src/App.js</code>
-            {' '}
-            and save to reload.
+            Edit <code>src/App.js</code> and save to reload.
             <br />
             Hello World
           </p>
