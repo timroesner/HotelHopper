@@ -11,7 +11,7 @@ class Profile extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Hotel Hopper's Temporary Sign Up Page
+            Hotel Hopper's Temporary Profile Page
           </p>
           <a
             className="App-link"
