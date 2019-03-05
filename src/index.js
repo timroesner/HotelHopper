@@ -10,6 +10,12 @@ import Signup from './signup';
 import Search from './search';
 import Profile from './profile';
 import Error from './error';
+import Checkout from './checkout';
+import Confirmation from './confirmation';
+import Forgot from './forgotpass';
+import Map from './map';
+import Reset from './resetpass';
+import Hotel from './hotel';
 const browserHistory = createBrowserHistory()
 ReactDOM.render(
     <Router path="/App" history={browserHistory}>
@@ -19,7 +25,15 @@ ReactDOM.render(
     <Route exact path='/signUp' component={Signup}/>
 	<Route exact path='/profile' component={Profile}/>
     <Route exact path='/search/' component={Search}/>
-    <Route exact path='/search/:params' component={Search}/>			
+    <Route exact path='/search/:params' component={Search}/>
+    <Route exact path='/checkout' component={Checkout} />	
+    <Route exact path='/confirmation' component={Confirmation} />
+    <Route exact path='/confirmation/:params' component={Confirmation} />
+    <Route exact path='/forgot' component={Forgot} />
+    <Route exact path='/map' component={Map} />
+    <Route exact path='/hotel' component={Hotel} />
+    <Route exact path='/hotel/:id' component={Hotel} />
+    <Route exact path='/reset' component={Reset} />
     <Route component={Error}/>
     </Switch>
     </Router>, document.getElementById('root')
