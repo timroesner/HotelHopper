@@ -9,6 +9,7 @@ import Login from './login';
 import Signup from './signup';
 import Search from './search';
 import Profile from './profile';
+import Error from './error';
 const browserHistory = createBrowserHistory()
 ReactDOM.render(
     <Router path="/App" history={browserHistory}>

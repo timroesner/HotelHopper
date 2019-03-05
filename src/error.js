@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Bar from './header';
 class Error extends React.Component {
 	constructor(props){
   		super(props);
@@ -8,7 +11,25 @@ class Error extends React.Component {
 	render() {
     	return (
 		
-		<div>Error: Path does not exist. </div>
+            <div>
+            <Bar />
+          <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                Hotel Hopper's Temporary Error Page
+              </p>
+              <a
+                className="App-link"
+                href="https://reactjs.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn React
+              </a>
+            </header>
+          </div>
+          </div>
 		)	
 	}
 }
