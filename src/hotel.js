@@ -30,31 +30,30 @@ class Hotel extends Component {
     );
   }
   else{
-    console.log("awh");
-    var tab = this.props.match.params.id;
-    return (
-      <div>
-        <Bar />
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hotel Hopper's Temporary Hotel Page for {tab}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-      </div>
-    );
+    var param =this.props.match.params.id;
+      return (
+        <div>
+          <Bar />
+          <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                Hotel Hopper's Temporary Post-Checkout Confirmation Page for {param}
+              </p>
+              <a
+                className="App-link"
+                href="https://reactjs.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              > 
+                Learn React
+              </a>
+            </header>
+          </div>
+        </div>
+      );
+    }
   }
-}
 }
 
 export default Hotel;
