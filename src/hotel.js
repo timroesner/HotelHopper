@@ -5,7 +5,7 @@ import Bar from './header';
 class Hotel extends Component {
   render() {
     console.log(this.props.match.params.id);
-    if (this.props.match.params.id === 'undefined') {
+    if (this.props.match.params.id === undefined) {
       console.log("yee");
     return (
       <div>

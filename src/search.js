@@ -6,7 +6,7 @@ import queryString from 'query-string';
 class Search extends Component {
   render() {
     console.log(this.props.match.params.params);
-    if(this.props.match.params.params === 'undefined'){
+    if(this.props.match.params.params === undefined){
     return (
       <div><Bar />
       
