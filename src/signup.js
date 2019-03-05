@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Bar from './header';
-class App extends Component {
+class SignUp extends Component {
   render() {
     return (
-      <div>
-      <Bar />
+      <div> 
+        <Bar /> 
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Hotel Hopper's Landing Page
+            Hotel Hopper's Temporary Sign Up Page
           </p>
-          
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -29,4 +28,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default SignUp;
