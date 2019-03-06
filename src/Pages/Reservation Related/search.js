@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Bar from './header';
-import queryString from 'query-string';
 class Search extends Component {
   render() {
     console.log(this.props.match.params.params);
