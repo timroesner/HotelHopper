@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Bar from './Pages/Globals/header';
-class App extends Component {
+import logo from '../../logo.svg';
+import '../../App.css';
+import Bar from '../Globals/header';
+class Map extends Component {
   render() {
     return (
       <div>
-      <Bar />
+        <Bar />
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Hotel Hopper's Landing Page
+            Hotel Hopper's Temporary Map Page
           </p>
-          
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -29,4 +28,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Map;

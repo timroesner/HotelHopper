@@ -21,7 +21,14 @@
 .App-link {
   color: #61dafb;
 }
+.text-right{
+  background-color: #282c34;
+  text-align: right;
+  align-items: right;
+  justify-content: right;
+  color: white;
 
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
