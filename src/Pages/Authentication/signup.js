@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Bar from './header';
+import logo from '../../logo.svg';
+import '../../App.css';
+import Bar from '../Globals/header';
 class SignUp extends Component {
   render() {
     return (

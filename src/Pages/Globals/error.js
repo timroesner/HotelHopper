@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../../logo.svg';
+import '../../App.css';
 import Bar from './header';
 class Error extends React.Component {
 	constructor(props){

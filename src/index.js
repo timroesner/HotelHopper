@@ -5,17 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import{Router, Route,Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import Login from './login';
-import Signup from './signup';
-import Search from './search';
-import Profile from './profile';
-import Error from './error';
-import Checkout from './checkout';
-import Confirmation from './confirmation';
-import Forgot from './forgotpass';
-import Map from './map';
-import Reset from './resetpass';
-import Hotel from './hotel';
+import Login from './Pages/Authentication/login';
+import Signup from './Pages/Authentication/signup';
+import Search from './Pages/Reservation Related/search';
+import Profile from './Pages/Profile/profile';
+import Error from './Pages/Globals/error';
+import Checkout from './Pages/Reservation Related/checkout';
+import Confirmation from './Pages/Reservation Related/confirmation';
+import Forgot from './Pages/Authentication/forgotpass';
+import Map from './Pages/Reservation Related/map';
+import Reset from './Pages/Authentication/resetpass';
+import Hotel from './Pages/Reservation Related/hotel';
 const browserHistory = createBrowserHistory()
 ReactDOM.render(
     <Router path="/App" history={browserHistory}>

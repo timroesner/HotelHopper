@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
-import './App.css';
 import { withRouter } from 'react-router-dom';
 
 class Bar extends React.Component {
