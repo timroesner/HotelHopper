@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import '../../App.css';
-import Bar from '../Globals/header';
+import logo from '../../assets/logo.svg';
+
 class Login extends Component {
   render() {
     return (
-      <div> <Bar />
+      <div> 
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
