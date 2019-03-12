@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import LandingPage from './Pages/LandingPage';
 import * as serviceWorker from './serviceWorker';
 import{Router, Route,Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -16,26 +16,32 @@ import Forgot from './Pages/Authentication/forgotpass';
 import Map from './Pages/Reservation Related/map';
 import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
+import Header from './components/header'
+
 const browserHistory = createBrowserHistory()
 ReactDOM.render(
     <Router path="/App" history={browserHistory}>
-    <Switch>
-    <Route exact path = '/' component ={App}  />
-    <Route exact path='/login' component={Login} />
-    <Route exact path='/signUp' component={Signup}/>
-	<Route exact path='/profile' component={Profile}/>
-    <Route exact path='/search/' component={Search}/>
-    <Route exact path='/search/:params' component={Search}/>
-    <Route exact path='/checkout' component={Checkout} />	
-    <Route exact path='/confirmation' component={Confirmation} />
-    <Route exact path='/confirmation/:params' component={Confirmation} />
-    <Route exact path='/forgot' component={Forgot} />
-    <Route exact path='/map' component={Map} />
-    <Route exact path='/hotel' component={Hotel} />
-    <Route exact path='/hotel/:id' component={Hotel} />
-    <Route exact path='/reset' component={Reset} />
-    <Route component={Error}/>
-    </Switch>
+    <div>
+        <Header/>
+        <div className="pt-16"/>
+        <Switch>
+            <Route exact path = '/' component ={LandingPage}  />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signUp' component={Signup}/>
+            <Route exact path='/profile' component={Profile}/>
+            <Route exact path='/search/' component={Search}/>
+            <Route exact path='/search/:params' component={Search}/>
+            <Route exact path='/checkout' component={Checkout} />	
+            <Route exact path='/confirmation' component={Confirmation} />
+            <Route exact path='/confirmation/:params' component={Confirmation} />
+            <Route exact path='/forgot' component={Forgot} />
+            <Route exact path='/map' component={Map} />
+            <Route exact path='/hotel' component={Hotel} />
+            <Route exact path='/hotel/:id' component={Hotel} />
+            <Route exact path='/reset' component={Reset} />
+            <Route component={Error}/>
+        </Switch>
+    </div>
     </Router>, document.getElementById('root')
     );
 // If you want your app to work offline and load faster, you can change
