@@ -15,8 +15,20 @@ class Header extends React.Component {
          }
    }
 
+   createDropDowm = () => {
+      let dropDown = []
+      const dropDownItems = ["Profile", "Billing Info", "Trips", "Rewards", "Sign out"]
+      dropDownItems.map((item) => dropDown.push(<p className="pb-2 pt-2" onClick={() => this.navigateTo(item.replace(/\s/g, '').toLowerCase())}>{item}</p>))
+      return dropDown
+   }
+
    navigateTo(page) {
-      this.props.history.push(`/${page}`);
+      if(page === "signout") {
+         // Call signout function
+         this.setState({ user: undefined });
+      } else {
+         this.props.history.push(`/${page}`);
+      }
    }
 
    handleDropdown() {
@@ -36,16 +48,12 @@ class Header extends React.Component {
          <p className="ml-3 text-soft-blue font-sans text-xl font-bold leading-none cursor-pointer" onClick={() => this.navigateTo("")}>Hotel<br/>Hopper</p>
          {
             this.state.user ? 
-            <div className="mr-8 ml-auto cursor-pointer" onMouseEnter={() => this.handleDropdown()} onMouseLeave={() => this.handleDropdown()} >
-               <p className="font-sans text-xl font-bold" >Hi, {this.state.user.name}</p>
+            <div className="mr-8 ml-auto cursor-pointer" onClick={() => this.handleDropdown()} onMouseEnter={() => this.handleDropdown()}  onMouseLeave={() => this.handleDropdown()} >
+               <p className="font-sans text-xl font-bold">Hi, {this.state.user.name}</p>
                {
                   this.state.showDropdown &&
-                  <div className="pin-r absolute bg-white rounded border-1">
-                     <ul>Profile</ul>
-                     <ul>Billing Info</ul>
-                     <ul>Trips</ul>
-                     <ul>Rewards</ul>
-                     <ul>Sign out</ul>
+                  <div className="mr-4 pr-12 pl-8 pt-2 pb-2 pin-r absolute bg-grey-lightest rounded ">
+                        {this.createDropDowm()}
                   </div>
                }
             </div> :
