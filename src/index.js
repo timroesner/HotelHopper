@@ -9,6 +9,9 @@ import Login from './Pages/Authentication/login';
 import Signup from './Pages/Authentication/signup';
 import Search from './Pages/Reservation Related/search';
 import Profile from './Pages/Profile/profile';
+import BillingInfo from './Pages/Profile/billingInfo';
+import Trips from './Pages/Profile/trips';
+import Rewards from './Pages/Profile/rewards';
 import Error from './Pages/Globals/error';
 import Checkout from './Pages/Reservation Related/checkout';
 import Confirmation from './Pages/Reservation Related/confirmation';
@@ -29,6 +32,9 @@ ReactDOM.render(
             <Route exact path='/login' component={Login} />
             <Route exact path='/signUp' component={Signup}/>
             <Route exact path='/profile' component={Profile}/>
+            <Route exact path='/billinginfo' component={BillingInfo}/>
+            <Route exact path='/trips' component={Trips}/>
+            <Route exact path='/rewards' component={Rewards}/>
             <Route exact path='/search/' component={Search}/>
             <Route exact path='/search/:params' component={Search}/>
             <Route exact path='/checkout' component={Checkout} />	
