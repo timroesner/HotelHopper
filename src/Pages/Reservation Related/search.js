@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import '../../App.css';
-import Bar from '../Globals/header';
+import logo from '../../assets/logo.svg';
+
 class Search extends Component {
   render() {
     console.log(this.props.match.params.params);
     if(this.props.match.params.params === undefined){
     return (
-      <div><Bar />
-      
+      <div>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -32,7 +30,6 @@ class Search extends Component {
     var param =this.props.match.params.params;
       return (
         <div>
-          <Bar />
           <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />

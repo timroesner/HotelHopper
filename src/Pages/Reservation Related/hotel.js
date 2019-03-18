@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import '../../App.css';
-import Bar from '../Globals/header';
+import logo from '../../assets/logo.svg';
+
 class Hotel extends Component {
   render() {
     console.log(this.props.match.params.id);
@@ -9,7 +8,6 @@ class Hotel extends Component {
       console.log("yee");
     return (
       <div>
-        <Bar />
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -33,7 +31,6 @@ class Hotel extends Component {
     var param =this.props.match.params.id;
       return (
         <div>
-          <Bar />
           <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />

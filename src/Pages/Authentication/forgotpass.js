@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import '../../App.css';
-import Bar from '../Globals/header';
+import logo from '../../assets/logo.svg';
+
 class Forgot extends Component {
   render() {
     return (
       <div>
-        <Bar />
       <div className="App">
-        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Hotel Hopper's Temporary Forgot Password Page
@@ -21,7 +18,6 @@ class Forgot extends Component {
           >
             Learn React
           </a>
-        </header>
       </div>
       </div>
     );

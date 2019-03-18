@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Bar from './Pages/Globals/header';
-class App extends Component {
+import logo from '../assets/logo.svg';
+
+class LandingPage extends Component {
   render() {
     return (
-      <div>
-      <Bar />
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -24,9 +21,8 @@ class App extends Component {
           </a>
         </header>
       </div>
-      </div>
     );
   }
 }
 
-export default App;
+export default LandingPage;

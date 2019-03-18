@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../../assets/logo.svg';
 
-class Checkout extends Component {
+class BillingInfo extends Component {
   render() {
     return (
       <div>
@@ -9,7 +9,7 @@ class Checkout extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              Hotel Hopper's Temporary Checkout Page
+              Hotel Hopper's Temporary Billing Info Page
             </p>
             <a
               className="App-link"
@@ -26,4 +26,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default BillingInfo;

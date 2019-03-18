@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import '../../App.css';
-import Bar from './header';
+import logo from '../../assets/logo.svg';
+
 class Error extends React.Component {
 	constructor(props){
   		super(props);
@@ -10,9 +9,7 @@ class Error extends React.Component {
 		
 	render() {
     	return (
-		
-            <div>
-            <Bar />
+        <div>
           <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
@@ -29,7 +26,7 @@ class Error extends React.Component {
               </a>
             </header>
           </div>
-          </div>
+        </div>
 		)	
 	}
 }
