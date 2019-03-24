@@ -25,9 +25,27 @@ class LoginComp extends React.Component {
         this.props.history.push(`/${value}`);
       }
       handleSubmit(event) {
-        alert('Logging in with:' + this.state.email + " and " + this.state.password);
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if ( re.test(this.state.email) ) {
+            // this is a valid email address
+            // call setState({email: email}) to update the email
+            // or update the data in redux store.
+            alert('Logging in with:' + this.state.email + " and " + this.state.password);
+        let user = {
+            "email": this.state.email,
+            "password": this.state.password,
+        }
         event.preventDefault();
         this.props.history.push('/');
+        }
+        else {
+            
+            // invalid email, maybe show an error to the user.
+            alert("Invalid email format detected. Please check to see that email is correctly inputted.");
+            event.preventDefault();
+        }
+        
       }
   render() {
       return(

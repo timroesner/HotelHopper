@@ -44,7 +44,7 @@ ReactDOM.render(
             <Route exact path='/map' component={Map} />
             <Route exact path='/hotel' component={Hotel} />
             <Route exact path='/hotel/:id' component={Hotel} />
-            <Route exact path='/reset' component={Reset} />
+            <Route exact path='/reset/:token' component={Reset} />
             <Route component={Error}/>
         </Switch>
     </div>

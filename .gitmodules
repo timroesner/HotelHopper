@@ -1,0 +1,3 @@
+[submodule "src/HotelHopperServer"]
+	path = src/HotelHopperServer
+	url = https://github.com/Charlesleonius/HotelHopperServer
