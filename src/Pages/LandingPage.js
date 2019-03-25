@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import hero from '../assets/hero@2x.png';
 import api from '../helper/endpoints';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
+import Geosuggest from 'react-geosuggest';
 
 class LandingPage extends Component {
 
@@ -29,8 +30,8 @@ class LandingPage extends Component {
     let destinations = []
     this.state.popularDestinations.map((city) => {
       destinations.push(
-      <div key={city.city} className="w-full md:w-1/4 p-2">
-        <img src={city.url} className="light-filter rounded"/>
+      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer">
+        <img src={city.url} alt={city.city} className="light-filter rounded"/>
         <p className="absolute font-sans text-white text-3xl font-bold ml-4 mb-4 -mt-12">{city.city}</p>
       </div>
       )
@@ -45,8 +46,14 @@ class LandingPage extends Component {
           <div className="absolute z-10 ml-8 mt-1/10 w-full-w/o-margins">
             <p className="md:text-4xl lg:text-5xl text-lg text-white font-sans font-bold mb-4 md:mb-12">Find deals to experience the world</p>          
             <div className="flex flex-wrap -m-2">
-              <input className="appearance-none bg-white font-bold w-full md:w-1/4 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
-             id="location" onChange={this.handleChange} type="text" placeholder="Where are you going"/>
+              {/* <input className="appearance-none bg-white font-bold w-full md:w-1/4 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
+             id="location" onChange={this.handleChange} type="text" placeholder="Where are you going"/> */}
+             <Geosuggest
+              className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl"
+              placeholder="Where are you going" 
+              inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
+              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white"
+             />
              <div className="w-full md:w-1/4 h-10 md:h-16 mb-2 md:mr-4 md:text-xl">
               <DateRangePicker
                   startDate={this.state.startDate}
@@ -63,8 +70,6 @@ class LandingPage extends Component {
                   onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
                 />
               </div>
-             {/* <input className="appearance-none bg-white font-bold w-full md:w-1/4 rounded h-14 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
-             id="location" onChange={this.handleChange} type="text" placeholder="Check in - Check out"/> */}
              <input className="appearance-none bg-white font-bold w-full md:w-1/5 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
              id="location" onChange={this.handleChange} type="text" placeholder="2 people - 1 room"/>
               <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold">Search</button>
