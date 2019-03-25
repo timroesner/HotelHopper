@@ -32,11 +32,23 @@ class SignupComp extends React.Component {
       }
 
       handleSubmit(event) {
-        alert('first name: ' + this.state.firstname + 
-              ', last name: ' + this.state.lastname + 
-              ', email: ' + this.state.email + 
-              ', password: ' + this.state.password +
-              ', second password: ' + this.state.secondpassword);
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var alertMessage= '';
+
+        if (re.test(this.state.email)){
+          alertMessage += 'email: ' + this.state.email;
+        }else{
+          alertMessage += 'Invalid email format';
+        }
+
+        if(this.state.password == this.state.secondpassword){
+          alertMessage += ', password: ' + this.state.password;
+        }else{ 
+          alertMessage += ', password confirmation failed'
+        }
+
+        alert(alertMessage);
+
         event.preventDefault();
         this.props.history.push('/');
       }
