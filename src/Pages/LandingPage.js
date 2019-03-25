@@ -56,6 +56,7 @@ class LandingPage extends Component {
                   endDatePlaceholderText="Check out"
                   endDateId="end_date"
                   required={true}
+                  readOnly={true}
                   orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
                   onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                   focusedInput={this.state.focusedDatePicker}
