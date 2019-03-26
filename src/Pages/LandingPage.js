@@ -54,6 +54,28 @@ class LandingPage extends Component {
    }
  }
 
+ changePeopleValue(newValue) {
+    if(newValue > 0) {
+      this.setState({people: newValue})
+    } 
+    if(newValue < 2) {
+      this.refs.peopleMinus.className = "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed"
+    } else {
+      this.refs.peopleMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
+    }
+ }
+
+ changeRoomValue(newValue) {
+    if(newValue > 0) {
+      this.setState({rooms: newValue})
+    }
+    if(newValue < 2) {
+      this.refs.roomsMinus.className = "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed"
+    } else {
+      this.refs.roomsMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
+    }
+ }
+
  search() {
    const location = this.state.location
    if(location && this.state.startDate.format("L") && this.state.endDate.format("L") && this.state.people && this.state.rooms) {
@@ -95,8 +117,26 @@ class LandingPage extends Component {
                   onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
                 />
               </div>
-             <input className="appearance-none bg-white font-bold w-full md:w-1/5 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
-             id="location" onChange={this.handleChange} type="text" placeholder="2 people - 1 room"/>
+              <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
+              <input className="appearance-none bg-white font-bold w-full rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
+             id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
+              {this.state.showPeople &&
+                <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
+                  <div className="flex items-center flex-wrap p-4">
+                    <p className="w-3/4 md:w-1/2">People</p>
+                    <button ref="peopleMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people-1)}>-</button>
+                    <p className="w-1/10 md:w-1/5 text-center">{this.state.people}</p>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people+1)}>+</button>
+                  </div>
+                  <div className="flex items-center flex-wrap p-4">
+                    <p className="w-3/4 md:w-1/2">Rooms</p>
+                    <button ref="roomsMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
+                    <p className="w-1/10 md:w-1/5 text-center">{this.state.rooms}</p>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
+                  </div>
+                </div>
+              }
+              </div>
               <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" onClick={() => this.search()}>Search</button>
             </div>
           </div>
