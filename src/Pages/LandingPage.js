@@ -11,8 +11,11 @@ class LandingPage extends Component {
     this.state = {
       popularDestinations: [],
       focusedDatePicker: null,
+      location: null,
       startDate: null,
       endDate: null,
+      people: 2,
+      rooms: 1,
     }
     this.popularDestinations()
   }
@@ -30,13 +33,34 @@ class LandingPage extends Component {
     let destinations = []
     this.state.popularDestinations.map((city) => {
       destinations.push(
-      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer">
+      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city.city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>
         <p className="absolute font-sans text-white text-3xl font-bold ml-4 mb-4 -mt-12">{city.city}</p>
       </div>
       )
     })
     return destinations
+ }
+
+ clickPopularDestinations(city) {
+    console.log(city)
+ }
+
+ selectedLocation(element) {
+   if(element) {
+    this.setState({location: element.location})
+   } else {
+    this.setState({location: null})
+   }
+ }
+
+ search() {
+   const location = this.state.location
+   if(location && this.state.startDate.format("L") && this.state.endDate.format("L") && this.state.people && this.state.rooms) {
+    this.props.history.push(`/search?lat=${location.lat}&long=${location.lng}&startDate=${this.state.startDate}&endDate=${this.state.endDate}&people=${this.state.people}&rooms=${this.state.rooms}`);
+   } else {
+     alert("Please fill all fields")
+   }
  }
 
   render() {
@@ -46,13 +70,14 @@ class LandingPage extends Component {
           <div className="absolute z-10 ml-8 mt-1/10 w-full-w/o-margins">
             <p className="md:text-4xl lg:text-5xl text-lg text-white font-sans font-bold mb-4 md:mb-12">Find deals to experience the world</p>          
             <div className="flex flex-wrap -m-2">
-              {/* <input className="appearance-none bg-white font-bold w-full md:w-1/4 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
-             id="location" onChange={this.handleChange} type="text" placeholder="Where are you going"/> */}
              <Geosuggest
               className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl"
               placeholder="Where are you going" 
               inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
-              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white"
+              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset max-h-8 max-w-8"
+              suggestItemClassName="p-2 hover:bg-grey-light cursor-pointer border-b-2"
+              onSuggestSelect={(txtField) => this.selectedLocation(txtField)}
+              types={["(cities)"]}
              />
              <div className="w-full md:w-1/4 h-10 md:h-16 mb-2 md:mr-4 md:text-xl">
               <DateRangePicker
@@ -72,7 +97,7 @@ class LandingPage extends Component {
               </div>
              <input className="appearance-none bg-white font-bold w-full md:w-1/5 rounded h-10 md:h-16 py-2 px-3 mb-2 md:mr-4 text-grey-darker md:text-xl" 
              id="location" onChange={this.handleChange} type="text" placeholder="2 people - 1 room"/>
-              <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold">Search</button>
+              <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" onClick={() => this.search()}>Search</button>
             </div>
           </div>
           <img src={hero} className="min-h-64 min-w-160 dark-filter" alt="hero" /> 
