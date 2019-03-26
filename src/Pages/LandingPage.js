@@ -146,7 +146,7 @@ class LandingPage extends Component {
                   </div>
                   <div className="flex items-center flex-wrap p-4">
                     <p className="w-3/4 md:w-1/2">Rooms</p>
-                    <button ref="roomsMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
+                    <button ref="roomsMinus" className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
                     <p className="w-1/10 md:w-1/5 text-center">{this.state.rooms}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
                   </div>
