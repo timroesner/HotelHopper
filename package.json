@@ -4,11 +4,17 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "react": "^16.7.0",
+    "moment": "^2.24.0",
+    "react": "^16.8.5",
     "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.7.0",
+    "react-dates": "^20.1.0",
+    "react-dom": "^16.8.5",
+    "react-geosuggest": "^2.10.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5"
+    "react-scripts": "^2.1.8",
+    "reactstrap": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2"
   },
   "scripts": {
     "tailwind:css": "tailwind build src/tailwind.src.css -c tailwind.js -o src/index.css",
