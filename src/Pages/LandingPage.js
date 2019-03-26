@@ -11,12 +11,14 @@ class LandingPage extends Component {
     this.state = {
       popularDestinations: [],
       focusedDatePicker: null,
+      showPeople: false,
       location: null,
       startDate: null,
       endDate: null,
       people: 2,
       rooms: 1,
     }
+    this.handleClick = this.handleClick.bind(this);
     this.popularDestinations()
   }
 
@@ -27,6 +29,20 @@ class LandingPage extends Component {
       }).then(destinationsJson => {
         this.setState({popularDestinations: destinationsJson})
       })
+  }
+
+ componentWillMount() {
+   document.addEventListener('mousedown', this.handleClick, false)
+ }
+
+ componentWillUnmount() {
+   document.removeEventListener('mousedown', this.handleClick, false)
+ }
+
+ handleClick = (e) => {
+   if(!this.refs.peopleDropdown.contains(e.target)) {
+      this.setState({showPeople: false})
+   }
  }
 
  renderPopularDestinations = () => {
