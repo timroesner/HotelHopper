@@ -74,8 +74,8 @@ class LandingPage extends Component {
               className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl"
               placeholder="Where are you going" 
               inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
-              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset max-h-8 max-w-8"
-              suggestItemClassName="p-2 hover:bg-grey-light cursor-pointer border-b-2"
+              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset min-w-full md:min-w-1/4 mt-px rounded"
+              suggestItemClassName="p-2 hover:bg-grey-light rounded cursor-pointer"
               onSuggestSelect={(txtField) => this.selectedLocation(txtField)}
               types={["(cities)"]}
              />
