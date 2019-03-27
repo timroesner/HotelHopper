@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'react-dates/initialize';
 import './index.css';
+import './react-dates-override.css';
 import LandingPage from './Pages/LandingPage';
 import * as serviceWorker from './serviceWorker';
 import{Router, Route,Switch } from 'react-router-dom';
@@ -44,7 +46,7 @@ ReactDOM.render(
             <Route exact path='/map' component={Map} />
             <Route exact path='/hotel' component={Hotel} />
             <Route exact path='/hotel/:id' component={Hotel} />
-            <Route exact path='/reset' component={Reset} />
+            <Route exact path='/reset/:token' component={Reset} />
             <Route component={Error}/>
         </Switch>
     </div>
