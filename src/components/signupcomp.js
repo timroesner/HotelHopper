@@ -3,7 +3,7 @@ import '../index.css';
 import {Button} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Signup from '../Pages/Authentication/signup';
-
+import api from '../helper/endpoints';
 class SignupComp extends React.Component {
     constructor(props) {
         super(props);
@@ -32,27 +32,72 @@ class SignupComp extends React.Component {
       }
 
       handleSubmit(event) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let success=false
         var alertMessage= '';
 
-        if (re.test(this.state.email)){
-          alertMessage += 'email: ' + this.state.email;
-        }else{
-          alertMessage += 'Invalid email format';
+        let user = {
+          "first_name": this.state.firstname,
+          "last_name": this .state.lastname,
+          "email": this.state.email,
+          "password": this.state.password
+          };
+          event.preventDefault();
+          fetch(api+"/auth/register", {
+          method: "POST",
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+          body:  JSON.stringify(user)
+          })
+          .then(function(response){ 
+              return response.json();   
+          })
+          .then(function(data){ 
+              if(data["error"]){
+                  console.log("WELL WELL WELL");
+                  // if email is incorrect format
+                  if(data["message"]["email"]){
+                      this.setState({
+                          error : data["message"]["email"]
+                      });
+                  }
+                  else if(data["message"]["password"]){
+                      this.setState({
+                          error : data["message"]["password"]
+                      });
+                  }
+                  else if(data["message"]["first_name"]){
+                    this.setState({
+                        error : data["message"]["first_name"]
+                    });
+                }
+                else if(data["message"]["last_name"]){
+                  this.setState({
+                      error : data["message"]["last_name"]
+                  });
+              }
+                  else{
+                      this.setState({
+                          error : data["message"]
+                      });
+                  }
+              }
+              else{
+                  success= true;
+                  let tokenKey = "token";
+                  let tokenValue = data["data"]["token"];
+                  window.localStorage.setItem(tokenKey, tokenValue);
+                  window.localStorage.setItem("name", this.state.firstname);
+                  console.log(data["data"]["token"] );
+              }
+              console.log("hm" + success);
+              if(success){
+                  this.props.history.push('/');
+              }
+              
+          }.bind(this));
         }
-
-        if(this.state.password == this.state.secondpassword){
-          alertMessage += ', password: ' + this.state.password;
-        }else{ 
-          alertMessage += ', password confirmation failed'
-        }
-
-        alert(alertMessage);
-
-        event.preventDefault();
-        this.props.history.push('/');
-      }
-
     render() {
       return(
         
@@ -84,10 +129,12 @@ class SignupComp extends React.Component {
         </div>
 
         <div class="flex flex-col items-center">
-            <input class="shadow appearance-none mb-2 bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-14" 
+            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-14" 
             id="secondpassword"  onChange={this.handleChange} type="password" placeholder=" Re-enter password"/>
         </div>
-
+        <p class="w-full block text-red font-sans text-s font-bold text-left justify-center mb-4">
+        {this.state.error}
+        </p>
         <div class="flex items-center justify-center">
             <input class="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded" type="submit" value="Create Account" />
         </div>

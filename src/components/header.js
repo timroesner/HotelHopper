@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
@@ -8,9 +7,10 @@ class Header extends React.Component {
 	constructor(props){
         super(props);
 		  this.state = {
+           token: null,
            showDropdown: false,
            user: {
-              name: "Tim"
+              name: '',
            }
          }
    }
@@ -18,14 +18,15 @@ class Header extends React.Component {
    createDropDowm = () => {
       let dropDown = []
       const dropDownItems = ["Profile", "Billing Info", "Trips", "Rewards", "Sign out"]
-      dropDownItems.map((item) => dropDown.push(<p className="pb-2 pt-2" onClick={() => this.navigateTo(item.replace(/\s/g, '').toLowerCase())}>{item}</p>))
+      dropDownItems.map((item) => dropDown.push(<p className="pb-2 pt-2 hover:text-soft-blue" onClick={() => this.navigateTo(item.replace(/\s/g, '').toLowerCase())}>{item}</p>))
       return dropDown
    }
 
    navigateTo(page) {
       if(page === "signout") {
          // Call signout function
-         this.setState({ user: undefined });
+         this.setState({ token: undefined });
+         window.localStorage.removeItem("token");
       } else {
          this.props.history.push(`/${page}`);
       }
@@ -42,12 +43,17 @@ class Header extends React.Component {
     }
 
 	render() {
+      if(window.localStorage.getItem("token") != null){
+         this.state.token = window.localStorage.getItem("token");
+         this.state.user.name = window.localStorage.getItem("name");
+         console.log(this.state.token);
+      }
     return (
        <div className="h-16 w-full bg-white border-b-2 flex items-center fixed">
          <img src={logo} className="ml-8 h-4/5 cursor-pointer" alt="logo" onClick={() => this.navigateTo("")} />
          <p className="ml-3 text-soft-blue font-sans text-xl font-bold leading-none cursor-pointer" onClick={() => this.navigateTo("")}>Hotel<br/>Hopper</p>
          {
-            this.state.user ? 
+            this.state.token ? 
             <div className="mr-8 ml-auto cursor-pointer" onClick={() => this.handleDropdown()} onMouseEnter={() => this.handleDropdown()}  onMouseLeave={() => this.handleDropdown()} >
                <p className="font-sans text-xl font-bold">Hi, {this.state.user.name}</p>
                {
