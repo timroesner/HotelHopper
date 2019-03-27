@@ -22,7 +22,6 @@ class Forgot extends React.Component {
 
   goTo(event) {
     const value = event.target.value;
-    console.log(value);
     this.props.history.push(`/${value}`);
   }
 
@@ -49,18 +48,18 @@ class Forgot extends React.Component {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        if (data["message"]["email"]) {
+        let message = data["message"]
+        if (typeof(message) === Array) {
           this.setState({
-            error: data["message"]["email"]
+            error: message[Object.keys(message)[0]]
           });
-        }
-        else {
+        } else {
           this.setState({
             error: data["message"]
           });
         }
-      }
-      else {
+      } else {
+        console.log("Success")
         this.setState({
           success: data['message']
         })

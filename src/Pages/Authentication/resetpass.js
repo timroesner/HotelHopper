@@ -51,28 +51,21 @@ class Reset extends Component {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-
       if (data["error"]) {
-        if (data["message"]["password"]) {
+        let message = data["message"]
+        if (typeof(message) === Array) {
           this.setState({
-            error: data["message"]["password"]
+            error: message[Object.keys(message)[0]]
+          });
+        } else {
+          this.setState({
+            error: data["message"]
           });
         }
-        else if (data["message"]["confirm_password"]) {
-          this.setState({
-            error: data["message"]["confirm_password"]
-          });
-        }
-        else if (data["message"]["token"]) {
-          this.setState({
-            error: data["message"]["token"]
-          });
-        }
-        else {
-          this.setState({
-            success: data["message"]
-          });
-        }
+      } else {
+        this.setState({
+          success: "Your password has been succesfully updated. You can now log in."
+        });
       }
     }.bind(this));
   }
@@ -87,26 +80,26 @@ class Reset extends Component {
           <form className=" mt-4 mb-4 items-center" onSubmit={this.apiforgotpass}>
             <div className="flex mt-6 flex-col mb-4 items-center justify-center">
               <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 justify-center py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                id="email" onChange={this.handleChange} type="password" placeholder="New password" />
+                id="p1" onChange={this.handleChange} type="password" placeholder="New password" />
             </div>
-            <div class="flex flex-col items-center">
-              <input class="shadow appearance-none mb-4 bg-white font-bold border border-soft-blue w-full rounded justify-center  h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                id="password" onChange={this.handleChange} type="password" placeholder=" Re-enter new password" />
+            <div className="flex flex-col items-center">
+              <input className="shadow appearance-none mb-4 bg-white font-bold border border-soft-blue w-full rounded justify-center  h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                id="p2" onChange={this.handleChange} type="password" placeholder="Re-enter new password" />
             </div>
             {
               this.state.error &&
               <div className="flex items-center font-bold mb-4">
-                <p class="text-red text-center">{this.state.error}</p>
+                <p className="text-red text-center">{this.state.error}</p>
               </div>
             }
             {
               this.state.success &&
               <div className="flex items-center font-bold mb-4">
-                <p class="text-soft-blue text-center ">{this.state.success}</p>
+                <p className="text-soft-blue text-center ">{this.state.success}</p>
               </div>
             }
             <div className="flex items-center justify-center">
-              <input onClick={this.handleSubmit} class="Rectangle h-14 text-lg w-full bg-soft-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Change password" />
+              <input onClick={this.handleSubmit} className="Rectangle h-14 text-lg w-full bg-soft-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Change password" />
             </div>
           </form>
         </div>

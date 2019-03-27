@@ -31,7 +31,7 @@ class Signup extends React.Component {
     handleSubmit(event) {
         let success = false;
         event.preventDefault();
-        if (this.state.password == this.state.secondpassword) {
+        if (this.state.password === this.state.secondpassword) {
             let user = {
                 "first_name": this.state.firstname,
                 "last_name": this.state.lastname,
@@ -52,31 +52,16 @@ class Signup extends React.Component {
                 })
                 .then(function (data) {
                     if (data["error"]) {
-                        if (data["message"]["email"]) {
-                            this.setState({
-                                error: data["message"]["email"]
-                            });
-                        }
-                        else if (data["message"]["password"]) {
-                            this.setState({
-                                error: data["message"]["password"]
-                            });
-                        }
-                        else if (data["message"]["first_name"]) {
-                            this.setState({
-                                error: data["message"]["first_name"]
-                            });
-                        }
-                        else if (data["message"]["last_name"]) {
-                            this.setState({
-                                error: data["message"]["last_name"]
-                            });
-                        }
-                        else {
-                            this.setState({
-                                error: data["message"]
-                            });
-                        }
+                      let message = data["message"]
+                      if (typeof(message) === Array) {
+                        this.setState({
+                          error: message[Object.keys(message)[0]]
+                        });
+                      } else {
+                        this.setState({
+                            error: data["message"]
+                        });
+                      }
                     }
                     else {
                         success = true;
@@ -102,46 +87,46 @@ class Signup extends React.Component {
     render() {
         return (
 
-            <div class="flex items-center h-full w-full">
-                <div class="container-sm w-full-w/o-margins max-w-sm mx-auto mt-1/10 bg-white rounded">
-                    <p class="w-full block text-soft-blue font-sans text-2xl font-bold text-center justify-center mb-14">
+            <div className="flex items-center h-full w-full">
+                <div className="container-sm w-full-w/o-margins max-w-sm mx-auto mt-1/10 bg-white rounded">
+                    <p className="w-full block text-soft-blue font-sans text-2xl font-bold text-center justify-center mb-14">
                         Welcome to Hotel Hopper
                     </p>
-                    <form class="mb-4 items-center" onSubmit={this.handleSubmit}>
-                        <div class="flex flex-col mb-4 items-center">
-                            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14  py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    <form className="mb-4 items-center" onSubmit={this.handleSubmit}>
+                        <div className="flex flex-col mb-4 items-center">
+                            <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14  py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                                 id="firstname" onChange={this.handleChange} type="text" placeholder="First name" />
                         </div>
 
-                        <div class="flex flex-col mb-4 items-center">
-                            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14  py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                        <div className="flex flex-col mb-4 items-center">
+                            <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14  py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                                 id="lastname" onChange={this.handleChange} type="text" placeholder="Last name" />
                         </div>
 
-                        <div class="flex flex-col mb-4 items-center">
-                            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                        <div className="flex flex-col mb-4 items-center">
+                            <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
                                 id="email" onChange={this.handleChange} type="text" placeholder="Enter email" />
                         </div>
 
-                        <div class="flex flex-col mb-4 items-center">
-                            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                                id="password" onChange={this.handleChange} type="password" placeholder=" Enter password" />
+                        <div className="flex flex-col mb-4 items-center">
+                            <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                                id="password" onChange={this.handleChange} type="password" placeholder="Enter password" />
                         </div>
 
-                        <div class="flex flex-col mb-4 items-center">
-                            <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                                id="secondpassword" onChange={this.handleChange} type="password" placeholder=" Re-enter password" />
+                        <div className="flex flex-col mb-4 items-center">
+                            <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                                id="secondpassword" onChange={this.handleChange} type="password" placeholder="Re-enter password" />
                         </div>
-                        <p class="w-full block text-red text-center font-sans text-s font-bold justify-center mb-4">
+                        <p className="w-full block text-red text-center font-sans text-s font-bold justify-center mb-4">
                             {this.state.error}
                         </p>
-                        <div class="flex items-center justify-center">
-                            <input class="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Create Account" />
+                        <div className="flex items-center justify-center">
+                            <input className="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Create Account" />
                         </div>
                     </form>
 
-                    <div class="flex justify-center col-md-6 items-center mb-4">
-                        <p class="items-center mr-1 text-s text-grey"> Already have an account?</p>
+                    <div className="flex justify-center col-md-6 items-center mb-4">
+                        <p className="items-center mr-1 text-s text-grey"> Already have an account?</p>
                         <button className="items-center ml-1 text-soft-blue font-sans text-bold hover:text-blue text-s font-bold cursor-pointer"
                             value="login" onClick={e => this.goTo(e)}>Sign in</button>
                     </div>

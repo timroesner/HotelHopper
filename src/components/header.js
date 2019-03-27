@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Button} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import logo from '../assets/logo.svg';
@@ -44,9 +44,12 @@ class Header extends React.Component {
 
 	render() {
       if(window.localStorage.getItem("token") != null){
-         this.state.token = window.localStorage.getItem("token");
-         this.state.user.name = window.localStorage.getItem("name");
-         console.log(this.state.token);
+         this.setState({
+            token: window.localStorage.getItem("token"),
+            user: {
+               name: window.localStorage.getItem("name"),
+            }
+         })
       }
     return (
        <div className="h-16 w-full bg-white border-b-2 flex items-center fixed">
