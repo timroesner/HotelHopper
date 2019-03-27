@@ -49,9 +49,14 @@ class Forgot extends React.Component {
     }).then(function (data) {
       if (data["error"]) {
         let message = data["message"]
-        if (typeof(message) === Array) {
+        if (typeof(message) !== String && typeof(message) === 'object') {
+          let errorMsg = '';
+          for (var prop in message){
+            errorMsg = message[prop];
+            break;
+          }
           this.setState({
-            error: message[Object.keys(message)[0]]
+            error: errorMsg
           });
         } else {
           this.setState({
