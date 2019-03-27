@@ -57,10 +57,14 @@ class Login extends React.Component {
         }
       }
       else {
+        console.log(data)
         success = true;
-        let tokenKey = "token";
-        let tokenValue = data["data"]["token"];
-        window.localStorage.setItem(tokenKey, tokenValue);
+        let tokenKey = "token"
+        let tokenValue = data["data"]["token"]
+        window.localStorage.setItem(tokenKey, tokenValue)
+        let userKey = "currentUser"
+        let userValue = JSON.stringify(data["data"]["user"])
+        window.localStorage.setItem(userKey, userValue)
       }
       if (success) {
         this.props.history.push('/');
