@@ -96,12 +96,12 @@ class Forgot extends React.Component {
               </div>
             }
             <div className="flex items-center justify-center">
-              <input onClick={this.handleSubmit} class="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Send password reset instructions" />
+              <input onClick={this.handleSubmit} class="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Send Reset Link" />
             </div>
           </form>
           <div className="flex justify-center col-md-6 items-center">
             <p className="items-center mr-1 text-s text-grey"> New to Hotel Hopper?</p>
-            <button className="items-center ml-1 text-soft-blue font-sans text-bold hover:text-blue text-s font-bold "
+            <button className="items-center ml-1 text-soft-blue font-sans text-bold hover:text-blue text-sm md:text-base font-bold "
               value="signUp" onClick={e => this.goTo(e)} style={{ cursor: 'pointer' }}>Create an Account</button>
           </div>
         </div>
