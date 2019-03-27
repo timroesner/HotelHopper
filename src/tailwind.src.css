@@ -16,3 +16,11 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
 }
+
+.dark-filter {
+  filter: brightness(50%);
+}
+
+.light-filter {
+  filter: brightness(70%);
+}
