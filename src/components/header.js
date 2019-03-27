@@ -43,7 +43,7 @@ class Header extends React.Component {
 
 	render() {
     return (
-       <div className="h-16 w-full bg-white border-b-2 flex items-center fixed">
+       <div className="z-50 h-16 w-full bg-white border-b-2 flex items-center fixed">
          <img src={logo} className="ml-8 h-4/5 cursor-pointer" alt="logo" onClick={() => this.navigateTo("")} />
          <p className="ml-3 text-soft-blue font-sans text-xl font-bold leading-none cursor-pointer" onClick={() => this.navigateTo("")}>Hotel<br/>Hopper</p>
          {
