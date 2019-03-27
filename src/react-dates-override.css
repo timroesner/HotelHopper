@@ -25,13 +25,23 @@
     color: #fff;
     background: #00a699
   }
+  @media (min-width: 768px) {
+    .SingleDatePickerInput {
+      background-color: #fff;
+      display: inline-block;
+      width: 50%;
+      height: 4rem;
+      text-align: center;
+    }
+  }
   .SingleDatePickerInput {
     display: inline-block;
-    background-color: #fff
+    background-color: #fff;
+    width: 100%;
   }
   .SingleDatePickerInput__withBorder {
     border-radius: 2px;
-    border: 1px solid #dbdbdb
+    border: 1px solid #597aee
   }
   .SingleDatePickerInput__rtl {
     direction: rtl
@@ -103,7 +113,9 @@
   }
   .SingleDatePicker {
     position: relative;
-    display: inline-block
+    display: inline-block;
+    width: 100%;
+    height: 100%;
   }
   .SingleDatePicker__block {
     display: block

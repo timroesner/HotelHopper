@@ -70,6 +70,10 @@ class LoginComp extends React.Component {
             }
             else{
                 success= true;
+                let tokenKey = "token";
+                let tokenValue = data["data"]["token"];
+                window.localStorage.setItem(tokenKey, tokenValue);
+                console.log(data["data"]["token"] );
             }
             console.log("hm" + success);
             if(success){

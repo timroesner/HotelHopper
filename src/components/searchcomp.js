@@ -13,7 +13,8 @@ class SearchComp extends Component {
             focusedDatePicker: null,
             startDate: null,
             endDate: null,
-            focusedEnd: null,
+            startFocus: null,
+            endFocus: null,
           }
 
       }
@@ -24,43 +25,33 @@ class SearchComp extends Component {
       }
       render(){
         return(
-            <div class="mt-4 ml-4 h-full w-1/5">
-                <div class="align-center container-sm rounded-lg pt-4 pr-4 pl-4 pb-4 border-t-2 border-b-2 border-l-2 border-r-2 bg-white border-soft-blue">
-                <p class="w-full text-center block text-soft-blue font-sans text-2xl font-bold text-center justify-center mb-14">
-        Search
-        </p>
-            <div className="w-full md:w-full h-10 md:h-16 mb-2 md:mr-4 md:text-xl">
-            {/* <SingleDatePicker
-                  startDate={this.state.startDate}
-                  startDatePlaceholderText="Check in"
-                  startDateId="start_date"
+            <div class="mt-4 ml-4 h-full w-1/4">
+                <div class="align-center container-sm rounded-lg pt-4 pr-4 pl-4 pb-4 border bg-white border-soft-blue">
+            <div className="w-full md:w-full mb-3 mt-2 text-center">
+             <Geosuggest
+              className="w-full md:w-full h-10 md:h-16 mb-2 md:mr-4 md:text-xl border-soft-blue border rounded "
+              placeholder="Destination" 
+              inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
+              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset max-h-8 max-w-8"
+              suggestItemClassName="p-2 hover:bg-grey-light cursor-pointer border-b-2"
+              onSuggestSelect={(txtField) => this.selectedLocation(txtField)}
+              types={["(cities)"]}
+             />
+             </div>
+            <div className="w-full md:w-full mb-3 mt-2">
+            <SingleDatePicker
+                  placeholder="Check in"
+                  id="start_date"
                   required={true}
                   readOnly={true}
                   orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
-                  onDatesChange={({ startDate}) => this.setState({ startDate})}
-                  focusedInput={this.state.focusedDatePicker}
-                  onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
+                  date={this.state.date} 
+                  onDateChange={date => this.setState({ date })} 
+                  focused={this.state.startFocus}
+                  onFocusChange={({focused:startFocus}) => this.setState({ startFocus })}
                 />
-                <SingleDatePicker
-                    date={this.state.endDate} // momentPropTypes.momentObj or null
-                    onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
-                    id="end_date" // PropTypes.string.isRequired,
-                  required={true}
-                  readOnly={true}
-                  orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
-                  onDatesChange={({ endDate }) => this.setState({ endDate })}
-                  focusedInput={this.state.focusedDatePicker}
-                  onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
-                />
-                <SingleDatePicker
-                    required={true}       
-                    date={this.state.endDate} // momentPropTypes.momentObj or null
-                    onDateChange={endDate => this.setState({ endDate })} // PropTypes.func.isRequired
-                    focusedEnd={this.state.focusedEnd} // PropTypes.bool
-                    onFocusChange={({ focusedEnd }) => this.setState({ focusedEnd })} // PropTypes.func.isRequired
-                    id="end_date" // PropTypes.string.isRequired,
-                /> */}
-                              <DateRangePicker
+
+                              {/* <DateRangePicker
                   startDate={this.state.startDate}
                   startDatePlaceholderText="Check in"
                   startDateId="start_date"
@@ -73,6 +64,19 @@ class SearchComp extends Component {
                   onDatesChange={({ startDate, endDate }) => this.check({ startDate, endDate })}
                   focusedInput={this.state.focusedDatePicker}
                   onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
+                /> */}
+                </div>
+                <div className="w-full md:w-full mt-2 ">
+                <SingleDatePicker
+                    placeholder="Check Out"
+                    date={this.state.endDate} 
+                    onDateChange={endDate => this.setState({ endDate })} 
+                    id="end_date" // PropTypes.string.isRequired,
+                  required={true}
+                  readOnly={true}
+                  orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
+                  focused={this.state.endFocus}
+                  onFocusChange={({focused:endFocus}) => this.setState({ endFocus })}
                 />
                 </div>
                 </div>

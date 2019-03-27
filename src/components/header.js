@@ -8,6 +8,7 @@ class Header extends React.Component {
 	constructor(props){
         super(props);
 		  this.state = {
+           token: null,
            showDropdown: false,
            user: {
               name: "Tim"
@@ -25,7 +26,8 @@ class Header extends React.Component {
    navigateTo(page) {
       if(page === "signout") {
          // Call signout function
-         this.setState({ user: undefined });
+         this.setState({ token: undefined });
+         window.localStorage.removeItem("token");
       } else {
          this.props.history.push(`/${page}`);
       }
@@ -42,12 +44,16 @@ class Header extends React.Component {
     }
 
 	render() {
+      if(window.localStorage.getItem("token") != null){
+         this.state.token = window.localStorage.getItem("token");
+         console.log(this.state.token);
+      }
     return (
        <div className="h-16 w-full bg-white border-b-2 flex items-center fixed">
          <img src={logo} className="ml-8 h-4/5 cursor-pointer" alt="logo" onClick={() => this.navigateTo("")} />
          <p className="ml-3 text-soft-blue font-sans text-xl font-bold leading-none cursor-pointer" onClick={() => this.navigateTo("")}>Hotel<br/>Hopper</p>
          {
-            this.state.user ? 
+            this.state.token ? 
             <div className="mr-8 ml-auto cursor-pointer" onClick={() => this.handleDropdown()} onMouseEnter={() => this.handleDropdown()}  onMouseLeave={() => this.handleDropdown()} >
                <p className="font-sans text-xl font-bold">Hi, {this.state.user.name}</p>
                {
