@@ -60,7 +60,7 @@ class Header extends React.Component {
          {
             this.state.token ? 
             <div className="mr-8 ml-auto cursor-pointer" onClick={() => this.handleDropdown()} onMouseEnter={() => this.handleDropdown()}  onMouseLeave={() => this.handleDropdown()} >
-               <p className="font-sans text-xl font-bold">Hi, {this.state.user.name}</p>
+               <p className="font-sans text-xl font-bold">Hi, {this.state.user.first_name}</p>
                {
                   this.state.showDropdown &&
                   <div className="mr-4 pr-12 pl-8 pt-2 pb-2 pin-r absolute bg-grey-lightest rounded ">

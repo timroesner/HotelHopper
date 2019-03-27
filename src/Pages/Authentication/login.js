@@ -57,7 +57,6 @@ class Login extends React.Component {
         }
       }
       else {
-        console.log(data)
         success = true;
         let tokenKey = "token"
         let tokenValue = data["data"]["token"]
