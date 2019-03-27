@@ -10,7 +10,7 @@ class Header extends React.Component {
          token: null,
          showDropdown: false,
          user: {
-            name: '',
+            first_name: '',
          }
       }
       this.storageUpdated = this.storageUpdated.bind(this)
