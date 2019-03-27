@@ -70,7 +70,7 @@ class Forgot extends React.Component {
   render() {
     return (
       <div className="flex items-center h-full w-full">
-        <div className="container-sm max-w-sm mx-auto pt-24 bg-white rounded">
+        <div className="container-sm w-full-w/o-margins max-w-sm mx-auto pt-24 bg-white rounded">
           <p className="w-full block text-soft-blue font-sans text-2xl font-bold text-center justify-center mb-16">
             Forgot your password?
           </p>
