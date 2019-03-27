@@ -23,9 +23,11 @@ import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
 
+
 const browserHistory = createBrowserHistory()
 ReactDOM.render(
-    <Router path="/App" history={browserHistory}>
+
+        <Router path="/App" history={browserHistory}>
     <div>
         <Header/>
         <div className="pt-16"/>
@@ -51,6 +53,7 @@ ReactDOM.render(
         </Switch>
     </div>
     </Router>, document.getElementById('root')
+    
     );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
