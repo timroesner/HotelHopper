@@ -32,9 +32,9 @@ class SignupComp extends React.Component {
       }
 
       handleSubmit(event) {
-        let success=false
-        var alertMessage= '';
-
+        let success=false;
+        event.preventDefault();
+        if(this.state.password == this.state.secondpassword){
         let user = {
           "first_name": this.state.firstname,
           "last_name": this .state.lastname,
@@ -55,7 +55,6 @@ class SignupComp extends React.Component {
           })
           .then(function(data){ 
               if(data["error"]){
-                  console.log("WELL WELL WELL");
                   // if email is incorrect format
                   if(data["message"]["email"]){
                       this.setState({
@@ -98,11 +97,19 @@ class SignupComp extends React.Component {
               
           }.bind(this));
         }
+        else{
+          this.setState({
+            error : "Passwords do not match."
+        });
+    
+        }
+      }
+
     render() {
       return(
         
         <div class="flex items-center h-full w-full">
-        <div class="container-sm mx-auto pt-24 bg-white rounded">
+        <div class="container-sm w-1/5 mx-auto pt-24 bg-white rounded">
         <p class="w-full block text-soft-blue font-sans text-2xl font-bold text-center justify-center mb-14">
         Welcome to Hotel Hopper
         </p>
@@ -132,7 +139,7 @@ class SignupComp extends React.Component {
             <input class="shadow appearance-none bg-white font-bold border border-soft-blue w-full rounded h-14 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-14" 
             id="secondpassword"  onChange={this.handleChange} type="password" placeholder=" Re-enter password"/>
         </div>
-        <p class="w-full block text-red font-sans text-s font-bold text-left justify-center mb-4">
+        <p class="w-full block text-red text-center font-sans text-s font-bold justify-center mb-4">
         {this.state.error}
         </p>
         <div class="flex items-center justify-center">
