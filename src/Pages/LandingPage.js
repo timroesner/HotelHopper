@@ -94,7 +94,7 @@ class LandingPage extends Component {
 
  search() {
    const location = this.state.location
-   if(location && this.state.startDate.format("L") && this.state.endDate.format("L") && this.state.people && this.state.rooms) {
+   if(location && this.state.startDate && this.state.endDate && this.state.people && this.state.rooms) {
     this.props.history.push(`/search?lat=${location.lat}&long=${location.lng}&startDate=${this.state.startDate.format("L")}&endDate=${this.state.endDate.format("L")}&people=${this.state.people}&rooms=${this.state.rooms}`);
    } else {
      alert("Please fill all fields")
@@ -138,16 +138,16 @@ class LandingPage extends Component {
              id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
               {this.state.showPeople &&
                 <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
-                  <div className="flex items-center flex-wrap p-4">
-                    <p className="w-3/4 md:w-1/2">People</p>
+                  <div className="flex items-center justify-between  flex-wrap p-4">
+                    <p className="w-2/5">People</p>
                     <button ref="peopleMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people-1)}>-</button>
-                    <p className="w-1/10 md:w-1/5 text-center">{this.state.people}</p>
+                    <p className="w-16 md:w-1/5 text-center">{this.state.people}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people+1)}>+</button>
                   </div>
-                  <div className="flex items-center flex-wrap p-4">
-                    <p className="w-3/4 md:w-1/2">Rooms</p>
+                  <div className="flex items-center justify-between flex-wrap p-4">
+                    <p className="w-2/5">Rooms</p>
                     <button ref="roomsMinus" className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
-                    <p className="w-1/10 md:w-1/5 text-center">{this.state.rooms}</p>
+                    <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
                   </div>
                 </div>
