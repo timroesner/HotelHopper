@@ -19,7 +19,7 @@ class Header extends React.Component {
    createDropDowm = () => {
       let dropDown = []
       const dropDownItems = ["Profile", "Billing Info", "Trips", "Rewards", "Sign out"]
-      dropDownItems.map((item) => dropDown.push(<p className="pb-2 pt-2" onClick={() => this.navigateTo(item.replace(/\s/g, '').toLowerCase())}>{item}</p>))
+      dropDownItems.map((item) => dropDown.push(<p className="pb-2 pt-2 hover:text-soft-blue" onClick={() => this.navigateTo(item.replace(/\s/g, '').toLowerCase())}>{item}</p>))
       return dropDown
    }
 
