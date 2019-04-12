@@ -33,8 +33,8 @@ class Signup extends React.Component {
         event.preventDefault();
         if (this.state.password === this.state.secondpassword) {
             let user = {
-                "first_name": this.state.firstname,
-                "last_name": this.state.lastname,
+                "firstName": this.state.firstname,
+                "lastName": this.state.lastname,
                 "email": this.state.email,
                 "password": this.state.password
             };
