@@ -21,8 +21,15 @@ class BookingDetailComp extends React.Component {
                     <p className="mt-1 md:mt-2 text-xs md:text-lg">{reservation.hotel.rating}</p>
 
                     <p className="mt-3 md:mt-8 text-sm md:text-xl">{"Room: " + reservation.roomType}</p>
-                    <p className="mt-1 md:mt-4 text-sm md:text-xl">{"Check-in: " + moment(reservation.startDate).format("MMM D, YYYY")}</p>
-                    <p className="mt-1 md:mt-4 text-sm md:text-xl">{"Check-out: " + moment(reservation.endDate).format("MMM D, YYYY")}</p>
+                    <div className="container">
+                      <p className="mt-1 md:mt-4 text-sm md:text-xl float-left">{"Check-in: "}</p>
+                      <p className="mt-1 md:mt-4 text-sm md:text-xl float-right">{moment(reservation.startDate).format("MMM D, YYYY")}</p>
+                    </div>
+                    <div className="container">
+                      <p className="mt-1 md:mt-4 text-sm md:text-xl float-left">{"Check-out: "}</p>
+                      <p className="mt-1 md:mt-4 text-sm md:text-xl float-right">{moment(reservation.endDate).format("MMM D, YYYY")}</p>
+                    </div>
+                    
                 </div>
 
       </div>

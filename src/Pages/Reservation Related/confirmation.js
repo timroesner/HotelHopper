@@ -31,16 +31,20 @@ class Confirmation extends Component {
     if(this.props.match.params.params === undefined){
       return (
       <div className="App">
-        <div>
-        
-          
-          <p className="md:text-4xl lg:text-3xl text-lg text-dark-blue font-sans font-bold mb-4 md:mb-12">
+        <div className="">
+          <div className="">
+            <p className="md:text-4xl lg:text-3xl text-lg text-dark-blue font-sans font-bold mb-4 md:mb-12">
               Your Booking Details
-          </p>
+            </p>
           
-          <BookingDetailComp reservation = {this.state.booking}/>
+            <BookingDetailComp reservation = {this.state.booking}/>
 
-        
+            <div className="bg-soft-blue mt-10 rounded-lg max-w-sm text-white font-sans font-bold md:h-48 px-3 py-3">
+              <p className="lg:text-1xl">Hotel Hopper</p>
+              <p className="lg:text-2xl">Rewards Program</p>
+
+            </div>
+          </div>
         </div>
       </div>
     );
