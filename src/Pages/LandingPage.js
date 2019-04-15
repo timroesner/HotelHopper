@@ -23,11 +23,11 @@ class LandingPage extends Component {
   }
 
   popularDestinations = () => {
-    fetch(api+"/popular-destinations").then(
+    fetch(api+"/popularDestinations").then(
       results => {
         return results.json();
       }).then(destinationsJson => {
-        this.setState({popularDestinations: destinationsJson})
+        this.setState({popularDestinations: destinationsJson['data']['destinations']})
       })
   }
 
@@ -158,6 +158,7 @@ class LandingPage extends Component {
           </div>
           <img src={hero} className="min-h-64 min-w-160 dark-filter" alt="hero" /> 
         </div>
+        
         <div className="ml-8 mr-8 mt-4">
           <p className="text-2xl text-dark-blue font-sans font-bold mb-2">Popular Destinations</p>
           <div className="flex flex-wrap -m-2">

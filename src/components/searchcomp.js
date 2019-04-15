@@ -38,7 +38,7 @@ class SearchComp extends Component {
               types={["(cities)"]}
              />
              </div>
-            <div className="w-full md:w-full mb-3 mt-2">
+          <div className="w-full md:w-full mb-3 mt-2">
             <SingleDatePicker
                   placeholder="Check in"
                   id="start_date"

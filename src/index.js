@@ -3,23 +3,23 @@ import ReactDOM from 'react-dom';
 import 'react-dates/initialize';
 import './index.css';
 import './react-dates-override.css';
-import LandingPage from './Pages/LandingPage';
 import * as serviceWorker from './serviceWorker';
 import{Router, Route,Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import LandingPage from './Pages/LandingPage';
 import Login from './Pages/Authentication/login';
 import Signup from './Pages/Authentication/signup';
-import Search from './Pages/Reservation Related/search';
+import Forgot from './Pages/Authentication/forgotpass';
+import Reset from './Pages/Authentication/resetpass';
+import Error from './Pages/Globals/error';
 import Profile from './Pages/Profile/profile';
 import BillingInfo from './Pages/Profile/billingInfo';
 import Trips from './Pages/Profile/trips';
 import Rewards from './Pages/Profile/rewards';
-import Error from './Pages/Globals/error';
+import Search from './Pages/Reservation Related/search';
 import Checkout from './Pages/Reservation Related/checkout';
 import Confirmation from './Pages/Reservation Related/confirmation';
-import Forgot from './Pages/Authentication/forgotpass';
 import Map from './Pages/Reservation Related/map';
-import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
 
@@ -29,7 +29,9 @@ ReactDOM.render(
 
         <Router path="/App" history={browserHistory}>
     <div>
+        <Hotel />
         <Header/>
+       
         <div className="pt-16"/>
         <Switch>
             <Route exact path = '/' component ={LandingPage}  />
