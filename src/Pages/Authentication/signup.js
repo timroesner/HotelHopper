@@ -52,21 +52,9 @@ class Signup extends React.Component {
                 })
                 .then(function (data) {
                     if (data["error"]) {
-                      let message = data["message"]
-                      if (typeof(message) !== String && typeof(message) === 'object') {
-                        let errorMsg = '';
-                        for (var prop in message){
-                          errorMsg = message[prop];
-                          break;
-                        }
-                        this.setState({
-                          error: errorMsg
-                        });
-                      } else {
                         this.setState({
                             error: data["message"]
                         });
-                      }
                     }
                     else {
                         success = true;

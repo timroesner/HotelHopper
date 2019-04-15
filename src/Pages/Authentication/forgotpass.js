@@ -37,7 +37,7 @@ class Forgot extends React.Component {
       "email": this.state.email
     };
 
-    fetch(api + "/auth/forgot_password", {
+    fetch(api + "/auth/forgotPassword", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -48,25 +48,12 @@ class Forgot extends React.Component {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        let message = data["message"]
-        if (typeof(message) !== String && typeof(message) === 'object') {
-          let errorMsg = '';
-          for (var prop in message){
-            errorMsg = message[prop];
-            break;
-          }
-          this.setState({
-            error: errorMsg
-          });
-        } else {
-          this.setState({
-            error: data["message"]
-          });
-        }
-      } else {
-        console.log("Success")
         this.setState({
-          success: data['message']
+          error: data["message"]
+        });
+      } else {
+        this.setState({
+          success: data["message"]
         })
       }
     }.bind(this));
@@ -80,7 +67,7 @@ class Forgot extends React.Component {
             Forgot your password?
           </p>
           <div className="mt-2 content-between">
-            <p class="text-center content-between">Enter the email you signed up with below and we'll send you instructions on how to securely reset your password</p>
+            <p className="text-center content-between">Enter the email you signed up with below and we'll send you instructions on how to securely reset your password</p>
           </div>
 
           <form className="mt-4 mb-4 items-center content-between" onSubmit={this.apiforgotpass}>
@@ -91,17 +78,17 @@ class Forgot extends React.Component {
             {
               this.state.error &&
               <div className="flex items-center font-bold mb-4">
-                <p class="text-red text-center">{this.state.error}</p>
+                <p className="text-red text-center">{this.state.error}</p>
               </div>
             }
             {
               this.state.success &&
               <div className="flex items-center font-bold mb-4">
-                <p class="text-soft-blue text-center ">{this.state.success}</p>
+                <p className="text-soft-blue text-center ">{this.state.success}</p>
               </div>
             }
             <div className="flex items-center justify-center">
-              <input onClick={this.handleSubmit} class="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Send Reset Link" />
+              <input onClick={this.handleSubmit} className="Rectangle bg-soft-blue h-14 text-lg w-full hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Send Reset Link" />
             </div>
           </form>
           <div className="flex justify-center col-md-6 items-center">
