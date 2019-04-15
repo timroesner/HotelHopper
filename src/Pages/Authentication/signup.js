@@ -61,7 +61,7 @@ class Signup extends React.Component {
                         let tokenKey = "token";
                         let tokenValue = data["data"]["token"];
                         window.localStorage.setItem(tokenKey, tokenValue);
-                        window.localStorage.setItem("currentUser", JSON.stringify({first_name: user["firstName"]}));
+                        window.localStorage.setItem("currentUser", JSON.stringify({first_name: user["first_name"]}));
                     }
                     if (success) {
                         this.props.history.push('/');
