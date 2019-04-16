@@ -3154,6 +3154,10 @@ table {
   height: 4rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-24 {
   height: 6rem;
 }
@@ -9222,6 +9226,10 @@ code {
     height: 4rem;
   }
 
+  .sm\:h-20 {
+    height: 5rem;
+  }
+
   .sm\:h-24 {
     height: 6rem;
   }
@@ -15251,6 +15259,10 @@ code {
 
   .md\:h-16 {
     height: 4rem;
+  }
+
+  .md\:h-20 {
+    height: 5rem;
   }
 
   .md\:h-24 {
@@ -21284,6 +21296,10 @@ code {
     height: 4rem;
   }
 
+  .lg\:h-20 {
+    height: 5rem;
+  }
+
   .lg\:h-24 {
     height: 6rem;
   }
@@ -27313,6 +27329,10 @@ code {
 
   .xl\:h-16 {
     height: 4rem;
+  }
+
+  .xl\:h-20 {
+    height: 5rem;
   }
 
   .xl\:h-24 {
