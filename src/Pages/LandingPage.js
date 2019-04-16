@@ -27,7 +27,7 @@ class LandingPage extends Component {
       results => {
         return results.json();
       }).then(destinationsJson => {
-        this.setState({popularDestinations:  destinationsJson['data']['destinations']})
+        this.setState({popularDestinations:  destinationsJson['data']})
       })
   }
 
