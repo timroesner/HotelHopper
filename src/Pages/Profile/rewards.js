@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
-import logo from '../../assets/logo.svg';
+import SideMenu from '../../components/sidemenu';
 
 class Rewards extends Component {
   render() {
     return (
-      <div>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Hotel Hopper's Temporary Rewards Page
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
+      <div className="mt-4 md:mt-16 flex items-flex pb-8">
+        {
+          window.innerWidth > 415 &&
+          <SideMenu selected="Rewards" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
+        }
+        <div className="ml-8 md:ml-24 ">
+          Your content here
         </div>
       </div>
     );
