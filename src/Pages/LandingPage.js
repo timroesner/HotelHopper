@@ -23,11 +23,11 @@ class LandingPage extends Component {
   }
 
   popularDestinations = () => {
-    fetch(api+"/popular-destinations").then(
+    fetch(api+"/popularDestinations").then(
       results => {
         return results.json();
       }).then(destinationsJson => {
-        this.setState({popularDestinations: destinationsJson})
+        this.setState({popularDestinations:  destinationsJson['data']})
       })
   }
 
