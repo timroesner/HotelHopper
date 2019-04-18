@@ -30,8 +30,11 @@
   background-color: #fff
 }
 .SingleDatePickerInput__withBorder {
-  border-radius: 2px;
-  border: 1px solid #dbdbdb
+  border-radius: 0.25rem;
+  border: 1px solid #597aee;
+  height: 4rem;
+  border-color: #597aee;
+  width: 100%;
 }
 .SingleDatePickerInput__rtl {
   direction: rtl
@@ -103,10 +106,14 @@
 }
 .SingleDatePicker {
   position: relative;
-  display: inline-block
+  display: inline-block;
+  width: 100%;
+  font-size: 1.25rem;
 }
 .SingleDatePicker__block {
-  display: block
+  display: block;
+  width: 100%;
+  border-radius:.5rem;
 }
 .SingleDatePicker_picker {
   z-index: 1;
@@ -742,7 +749,8 @@
 }
 .DateRangePickerInput__withBorder {
   border-radius: 0.25rem;
-  border: 1px solid #dbdbdb
+  border: 1px solid #597aee;
+
 }
 .DateRangePickerInput__rtl {
   direction: rtl
@@ -886,4 +894,5 @@
 .geosuggest__item--active {
   background: #267dc0;
   color: #fff;
+  
 }
