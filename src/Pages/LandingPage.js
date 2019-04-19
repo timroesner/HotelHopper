@@ -3,7 +3,7 @@ import hero from '../assets/hero@2x.png';
 import api from '../helper/endpoints';
 import { DateRangePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
-
+import moment from 'moment';
 class LandingPage extends Component {
 
   constructor() {
@@ -49,7 +49,7 @@ class LandingPage extends Component {
     let destinations = []
     this.state.popularDestinations.map((city) => {
       destinations.push(
-      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city.city)}>
+      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>
         <p className="absolute font-sans text-white text-3xl font-bold ml-4 mb-4 -mt-12">{city.city}</p>
       </div>
@@ -59,6 +59,8 @@ class LandingPage extends Component {
  }
 
  clickPopularDestinations(city) {
+  this.props.history.push(`/search?latitude=${city.lat}&longitude=${city.lng}&startDate=${moment().add(1,'days').format("YYYY-MM-DD")}&endDate=${moment().add(7, 'days').format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
+
     console.log(city)
  }
 
@@ -107,9 +109,9 @@ class LandingPage extends Component {
         <div className="w-full overflow-hidden">
           <div className="absolute z-10 ml-8 mt-1/10 w-full-w/o-margins">
             <p className="md:text-4xl lg:text-5xl text-lg text-white font-sans font-bold mb-4 md:mb-12">Find deals to experience the world</p>          
-            <div className="flex flex-wrap -m-2">
+            <div className="flex flex-wrap -m-2 ">
              <Geosuggest
-              className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl"
+              className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl border border-soft-blue rounded"
               placeholder="Where are you going" 
               inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
               suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset min-w-full md:min-w-1/4 mt-px rounded"
@@ -134,7 +136,7 @@ class LandingPage extends Component {
                 />
               </div>
               <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
-              <input className="appearance-none bg-white font-bold w-full rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
+              <input className="appearance-none bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
              id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
               {this.state.showPeople &&
                 <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
