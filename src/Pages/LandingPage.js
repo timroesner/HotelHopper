@@ -95,7 +95,7 @@ class LandingPage extends Component {
  search() {
    const location = this.state.location
    if(location && this.state.startDate && this.state.endDate && this.state.people && this.state.rooms) {
-    this.props.history.push(`/search?lat=${location.lat}&long=${location.lng}&startDate=${this.state.startDate.format("L")}&endDate=${this.state.endDate.format("L")}&people=${this.state.people}&rooms=${this.state.rooms}`);
+    this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${this.state.startDate.format("YYYY-MM-DD")}&endDate=${this.state.endDate.format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
    } else {
      alert("Please fill all fields")
    }
