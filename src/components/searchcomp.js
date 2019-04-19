@@ -125,7 +125,7 @@ class SearchComp extends Component {
                     <img class="h-32 w-48 md:h-48 md:w-64 mr-2 rounded "  src={this.state.hotels[key]["imageUrl"]}/>
                     
                     <div class="justify-between flex-col">  
-                      <div  className="font-bold align-start text-lg md:text-xl ml-2 mb-2">{this.state.hotels[key]["title"]}</div>
+                      <div  className="font-bold w-full overflow-hidden align-start text-lg md:text-xl ml-2 mb-2">{this.state.hotels[key]["title"]}</div>
                       <div class=" text-grey font-sans align-start pb:2 md:pb-12 md:pb-24 text-sm md:text-base ml-2 mt-2">{this.state.hotels[key]["city"]}</div>
                       {window.innerWidth < 768 &&(
                     <div class="font-bold align-start mt-4 mb-4 md:pb-24 text-sm md:text-xl ml-2"> 
