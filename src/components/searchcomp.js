@@ -506,7 +506,7 @@ class SearchComp extends Component {
                 </div>
                 </div>
                 <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full">
-                <div class="align-center container-sm rounded bg-white overflow-y-scroll h-screen" id="scrolling" >
+                <div class="align-center container-sm rounded bg-white overflow-y-scroll scrolling-touch h-screen" id="scrolling" >
                
                     <div>
                         <InfiniteScroll
