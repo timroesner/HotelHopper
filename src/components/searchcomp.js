@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import api from '../helper/endpoints';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
-import queryString from 'query-string'
+import queryString from 'query-string';
 import moment from 'moment';
 import StarRatings from 'react-star-ratings';
 import InfiniteScroll from 'react-infinite-scroll-component';
