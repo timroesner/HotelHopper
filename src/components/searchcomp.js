@@ -172,7 +172,7 @@ class SearchComp extends Component {
               hotelList.push(
               
                   <div class="block font-bold justify-center content-center mt-24 col-md-6">
-                  {this.state.hotels && !this.state.error && this.state.searched?
+                  {this.state.hotels && this.state.error && this.state.searched?
                     <div class="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
                 :
                 <div class="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
