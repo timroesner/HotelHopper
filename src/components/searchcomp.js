@@ -135,7 +135,8 @@ class SearchComp extends Component {
                         starSpacing="3px"
                         changeRating={this.changeRating}
                         starDimension="20px"
-                        numberOfStars={this.state.hotels[key]["stars"]}
+                        numberOfStars={5}
+                        rating={this.state.hotels[key]["stars"]}
                         name='rating'
                       /></div>        
                     )}
@@ -151,8 +152,9 @@ class SearchComp extends Component {
                         starRatedColor="#597aee"
                         starSpacing="3px"
                         changeRating={this.changeRating}
+                        numberOfStars={5}
                         starDimension="30px"
-                        numberOfStars={this.state.hotels[key]["stars"]}
+                        rating={this.state.hotels[key]["stars"]}
                         name='rating'
                       /></div>        
                     : <div class="pb-24"></div>}
