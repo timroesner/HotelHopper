@@ -4672,6 +4672,10 @@ table {
   padding: 8rem;
 }
 
+.p-36 {
+  padding: 15rem;
+}
+
 .p-px {
   padding: 1px;
 }
@@ -4814,6 +4818,16 @@ table {
 .px-32 {
   padding-left: 8rem;
   padding-right: 8rem;
+}
+
+.py-36 {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
+}
+
+.px-36 {
+  padding-left: 15rem;
+  padding-right: 15rem;
 }
 
 .py-px {
@@ -5048,6 +5062,22 @@ table {
 
 .pl-32 {
   padding-left: 8rem;
+}
+
+.pt-36 {
+  padding-top: 15rem;
+}
+
+.pr-36 {
+  padding-right: 15rem;
+}
+
+.pb-36 {
+  padding-bottom: 15rem;
+}
+
+.pl-36 {
+  padding-left: 15rem;
 }
 
 .pt-px {
@@ -6189,6 +6219,10 @@ table {
 
 .text-5xl {
   font-size: 3rem;
+}
+
+.text-8xl {
+  font-size: 7.5rem;
 }
 
 .italic {
@@ -10732,6 +10766,10 @@ code {
     padding: 8rem;
   }
 
+  .sm\:p-36 {
+    padding: 15rem;
+  }
+
   .sm\:p-px {
     padding: 1px;
   }
@@ -10874,6 +10912,16 @@ code {
   .sm\:px-32 {
     padding-left: 8rem;
     padding-right: 8rem;
+  }
+
+  .sm\:py-36 {
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+  }
+
+  .sm\:px-36 {
+    padding-left: 15rem;
+    padding-right: 15rem;
   }
 
   .sm\:py-px {
@@ -11108,6 +11156,22 @@ code {
 
   .sm\:pl-32 {
     padding-left: 8rem;
+  }
+
+  .sm\:pt-36 {
+    padding-top: 15rem;
+  }
+
+  .sm\:pr-36 {
+    padding-right: 15rem;
+  }
+
+  .sm\:pb-36 {
+    padding-bottom: 15rem;
+  }
+
+  .sm\:pl-36 {
+    padding-left: 15rem;
   }
 
   .sm\:pt-px {
@@ -12241,6 +12305,10 @@ code {
 
   .sm\:text-5xl {
     font-size: 3rem;
+  }
+
+  .sm\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .sm\:italic {
@@ -16763,6 +16831,10 @@ code {
     padding: 8rem;
   }
 
+  .md\:p-36 {
+    padding: 15rem;
+  }
+
   .md\:p-px {
     padding: 1px;
   }
@@ -16905,6 +16977,16 @@ code {
   .md\:px-32 {
     padding-left: 8rem;
     padding-right: 8rem;
+  }
+
+  .md\:py-36 {
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+  }
+
+  .md\:px-36 {
+    padding-left: 15rem;
+    padding-right: 15rem;
   }
 
   .md\:py-px {
@@ -17139,6 +17221,22 @@ code {
 
   .md\:pl-32 {
     padding-left: 8rem;
+  }
+
+  .md\:pt-36 {
+    padding-top: 15rem;
+  }
+
+  .md\:pr-36 {
+    padding-right: 15rem;
+  }
+
+  .md\:pb-36 {
+    padding-bottom: 15rem;
+  }
+
+  .md\:pl-36 {
+    padding-left: 15rem;
   }
 
   .md\:pt-px {
@@ -18272,6 +18370,10 @@ code {
 
   .md\:text-5xl {
     font-size: 3rem;
+  }
+
+  .md\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .md\:italic {
@@ -22794,6 +22896,10 @@ code {
     padding: 8rem;
   }
 
+  .lg\:p-36 {
+    padding: 15rem;
+  }
+
   .lg\:p-px {
     padding: 1px;
   }
@@ -22936,6 +23042,16 @@ code {
   .lg\:px-32 {
     padding-left: 8rem;
     padding-right: 8rem;
+  }
+
+  .lg\:py-36 {
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+  }
+
+  .lg\:px-36 {
+    padding-left: 15rem;
+    padding-right: 15rem;
   }
 
   .lg\:py-px {
@@ -23170,6 +23286,22 @@ code {
 
   .lg\:pl-32 {
     padding-left: 8rem;
+  }
+
+  .lg\:pt-36 {
+    padding-top: 15rem;
+  }
+
+  .lg\:pr-36 {
+    padding-right: 15rem;
+  }
+
+  .lg\:pb-36 {
+    padding-bottom: 15rem;
+  }
+
+  .lg\:pl-36 {
+    padding-left: 15rem;
   }
 
   .lg\:pt-px {
@@ -24303,6 +24435,10 @@ code {
 
   .lg\:text-5xl {
     font-size: 3rem;
+  }
+
+  .lg\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .lg\:italic {
@@ -28825,6 +28961,10 @@ code {
     padding: 8rem;
   }
 
+  .xl\:p-36 {
+    padding: 15rem;
+  }
+
   .xl\:p-px {
     padding: 1px;
   }
@@ -28967,6 +29107,16 @@ code {
   .xl\:px-32 {
     padding-left: 8rem;
     padding-right: 8rem;
+  }
+
+  .xl\:py-36 {
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+  }
+
+  .xl\:px-36 {
+    padding-left: 15rem;
+    padding-right: 15rem;
   }
 
   .xl\:py-px {
@@ -29201,6 +29351,22 @@ code {
 
   .xl\:pl-32 {
     padding-left: 8rem;
+  }
+
+  .xl\:pt-36 {
+    padding-top: 15rem;
+  }
+
+  .xl\:pr-36 {
+    padding-right: 15rem;
+  }
+
+  .xl\:pb-36 {
+    padding-bottom: 15rem;
+  }
+
+  .xl\:pl-36 {
+    padding-left: 15rem;
   }
 
   .xl\:pt-px {
@@ -30334,6 +30500,10 @@ code {
 
   .xl\:text-5xl {
     font-size: 3rem;
+  }
+
+  .xl\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .xl\:italic {
