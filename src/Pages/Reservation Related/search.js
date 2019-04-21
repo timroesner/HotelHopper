@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SearchPage from '../../components/searchcomp'
 
 class Search extends Component {
   render() {
