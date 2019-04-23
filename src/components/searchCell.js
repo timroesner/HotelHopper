@@ -33,7 +33,6 @@ class SearchCell extends React.Component {
                           starRatedColor="#597aee"
                           starSpacing="3px"
                           starDimension="20px"
-                          numberOfStars={5}
                           name='rating'
                         />
                       </div>
