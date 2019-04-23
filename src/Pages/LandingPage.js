@@ -28,7 +28,7 @@ class LandingPage extends Component {
       })
       .then(destinationsJson => {
         this.setState({
-          popularDestinations: destinationsJson["data"]["destinations"]
+          popularDestinations: destinationsJson["data"]
         });
       });
   };

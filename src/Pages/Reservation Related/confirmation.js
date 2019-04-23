@@ -35,13 +35,13 @@ class Confirmation extends Component {
       return (
         <div className="App">
           <div className="">
-            <div className="container pl-12 pr-12 md:pl-36 md:pr-36 w-screen float-left">
+            <div className="container pl-12 pr-12 md:pl-36  w-full float-left">
               <p className="md:text-4xl lg:text-3xl text-lg text-dark-blue font-sans font-bold mt-4 ">
                 Your Booking Details
               </p>
 
-              {/*<BookingDetailComp reservation={this.state.booking} />*/}
-              <hr className="mt-8 border" />
+              {<BookingDetailComp reservation={this.state.booking} />}
+              <hr className="border" />
               <p className="text-sm md:text-3xl mt-4 md:mt-8 font-bold">
                 You will collect {this.state.pointsEarn} points upon staying.
               </p>
