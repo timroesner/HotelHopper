@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SideMenu from "../../components/sidemenu";
+import RewardsCard from "../../components/rewardsCard";
 
 class Rewards extends Component {
   render() {
@@ -11,7 +12,7 @@ class Rewards extends Component {
             items={["Profile", "Billing Info", "Trips", "Rewards"]}
           />
         )}
-        <div className="ml-8 md:ml-24 ">Your content here lahsdfkjhs</div>
+        <RewardsCard />
       </div>
     );
   }
