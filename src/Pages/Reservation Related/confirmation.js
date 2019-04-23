@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "../../assets/logo.svg";
 import BookingDetailComp from "../../components/bookingDetailComp";
-import Rewards from "../Profile/rewards";
+import Rewards from "../../components/rewardsCard";
 
 class Confirmation extends Component {
   constructor(props) {
