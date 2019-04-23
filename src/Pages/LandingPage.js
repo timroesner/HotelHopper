@@ -27,13 +27,8 @@ class LandingPage extends Component {
         return results.json();
       })
       .then(destinationsJson => {
-        this.setState({ popularDestinations: destinationsJson["data"] });
+        this.setState({ popularDestinations: destinationsJson['data'] });
       })
-      .then(destinationsJson => {
-        this.setState({
-          popularDestinations: destinationsJson["data"]
-        });
-      });
   };
   componentWillMount() {
     document.addEventListener("mousedown", this.handleClick, false);
@@ -121,11 +116,11 @@ class LandingPage extends Component {
     ) {
       this.props.history.push(
         `/search?lat=${location.lat}&long=${
-          location.lng
+        location.lng
         }&startDate=${this.state.startDate.format(
           "L"
         )}&endDate=${this.state.endDate.format("L")}&people=${
-          this.state.people
+        this.state.people
         }&rooms=${this.state.rooms}`
       );
     } else {
@@ -185,9 +180,9 @@ class LandingPage extends Component {
                   type="text"
                   value={`${this.state.people} ${
                     this.state.people > 1 ? "people" : "person"
-                  } - ${this.state.rooms} ${
+                    } - ${this.state.rooms} ${
                     this.state.rooms > 1 ? "rooms" : "room"
-                  }`}
+                    }`}
                   placeholder="2 people - 1 room"
                 />
                 {this.state.showPeople && (
