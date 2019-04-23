@@ -30,6 +30,7 @@ class SearchCell extends React.Component {
                         <StarRatings
                           changeRating={this.changeRating}
                           rating={hotel.stars}
+                          numberOfStars={hotel.stars}
                           starRatedColor="#597aee"
                           starSpacing="3px"
                           starDimension="20px"
