@@ -13,6 +13,7 @@ class LandingPage extends Component {
       focusedDatePicker: null,
       showPeople: false,
       location: null,
+      locDescription: null,
       startDate: null,
       endDate: null,
       people: 2,
@@ -59,14 +60,12 @@ class LandingPage extends Component {
  }
 
  clickPopularDestinations(city) {
-  this.props.history.push(`/search?latitude=${city.lat}&longitude=${city.lng}&startDate=${moment().add(1,'days').format("YYYY-MM-DD")}&endDate=${moment().add(7, 'days').format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
-
-    console.log(city)
+  this.props.history.push(`/search?latitude=${city.lat}&longitude=${city.lng}&location=${city.city}&startDate=${moment().add(1,'days').format("YYYY-MM-DD")}&endDate=${moment().add(3, 'days').format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
  }
 
  selectedLocation(element) {
    if(element) {
-    this.setState({location: element.location})
+    this.setState({location: element.location, locDescription: element.description})
    } else {
     this.setState({location: null})
    }
@@ -97,7 +96,7 @@ class LandingPage extends Component {
  search() {
    const location = this.state.location
    if(location && this.state.startDate && this.state.endDate && this.state.people && this.state.rooms) {
-    this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${this.state.startDate.format("YYYY-MM-DD")}&endDate=${this.state.endDate.format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
+    this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locDescription}&startDate=${this.state.startDate.format("YYYY-MM-DD")}&endDate=${this.state.endDate.format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
    } else {
      alert("Please fill all fields")
    }
