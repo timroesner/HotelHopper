@@ -22,12 +22,13 @@ import Map from './Pages/Reservation Related/map';
 import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
+import { StripeProvider } from 'react-stripe-elements';
 
 
 const browserHistory = createBrowserHistory();
 ReactDOM.render(
-
-        <Router path="/App" history={browserHistory}>
+    <StripeProvider apiKey="pk_test_jb9MEwI7swz2HaPrZXzMQSSL00stxhlhgd">
+    <Router path="/App" history={browserHistory}>
     <div>
         <Header/>
         <div className="pt-16"/>
@@ -52,7 +53,8 @@ ReactDOM.render(
             <Route component={Error}/>
         </Switch>
     </div>
-    </Router>, document.getElementById('root')
+    </Router>
+    </StripeProvider>, document.getElementById('root')
     
     );
 // If you want your app to work offline and load faster, you can change
