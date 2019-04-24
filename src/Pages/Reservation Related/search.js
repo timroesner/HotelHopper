@@ -9,8 +9,6 @@ import moment from 'moment';
 import StarRatings from 'react-star-ratings';
 import SearchCell from '../../components/searchCell'
 import InfiniteScroll from 'react-infinite-scroll-component';
-const google = window.google;
-//import Geosuggest from 'react-geosuggest';
 
 class Search extends Component {
   constructor(props) {
