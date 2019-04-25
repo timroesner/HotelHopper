@@ -40,7 +40,7 @@ class Confirmation extends Component {
                 Your Booking Details
               </p>
 
-              {<BookingDetailComp reservation={this.state.booking} />}
+              <BookingDetailComp reservation={this.state.booking} />
               <hr className="border" />
               <p className="text-sm md:text-3xl mt-4 md:mt-8 font-bold">
                 You will collect {this.state.pointsEarn} points upon staying.
