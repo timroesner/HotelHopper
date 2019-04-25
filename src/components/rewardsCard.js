@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import logo from "../assets/logo.svg";
-import { Accordion, Button, Card } from "react-bootstrap";
 
 class RewardsCard extends Component {
   render() {
@@ -27,34 +26,10 @@ class RewardsCard extends Component {
                   Reward Points:
                 </p>
                 <p className="text-4xl md:text-8xl text-center mt-2 md:mt-6 pl-4 pr-4 md:pl-12 md:pr-12 tracking-tight ">
-                  8500
+                  {this.props.points}
                 </p>
               </div>
             </div>
-            <hr className="mt-4 border" />
-            <h1 className="text-black m-4">Frequently asked questions</h1>
-            <Accordion className="bg-soft-blue">
-              <Card>
-                <Card.Header>
-                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                    Click me!
-                  </Accordion.Toggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>Hello! I'm the body</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Card.Header>
-                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                    Click me!
-                  </Accordion.Toggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>Hello! I'm another body</Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
           </div>
         </div>
       </div>
