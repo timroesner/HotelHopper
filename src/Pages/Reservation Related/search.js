@@ -61,15 +61,10 @@ class Search extends Component {
 
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    //  console.log(querystring);
     fetch(api + "/hotels" + querystring + "&perPage=5").then(function (response) {
-      //    console.log("HI");
       return response.json();
     }).then(function (data) {
-      // console.log("HELLO");
-      //  console.log(data);
       if (data["error"]) {
-        //  console.log(data["error"]);
         let message = data["message"]
         if (typeof (message) !== String && typeof (message) === 'object') {
           let errorMsg = '';
@@ -87,8 +82,6 @@ class Search extends Component {
         }
       }
       else {
-        //"pass");
-        //  console.log(data);
         this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
         if (Object.keys(data["data"]).length === 0) {
           this.setState({ hasMore: false });
@@ -99,8 +92,6 @@ class Search extends Component {
       }
       this.setState({ searched: true });
     }.bind(this))
-    // this.setState({page: this.state.page + 1})
-    //console.log(this.state.hasMore); 
   }
 
   goTo(event) {
@@ -110,9 +101,7 @@ class Search extends Component {
 
   renderHotels() {
     let hotelList = [];
-    //  console.log(this.state.hotels);
     if (this.state.hotels && Object.keys(this.state.hotels).length > 0) {
-      //   console.log("INSIDE HOTEL")
       for (var key in this.state.hotels) {
         let hotelQuery = this.state.hotels[key]["hotelId"] + "?startDate=" + moment(this.state.startDate).format("YYYY-MM-DD") + "&endDate=" + moment(this.state.endDate).format("YYYY-MM-DD");
 
@@ -174,7 +163,6 @@ class Search extends Component {
       }
     }
     else {
-      //console.log("failed the hotel");
       hotelList.push(
 
         <div class="block font-bold justify-center content-center mt-24 col-md-6">
@@ -190,11 +178,9 @@ class Search extends Component {
 
 
     }
-    //console.log(hotelList);
     return hotelList;
   }
   handleClick = (e) => {
-    //    console.log(this.refs);
     if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target)) {
       this.setState({ showOptions: false })
     }
@@ -225,9 +211,7 @@ class Search extends Component {
   }
   changePageValue(newValue) {
     if (newValue > 0) {
-      // console.log("Page VALUE" + newValue);
       this.setState({ page: newValue });
-      // console.log(this.state.page);
       const location = this.state.location;
       const lat = this.state.latitude;
       const long = this.state.longitude;
@@ -269,8 +253,6 @@ class Search extends Component {
 
     radios[e.target.value]["checked"] = true;
     this.setState({ [e.target.name]: radios });
-    //this.state[e.target.name][e.target.value]["checked"] = true;
-
   }
   renderSorts = () => {
     let sortOptions = []
@@ -349,35 +331,6 @@ class Search extends Component {
     else {
       this.state.filters['0to74']['checked'] = true;
     }
-
-    // if (values["latitude"] && values["longitude"]) {
-
-    //   let geocoder = new google.maps.Geocoder();
-    //   let latlng = new google.maps.LatLng(values["latitude"], values["longitude"]);
-    //   geocoder.geocode({
-    //     'latLng': latlng
-    //   }, function (results, status) {
-    //     if (status === google.maps.GeocoderStatus.OK) {
-
-    //       if (results[1]) {
-    //         for (var ac = 0; ac < results[1].address_components.length; ac++) {
-
-    //           var component = results[1].address_components[ac];
-
-    //           if (component.types.includes('sublocality') || component.types.includes('locality')) {
-    //             this.setState({ locationPlaceholder: component.long_name });
-    //             break;
-    //           }
-    //         }
-    //       } else {
-    //         alert('No results found');
-    //       }
-    //     } else {
-    //       alert('Geocoder failed due to: ' + status);
-    //     }
-    //   }.bind(this));
-    // }
-    // console.log(this.state);
   }
   search() {
     const location = this.state.location;
