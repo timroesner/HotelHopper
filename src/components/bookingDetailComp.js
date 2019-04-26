@@ -10,38 +10,48 @@ class BookingDetailComp extends React.Component {
       <div>
         <div
           key={reservation.id}
-          className="w-full h-20 md:h-64 flex items-flex mt-8 justify-center"
+          className="w-full flex flex-col md:flex-row items-flex"
         >
           <img
             alt="Hotel"
             src={reservation.hotel.image}
-            className="h-full w-auto rounded"
+            className="h-48 md:h-64 w-auto rounded md:rounded-lg"
           />
-
-          <div className="ml-4 md:ml-8 w-auto">
+          <div className="mt-4 md:mt-0 md:ml-12 w-auto">
             <p className="font-bold md:text-2xl">{reservation.hotel.title}</p>
-            <div className="">
-              <StarRating name="rating" size={10} totalStars={5} rating={4} />
+            <div className="mt-2">
+            <StarRating
+                rating={reservation.hotel.stars}
+                numberOfStars={reservation.hotel.stars}
+                starRatedColor="#597aee"
+                starSpacing="3px"
+                starDimension="20px"
+                name='rating'
+            />
             </div>
 
-            <p className="mt-1 md:mt-2 text-xs md:text-lg">
-              {reservation.hotel.address}
-            </p>
-            <p className="mt-1 md:mt-2 text-xs md:text-lg">
-              {reservation.hotel.rating}
+            <p className="mt-2 text-sm md:text-lg">
+              {`${reservation.hotel.street}, ${reservation.hotel.city}, ${reservation.hotel.state}`}
             </p>
 
-            <p className="mt-3 md:mt-8 text-sm md:text-xl">
-              {"Room: " + reservation.roomType}
+            <p className="mt-2 md:text-lg font-medium">
+              {reservation.hotel.rating+" / 10 User rating"}
             </p>
-            <p className="mt-3 md:mt-4 text-sm md:text-xl">
+
+            <p className="mt-8 text-sm md:text-lg">
+              {"Rooms: "}
+              <span className="float-right">
+                {reservation.roomsString}
+              </span>
+            </p>
+            <p className="mt-4 text-sm md:text-lg">
               {"Check-in: "}
               <span className="float-right">
                 {moment(reservation.startDate).format("MMM D, YYYY")}
               </span>
             </p>
-            <p className="text-sm md:text-xl">
-              {"Check-Out: "}
+            <p className="mt-4 text-sm md:text-lg">
+              {"Check-out: "}
               <span className="float-right">
                 {moment(reservation.endDate).format("MMM D, YYYY")}
               </span>
