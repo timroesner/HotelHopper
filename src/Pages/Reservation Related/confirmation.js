@@ -62,6 +62,11 @@ class Confirmation extends Component {
     }
   }
 
+  handleCancel = () => {
+    // Perform cancel action here when complete redirect
+    this.props.history.push("/trips")
+  }
+
   render() {
     return (
       <div className="App">
@@ -78,8 +83,9 @@ class Confirmation extends Component {
             </p>
             <RewardsCard points={this.state.user.rewardPoints} />
             <hr className="pt-4 md:pt-8 border-b" />
-            <button className="bg-white text-red md:text-2xl border-red border md:border-2 rounded md:rounded-lg p-2 md:p-4 float-right mt-4 md:mt8 mb-6 hover:bg-red hover:text-white">
-              Cancel the room
+            <button className="bg-white text-red md:text-2xl border-red border md:border-2 rounded md:rounded-lg p-2 md:p-4 float-right mt-4 md:mt8 mb-6 hover:bg-red hover:text-white"
+            onClick={this.handleCancel}>
+              Cancel Reservation
             </button>
           </div>
         </div>
