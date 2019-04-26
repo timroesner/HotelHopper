@@ -1,88 +1,72 @@
 import React, { Component } from "react";
 import SideMenu from "../../components/sidemenu";
 import RewardsCard from "../../components/rewardsCard";
-import { Accordion, Card } from "react-bootstrap";
 import api from "../../helper/endpoints";
 
 class Rewards extends Component {
   constructor() {
     super();
     this.state = {
-      points: 0,
-      token: null
+      user: {}
     };
-
-    this.storageUpdated = this.storageUpdated.bind(this);
-    this.getUserRewards = this.getUserRewards.bind(this);
   }
 
-  storageUpdated() {
-    if (window.localStorage.getItem("token") !== this.state.token) {
-      this.setState({
-        token: window.localStorage.getItem("token")
-      });
-    }
+  componentWillMount() {
+    this.fetchPoints();
   }
 
-  getUserRewards() {
-    {
-      /*console.log(fetch(api + "/getUserDetails?" + this.state.token));*/
-    }
-    fetch(api + "/auth/getUserDetails", {
-      authorization: {
-        bearer: this.state.token
-      }
-    })
-      .then(results => {
-        return results.json();
+  fetchPoints() {
+    const token = window.localStorage.getItem("token");
+    if (token !== null) {
+      fetch(api + "/auth/userDetails", {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + token
+        }
       })
-      .then(function(data) {
-        console.log(data);
-      });
-    {
-      /*fetch(api + "/getUserDetails")
-      .then(results => {
-        console.log(results.json());
-        return results.json();
-      })
-      .then(destinationsJson => {
-        this.setState({
-          popularDestinations: destinationsJson["data"]["user"]["rewardsPoint"]
+        .then(results => {
+          return results.json();
+        })
+        .then(data => {
+          this.setState({ user: data["data"] });
         });
-      });*/
+    } else {
+      this.props.history.push(`/login`);
     }
   }
 
   render() {
-    this.storageUpdated();
-
-    this.getUserRewards();
     return (
-      <div className="mt-4 md:mt-16 flex items-flex pb-8">
-        {window.innerWidth > 415 && (
-          <SideMenu
-            selected="Rewards"
-            items={["Profile", "Billing Info", "Trips", "Rewards"]}
-          />
-        )}
-        <div className="container mx-auto">
-          <div className="flex mt-4 justify-center">
-            <div className="bg-soft-blue rounded-lg max-w-sm md:max-w-lg text-white font-sans font-bold md:h-64">
-              <div className="flex items-flex justify-center">
-                <RewardsCard points={this.state.points} />
-              </div>
-              <hr className="mt-4 border bg-blue" />
-              <h1 className="text-black mt-4 mb-4 ">
-                Frequently asked questions
-              </h1>
-              <div className="text-black">
-                <h2>QUestion 1: Problem 1</h2>
-                <h5>Answer 1: Solution 1</h5>
-                <h2>QUestion 2: Problem 2</h2>
-                <h5>Answer 2: Solution 2</h5>
-                <h2>QUestion 3: Problem 3</h2>
-                <h5>Answer 3: Solution 3</h5>
-              </div>
+      <div>
+        <div className="mt-4 md:mt-16 flex items-flex pb-8">
+          {window.innerWidth > 415 && (
+            <SideMenu
+              selected="Rewards"
+              items={["Profile", "Billing Info", "Trips", "Rewards"]}
+            />
+          )}
+          <div className="w-full-w/o-margins mx-auto md:px-24">
+            <RewardsCard points={this.state.user.rewardPoints} />
+            <hr className="mt-4 border" />
+            <h1 className="text-black mt-4 mb-4">Frequently asked questions</h1>
+            <div className="text-grey">
+              <h2>Q: Why do you need my credit card details?</h2>
+              <h3 className="text-grey-light pb-2">
+                A: They are required as a gaurantee in case you are a no show or
+                cancel too late.
+              </h3>
+              <h2>Q: How do I earn points?</h2>
+              <h3 className="text-grey-light pb-2">
+                A: You earn 1 reward point per $10 dollars spent. Reward points
+                will be deposited to your account after competion of your stay.
+              </h3>
+              <h2>Q: When can I use reward points?</h2>
+              <h3 className="text-grey-light">
+                A: You can use reward points towards your stay if you your
+                reward points can cover the total cost of your reservation (1
+                point = $2 dollars).
+              </h3>
             </div>
           </div>
         </div>
