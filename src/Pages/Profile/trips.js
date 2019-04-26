@@ -14,71 +14,7 @@ class Trips extends Component {
   }
 
   componentWillMount() {
-    let trips = [
-      {
-        hotel: {
-            title: "MGM Grand Hotel & Casino",
-            image: "https://s3.amazonaws.com/hotel-hopper-bucket1/chicago.png",
-            address: "Las Vegas NV"
-        },
-        id: "123",
-        reservedRooms: [
-          {
-            count: 1
-          }
-        ],
-        startDate: "2019-06-08",
-        endDate: "2019-06-14",
-        status: 'approved'
-      },{
-        hotel: {
-          title: "The Ritz",
-          image: "https://s3.amazonaws.com/hotel-hopper-bucket1/san-francisco.png",
-          address: "Berlin, Germany"
-        },
-        id: "124",
-        reservedRooms: [
-          {
-            count: 1
-          },{
-            count: 2
-          }
-        ],
-        startDate: "2019-05-09",
-        endDate: "2019-05-16",
-        status: 'canceled'
-      },{
-        hotel: {
-          title: "Hyatt Regency",
-          image: "https://s3.amazonaws.com/hotel-hopper-bucket1/new-york.png",
-          address: "New York City, NY"
-        },
-        id: "143",
-        reservedRooms: [
-          {
-            count: 1
-          },{
-            count: 1
-          }
-        ],
-        startDate: "2018-06-09",
-        endDate: "2018-06-16",
-        status: 'approved'
-      }
-    ]
-    
-    const upcomingTrips = trips.filter(reservation => moment(reservation.endDate) >=  moment() && reservation.status !== "canceled")
-    upcomingTrips.sort(function(a, b) {return moment(a.startDate) > moment(b.startDate) })
-
-    const pastTrips = trips.filter(reservation => moment(reservation.endDate) <  moment() || reservation.status === "canceled")
-    pastTrips.sort(function(a, b) {return moment(a.startDate) < moment(b.startDate) })
-
-    this.setState({
-      upcomingTrips: upcomingTrips,
-      pastTrips: pastTrips
-    })
-
-    //this.fetchTrips()
+    this.fetchTrips()
   }
 
   fetchTrips = () => {
