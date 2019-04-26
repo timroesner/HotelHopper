@@ -57,14 +57,14 @@ class Trips extends Component {
         {
           this.state.upcomingTrips.length > 0 &&
           <div>
-            <p className="text-xl md:text-3xl text-grey-darkest font-bold -mb-4">Upcoming Trips</p>
+            <p className="text-xl md:text-3xl text-grey-darkest font-bold">Upcoming Trips</p>
             {this.state.upcomingTrips.map(item => <TripCell reservation={item}/>)}
           </div>
         }
         {
           this.state.pastTrips.length > 0 &&
           <div className="mt-8 md:mt-12">
-            <p className="text-xl md:text-3xl text-grey-darkest font-bold -mb-4">Past Trips</p>
+            <p className="text-xl md:text-3xl text-grey-darkest font-bold">Past Trips</p>
             {this.state.pastTrips.map(item => <TripCell reservation={item}/>)}
           </div>
         }
