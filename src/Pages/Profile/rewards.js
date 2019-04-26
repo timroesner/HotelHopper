@@ -42,7 +42,7 @@ class Rewards extends Component {
           window.innerWidth > 415 &&
           <SideMenu selected="Rewards" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
         }
-        <div className="w-full-w/o-margins max-w-lg mx-auto">
+        <div className="w-full-w/o-margins mx-auto md:px-24">
           <RewardsCard points={this.state.user.rewardPoints}/>
         </div>
       </div>
