@@ -7,28 +7,11 @@ class Confirmation extends Component {
   constructor(props) {
     super(props);
 
-    let booking = {
-      hotel: {
-        title: "MGM Grand Hotel & Casino",
-        image:
-          "https://mgmgrand.mgmresorts.com/content/dam/MGM/mgm-grand/hotel/mgm-grand/exterior/mgm-grand-hotel-mgm-grand-exterior-hero-shot-@2x.jpg",
-        street: "3799 Las Vegas Blvd S",
-        city: "Las Vegas", 
-        state: "NV",
-        rating: "8.6",
-        stars: 4,
-      },
-      id: "123",
-      roomType: "Grand Queen Room",
-      startDate: "2019-06-08",
-      endDate: "2019-06-14",
-      status: "approved"
-    };
-
     this.state = {
       user: {},
-      reservation: booking,
-      pointsEarn: 350
+      reservation: {
+        hotel: {}
+      }
     };
   }
 
@@ -38,9 +21,28 @@ class Confirmation extends Component {
   }
 
   fetchReservation() {
-    let id = this.props.match.params.params
-    console.log(id)
-    // fetch with id
+    const id = this.props.match.params.params
+    const token = window.localStorage.getItem("token")
+
+    if(token !== null) {
+      fetch(api + "/reservations/"+id, {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        if(data["error"]) {
+          this.props.history.push("/error")
+        } else {
+          this.setState({reservation: data["data"]})
+        }
+      })
+    } else {
+      this.props.history.push(`/login`);
+    }
   }
 
   fetchPoints() {
@@ -79,7 +81,7 @@ class Confirmation extends Component {
             <BookingDetail reservation={this.state.reservation} />
             <hr className="pt-4 md:pt-8 border-b" />
             <p className="text-sm md:text-2xl my-4 md:my-8 font-bold">
-              You will collect {this.state.pointsEarn} additional points upon staying.
+              You will collect {parseInt(this.state.reservation.totalCost*0.10)} additional points upon staying.
             </p>
             <RewardsCard points={this.state.user.rewardPoints} />
             <hr className="pt-4 md:pt-8 border-b" />

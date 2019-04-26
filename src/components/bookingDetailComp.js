@@ -4,6 +4,17 @@ import * as moment from "moment";
 import StarRating from "react-star-ratings";
 
 class BookingDetailComp extends React.Component {
+
+  createRoomsString = () => {
+    var string = ""
+    if(this.props.reservation.reservedRooms !== undefined) {
+      this.props.reservation.reservedRooms.forEach(room => {
+        string += "\u00a0\u00a0\u00a0"+room.count+" "+room.roomType.title
+      })
+    }
+    return string
+  }
+
   render() {
     const reservation = this.props.reservation;
     return (
@@ -14,7 +25,7 @@ class BookingDetailComp extends React.Component {
         >
           <img
             alt="Hotel"
-            src={reservation.hotel.image}
+            src={reservation.hotel.imageUrl}
             className="h-48 md:h-64 w-auto rounded md:rounded-lg"
           />
           <div className="mt-4 md:mt-0 md:ml-12 w-auto">
@@ -41,7 +52,7 @@ class BookingDetailComp extends React.Component {
             <p className="mt-8 text-sm md:text-lg">
               {"Rooms: "}
               <span className="float-right">
-                {reservation.roomsString}
+                {this.createRoomsString()}
               </span>
             </p>
             <p className="mt-4 text-sm md:text-lg">
