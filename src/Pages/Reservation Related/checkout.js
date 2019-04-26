@@ -50,11 +50,16 @@ class Checkout extends Component {
     const values = queryString.parse(this.props.location.search)
 
     // Parse rooms from URL
-    var rooms = {}
+    var rooms = []
     var roomsString = values.rooms.split(",")
     for(let index in roomsString) {
       let room = roomsString[index].split(":")
-      rooms[room[0]] = room[1]
+      if(room[0] !== "") {
+        rooms.push({
+          "roomTypeId": parseInt(room[0]),
+          "count": parseInt(room[1])
+        })
+      }
     }
 
     this.setState(prev => ({
@@ -87,14 +92,13 @@ class Checkout extends Component {
     const nights = moment(this.state.reservation.endDate).diff(this.state.reservation.startDate, 'days')
     var nightlyPrice = 0.0
     var roomsString = ""
-    for(let index in this.state.reservation.hotel.rooms) {
-      let room = this.state.reservation.hotel.rooms[index]
-      let numOfRooms = this.state.reservation.rooms[room.roomTypeId]
-      if(numOfRooms !== undefined) {
-        nightlyPrice += numOfRooms*room.price
-        roomsString += "\u00a0\u00a0\u00a0"+numOfRooms+" "+room.title
+    this.state.reservation.hotel.rooms.forEach(room => {
+      let rooms = this.state.reservation.rooms.find(item => item.roomTypeId === room.roomTypeId)
+      if(rooms !== undefined) {
+        nightlyPrice += rooms.count*room.price
+        roomsString += "\u00a0\u00a0\u00a0"+rooms.count+" "+room.title
       }
-    }
+    })
     this.setState(prev => ({reservation: {...prev.reservation, nightlyPrice, nights, total: nightlyPrice*nights, roomsString}}))
   }
 
@@ -106,15 +110,6 @@ class Checkout extends Component {
 
   handleSubmit = (type) => {
     let reservation = this.state.reservation
-
-    // Create rooms array for POST
-    let rooms = []
-    Object.keys(reservation.rooms).map((id) => (
-        rooms.push({
-          "roomTypeId": id,
-          "count": parseInt(reservation.rooms[id])
-        })
-    ))
     
     var stripeToken = ""
     var useRewardPoints = false
@@ -127,11 +122,11 @@ class Checkout extends Component {
 
     const token = window.localStorage.getItem("token")
     let bodyJSON = { 
-      hotelId: reservation.hotelId,
+      hotelId: parseInt(reservation.hotelId),
       startDate: reservation.startDate,
       endDate: reservation.endDate,
       stripeToken,
-      rooms
+      rooms: reservation.rooms
     }
 
     fetch(api + "/reservations/", {
