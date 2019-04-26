@@ -45,24 +45,9 @@ class Login extends React.Component {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        let message = data["message"]
-        console.log(data);
-        console.log(message);
-        console.log(typeof(message));
-        if (typeof(message) !== String && typeof(message) === 'object') {
-          let errorMsg = '';
-          for (var prop in message){
-            errorMsg = message[prop];
-            break;
-          }
-          this.setState({
-            error: errorMsg
-          });
-        } else {
-          this.setState({
-            error: data["message"]
-          });
-        }
+        this.setState({
+          error: data["message"]
+        });
       }
       else {
         success = true;
@@ -76,7 +61,6 @@ class Login extends React.Component {
       if (success) {
         this.props.history.push('/');
       }
-
     }.bind(this));
   }
 

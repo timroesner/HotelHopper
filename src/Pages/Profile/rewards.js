@@ -1,11 +1,17 @@
-import React, { Component } from "react";
-import logo from "../../assets/logo.svg";
+import React, { Component } from 'react';
+import SideMenu from '../../components/sidemenu';
 
 class Rewards extends Component {
   render() {
     const points = this.props.points;
     return (
-      <div className="container mx-auto">
+      <div className="mt-4 md:mt-16 flex items-flex pb-8">
+        {
+          window.innerWidth > 415 &&
+          <SideMenu selected="Rewards" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
+        }
+        <div className="ml-8 md:ml-24 ">
+          <div className="container mx-auto">
         <div className="flex mt-4 justify-center">
           <div className="bg-soft-blue rounded-lg max-w-sm md:max-w-lg text-white font-sans font-bold md:h-64">
             <div className="flex items-flex justify-center">

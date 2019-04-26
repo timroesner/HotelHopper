@@ -24,7 +24,7 @@ import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
 
 
-const browserHistory = createBrowserHistory()
+const browserHistory = createBrowserHistory();
 ReactDOM.render(
 
         <Router path="/App" history={browserHistory}>
@@ -39,7 +39,7 @@ ReactDOM.render(
             <Route exact path='/billinginfo' component={BillingInfo}/>
             <Route exact path='/trips' component={Trips}/>
             <Route exact path='/rewards' component={Rewards}/>
-            <Route exact path='/search/' component={Search}/>
+            <Route exact path='/search' component={Search}/>
             <Route exact path='/search/:params' component={Search}/>
             <Route exact path='/checkout' component={Checkout} />	
             <Route exact path='/confirmation' component={Confirmation} />
