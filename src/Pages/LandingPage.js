@@ -111,88 +111,71 @@ class LandingPage extends Component {
    }
  }
 
-  render() {
-    return (
-      <div className="App">
-        <div className="w-full overflow-hidden">
-          <div className="absolute z-10 ml-8 mt-1/10 w-full-w/o-margins">
-            <p className="md:text-4xl lg:text-5xl text-lg text-white font-sans font-bold mb-4 md:mb-12">Find deals to experience the world</p>          
-            <div className="flex flex-wrap -m-2 ">
-             <Geosuggest
-              className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl border border-soft-blue rounded"
-              placeholder="Where are you going" 
-              inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
-              suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset min-w-full md:min-w-1/4 mt-px rounded"
-              suggestItemClassName="p-2 hover:bg-grey-light rounded cursor-pointer"
-              onSuggestSelect={(txtField) => this.selectedLocation(txtField)}
-              types={["(cities)"]}
-             />
-             <div className="w-full md:w-1/4 h-10 md:h-16 mb-2 md:mr-4 md:text-xl">
-              <DateRangePicker
-                  startDate={this.state.startDate}
-                  startDatePlaceholderText="Check in"
-                  startDateId="start_date"
-                  endDate={this.state.endDate}
-                  endDatePlaceholderText="Check out"
-                  endDateId="end_date"
-                  required={true}
-                  readOnly={true}
-                  orientation={
-                    window.innerWidth > 768 ? "horizontal" : "vertical"
-                  }
-                  onDatesChange={({ startDate, endDate }) =>
-                    this.setState({ startDate, endDate })
-                  }
-                  focusedInput={this.state.focusedDatePicker}
-                  onFocusChange={focusedDatePicker =>
-                    this.setState({ focusedDatePicker })
-                  }
-                />
-              </div>
-              <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
-              <input className="appearance-none bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
-             id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
-              {this.state.showPeople &&
-                <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
-                  <div className="flex items-center justify-between  flex-wrap p-4">
-                    <p className="w-2/5">People</p>
-                    <button ref="peopleMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people-1)}>-</button>
-                    <p className="w-16 md:w-1/5 text-center">{this.state.people}</p>
-                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people+1)}>+</button>
-                  </div>
-                  <div className="flex items-center justify-between flex-wrap p-4">
-                    <p className="w-2/5">Rooms</p>
-                    <button ref="roomsMinus" className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
-                    <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
-                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
-                  </div>
-                )}
-              </div>
-              <button
-                className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold"
-                onClick={() => this.search()}
-              >
-                Search
-              </button>
+ render() {
+  return (
+    <div className="App">
+      <div className="w-full overflow-hidden">
+        <div className="absolute z-10 ml-8 mt-1/10 w-full-w/o-margins">
+          <p className="md:text-4xl lg:text-5xl text-lg text-white font-sans font-bold mb-4 md:mb-12">Find deals to experience the world</p>          
+          <div className="flex flex-wrap -m-2 ">
+           <Geosuggest
+            className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl border border-soft-blue rounded"
+            placeholder="Where are you going" 
+            inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
+            suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset min-w-full md:min-w-1/4 mt-px rounded"
+            suggestItemClassName="p-2 hover:bg-grey-light rounded cursor-pointer"
+            onSuggestSelect={(txtField) => this.selectedLocation(txtField)}
+            types={["(cities)"]}
+           />
+           <div className="w-full md:w-1/4 h-10 md:h-16 mb-2 md:mr-4 md:text-xl">
+            <DateRangePicker
+                startDate={this.state.startDate}
+                startDatePlaceholderText="Check in"
+                startDateId="start_date"
+                endDate={this.state.endDate}
+                endDatePlaceholderText="Check out"
+                endDateId="end_date"
+                required={true}
+                readOnly={true}
+                orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                focusedInput={this.state.focusedDatePicker}
+                onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
+              />
             </div>
+            <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
+            <input className="appearance-none bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
+           id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
+            {this.state.showPeople &&
+              <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
+                <div className="flex items-center justify-between  flex-wrap p-4">
+                  <p className="w-2/5">People</p>
+                  <button ref="peopleMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people-1)}>-</button>
+                  <p className="w-16 md:w-1/5 text-center">{this.state.people}</p>
+                  <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people+1)}>+</button>
+                </div>
+                <div className="flex items-center justify-between flex-wrap p-4">
+                  <p className="w-2/5">Rooms</p>
+                  <button ref="roomsMinus" className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
+                  <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
+                  <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
+                </div>
+              </div>
+            }
+            </div>
+            <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" onClick={() => this.search()}>Search</button>
           </div>
-          <img
-            src={hero}
-            className="min-h-64 min-w-160 dark-filter"
-            alt="hero"
-          />
         </div>
-        <div className="ml-8 mr-8 mt-4">
-          <p className="text-2xl text-dark-blue font-sans font-bold mb-2">
-            Popular Destinations
-          </p>
-          <div className="flex flex-wrap -m-2">
-            {this.renderPopularDestinations()}
-          </div>
+        <img src={hero} className="min-h-64 min-w-160 dark-filter" alt="hero" /> 
+      </div>
+      <div className="ml-8 mr-8 mt-4">
+        <p className="text-2xl text-dark-blue font-sans font-bold mb-2">Popular Destinations</p>
+        <div className="flex flex-wrap -m-2">
+          {this.renderPopularDestinations()}
         </div>
       </div>
-    );
-  }
+    </div>
+  )}
 }
 
 export default LandingPage;
