@@ -68,6 +68,12 @@ class Trips extends Component {
             {this.state.pastTrips.map(item => <TripCell reservation={item}/>)}
           </div>
         }
+        {
+          this.state.pastTrips.length === 0 && this.state.upcomingTrips.length === 0 &&
+          <div className="mt-8 md:mt-12 text-lg font-bold">
+            No trips to show
+          </div>
+        }
         </div>
       </div>
     );
