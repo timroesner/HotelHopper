@@ -144,7 +144,7 @@ class Checkout extends Component {
       if (data["error"]) {
         alert(data["message"])
       } else {
-        this.props.history.push(`/confirmation/${1}`)
+        this.props.history.push(`/confirmation/${data["data"].reservationId}`)
       }
     })
   }
