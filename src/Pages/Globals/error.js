@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../../assets/logo.svg';
+import room404 from '../../assets/404.jpg';
 
 class Error extends React.Component {
 	constructor(props){
@@ -9,23 +9,11 @@ class Error extends React.Component {
 		
 	render() {
     	return (
-        <div>
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <p>
-                Hotel Hopper's Temporary Error Page
-              </p>
-              <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn React
-              </a>
-            </header>
-          </div>
+        <div className="w-full">
+          <img src={room404} alt="Room 404" className="w-full-w/o-margins md:w-2/5 h-auto block mx-auto mt-16 rounded-lg" />
+          <h1 className="w-full-w/o-margins mx-auto mt-8 text-center text-2xl md:text-4xl">
+            The site you are looking for could not be found.
+          </h1>
         </div>
 		)	
 	}
