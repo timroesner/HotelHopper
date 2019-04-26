@@ -443,6 +443,8 @@ module.exports = {
     sm: ".125rem",
     default: ".25rem",
     lg: ".5rem",
+    xl: "1rem",
+    "2xl": "2rem",
     full: "9999px"
   },
 
@@ -533,6 +535,7 @@ module.exports = {
     "14": "3.5rem",
     "16": "4rem",
     "24": "6rem",
+    "28": "7rem",
     "32": "8rem",
     "48": "12rem",
     "64": "16rem",
