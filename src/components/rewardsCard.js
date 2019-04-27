@@ -10,7 +10,7 @@ class RewardsCard extends Component {
               <p className="text-sm md:text-2xl">Hotel Hopper</p>
               <p className="text-base md:text-3xl">Rewards Program</p>
             </div>
-            <p className="md:w-full-w/o-margins text-xs md:text-2xl mt-2 md:mt-10 opacity-75">
+            <p className="font-normal md:font-bold md:w-full-w/o-margins text-xs md:text-2xl mt-2 md:mt-10 opacity-75">
               These points can be redeemed for a free stay. You earn them by staying with us.
             </p>
           </div>

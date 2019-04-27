@@ -53,7 +53,7 @@ class Rewards extends Component {
           <p className="md:text-2xl font-semibold">When can I use reward points?</p>
           <p className="md:text-xl text-grey-dark mt-2 mb-8">
             You can redeem your reward points for a free stay at one of our hotels. The option will automatically appear during checkout
-            once you have accumalted enough points. 2 points will be equivilent to $1.
+            once you have accumalted enough points. 2 points are equivalent to $1.
           </p>
         </div>
       </div>
