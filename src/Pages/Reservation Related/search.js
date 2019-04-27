@@ -6,10 +6,8 @@ import { DateRangePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
 import queryString from 'query-string';
 import moment from 'moment';
-import StarRatings from 'react-star-ratings';
 import SearchCell from '../../components/searchCell'
 import InfiniteScroll from 'react-infinite-scroll-component';
-const google = window.google;
 
 class Search extends Component {
   constructor(props) {
@@ -140,11 +138,11 @@ class Search extends Component {
       const lat = this.state.latitude;
       const long = this.state.longitude;
       if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
+        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
         window.location.reload();
       }
       else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
+        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
         window.location.reload();
       }
     }
@@ -161,14 +159,13 @@ class Search extends Component {
     }
   }
   selectedLocation(element) {
-
     if (element) {
-
-      this.setState({ location: element.location })
+      this.setState({ location: element.location, locationPlaceholder: element.description })
     } else {
       this.setState({ location: null })
     }
   }
+
   changeRadio = (e) => {
     let radios = this.state[e.target.name];
     for (var item in radios) {
@@ -262,11 +259,11 @@ class Search extends Component {
     const lat = this.state.latitude;
     const long = this.state.longitude;
     if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
+      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
       window.location.reload();
     }
     else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
+      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
       window.location.reload();
     }
     else {
