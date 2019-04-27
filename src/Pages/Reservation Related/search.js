@@ -58,6 +58,10 @@ class Search extends Component {
     this.performSearch();
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
     fetch(api + "/hotels" + querystring + "&perPage=5").then(function (response) {
