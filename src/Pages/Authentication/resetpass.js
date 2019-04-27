@@ -37,12 +37,12 @@ class Reset extends Component {
     let token = this.props.match.params.token;
     let user = {
       "password": this.state.p1,
-      "confirm_password": this.state.p2,
+      "confirmPassword": this.state.p2,
       "token": token
     };
 
-    fetch(api + "/auth/reset_password", {
-      method: "PUT",
+    fetch(api + "/auth/resetPassword", {
+      method: "PATCH",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -52,21 +52,9 @@ class Reset extends Component {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        let message = data["message"]
-        if (typeof(message) !== String && typeof(message) === 'object') {
-          let errorMsg = '';
-          for (var prop in message){
-            errorMsg = message[prop];
-            break;
-          }
-          this.setState({
-            error: errorMsg
-          });
-        } else {
-          this.setState({
-            error: data["message"]
-          });
-        }
+        this.setState({
+          error: data["message"]
+        });
       } else {
         this.setState({
           success: "Your password has been succesfully updated. You can now log in."

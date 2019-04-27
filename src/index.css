@@ -3154,6 +3154,10 @@ table {
   height: 4rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-24 {
   height: 6rem;
 }
@@ -3164,6 +3168,10 @@ table {
 
 .h-48 {
   height: 12rem;
+}
+
+.h-54 {
+  height: 14rem;
 }
 
 .h-64 {
@@ -6189,6 +6197,10 @@ table {
 
 .text-5xl {
   font-size: 3rem;
+}
+
+.text-8xl {
+  font-size: 7.5rem;
 }
 
 .italic {
@@ -9222,6 +9234,10 @@ code {
     height: 4rem;
   }
 
+  .sm\:h-20 {
+    height: 5rem;
+  }
+
   .sm\:h-24 {
     height: 6rem;
   }
@@ -9232,6 +9248,10 @@ code {
 
   .sm\:h-48 {
     height: 12rem;
+  }
+
+  .sm\:h-54 {
+    height: 14rem;
   }
 
   .sm\:h-64 {
@@ -12241,6 +12261,10 @@ code {
 
   .sm\:text-5xl {
     font-size: 3rem;
+  }
+
+  .sm\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .sm\:italic {
@@ -15253,6 +15277,10 @@ code {
     height: 4rem;
   }
 
+  .md\:h-20 {
+    height: 5rem;
+  }
+
   .md\:h-24 {
     height: 6rem;
   }
@@ -15263,6 +15291,10 @@ code {
 
   .md\:h-48 {
     height: 12rem;
+  }
+
+  .md\:h-54 {
+    height: 14rem;
   }
 
   .md\:h-64 {
@@ -18272,6 +18304,10 @@ code {
 
   .md\:text-5xl {
     font-size: 3rem;
+  }
+
+  .md\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .md\:italic {
@@ -21284,6 +21320,10 @@ code {
     height: 4rem;
   }
 
+  .lg\:h-20 {
+    height: 5rem;
+  }
+
   .lg\:h-24 {
     height: 6rem;
   }
@@ -21294,6 +21334,10 @@ code {
 
   .lg\:h-48 {
     height: 12rem;
+  }
+
+  .lg\:h-54 {
+    height: 14rem;
   }
 
   .lg\:h-64 {
@@ -24303,6 +24347,10 @@ code {
 
   .lg\:text-5xl {
     font-size: 3rem;
+  }
+
+  .lg\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .lg\:italic {
@@ -27315,6 +27363,10 @@ code {
     height: 4rem;
   }
 
+  .xl\:h-20 {
+    height: 5rem;
+  }
+
   .xl\:h-24 {
     height: 6rem;
   }
@@ -27325,6 +27377,10 @@ code {
 
   .xl\:h-48 {
     height: 12rem;
+  }
+
+  .xl\:h-54 {
+    height: 14rem;
   }
 
   .xl\:h-64 {
@@ -30334,6 +30390,10 @@ code {
 
   .xl\:text-5xl {
     font-size: 3rem;
+  }
+
+  .xl\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .xl\:italic {

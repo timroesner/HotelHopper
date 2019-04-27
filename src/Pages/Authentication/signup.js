@@ -33,8 +33,8 @@ class Signup extends React.Component {
         event.preventDefault();
         if (this.state.password === this.state.secondpassword) {
             let user = {
-                "first_name": this.state.firstname,
-                "last_name": this.state.lastname,
+                "firstName": this.state.firstname,
+                "lastName": this.state.lastname,
                 "email": this.state.email,
                 "password": this.state.password
             };
@@ -52,28 +52,16 @@ class Signup extends React.Component {
                 })
                 .then(function (data) {
                     if (data["error"]) {
-                      let message = data["message"]
-                      if (typeof(message) !== String && typeof(message) === 'object') {
-                        let errorMsg = '';
-                        for (var prop in message){
-                          errorMsg = message[prop];
-                          break;
-                        }
-                        this.setState({
-                          error: errorMsg
-                        });
-                      } else {
                         this.setState({
                             error: data["message"]
                         });
-                      }
                     }
                     else {
                         success = true;
                         let tokenKey = "token";
                         let tokenValue = data["data"]["token"];
                         window.localStorage.setItem(tokenKey, tokenValue);
-                        window.localStorage.setItem("currentUser", JSON.stringify({first_name: user["first_name"]}));
+                        window.localStorage.setItem("currentUser", JSON.stringify({firstName: user["firstName"]}));
                     }
                     if (success) {
                         this.props.history.push('/');
