@@ -1,35 +1,13 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import Dialog from "../../assets/dialog.png";
+import MarkerIcon from "../../assets/Marker.png";
 import HotelCell from '../../components/searchCell';
 
 const mapStyles = {
   width: "100%",
-  height: "92%",
+  height: "100%",
   position: "relative"
 };
-
-// const infoDivStyles = {
-//   position: "absolute",
-//   backgroundColor: "white",
-//   bottom: -40
-// }
-
-// const textLeft = {
-//   textAlign: "left",
-//   display: "inline-block"
-// }
-
-// const textRight = {
-//   float: "right",
-//   display: "inline-block"
-// }
-
-// const textLeftWPadding = {
-//   textAlign: "left",
-//   paddingTop: 6,
-//   display: "inline-block"
-// }
 
 export class MapPage extends Component {
   constructor() {
@@ -51,23 +29,24 @@ export class MapPage extends Component {
 
   markers = () => {
     let markers = []
-    for (let i = 0; i < this.state.hotels.length; i++) {
-      const hotel = this.state.hotels[i];
+    this.state.hotels.forEach((hotel, index) => {
       markers.push(
         <Marker
-          key={i}
+          key={index}
           onClick={this.onMarkerClick}
-          name={i}
+          name={index}
           position={{ lat: hotel.latitude, lng: hotel.longitude }}
-          label={"$" + hotel.lowestPrice}
+          label={{
+            text: "$" + hotel.lowestPrice,
+            color: "white"
+          }}
           icon={{
-            url: Dialog,
-            scaledSize: new this.props.google.maps.Size(80, 50),
-            strokeColor: "blue"
+            url: MarkerIcon,
+            scaledSize: new this.props.google.maps.Size(60, 30),
           }}
         />
       );
-    }
+    });
     return markers
   }
 
@@ -76,7 +55,8 @@ export class MapPage extends Component {
       <div>
         <Map
           google={this.props.google}
-          zoom={14}
+          zoom={12}
+          containerStyle={{position:'relative', height: window.innerHeight-64 }}
           style={mapStyles}
           initialCenter={{
             lat: this.state.lat,
@@ -85,9 +65,9 @@ export class MapPage extends Component {
         >
           {this.markers()}
         </Map>
-        {this.state.selectedKey === -1 ?
-        <div className="bg-white z-20 pin-b w-80% mx-auto rounded justify-center absolute">
-          <HotelCell hotel={this.state.hotels[2]}/>
+        {this.state.selectedKey > -1 ?
+        <div className="bg-white z-20 pl-2 md:pl-4 pin-x pin-b w-100% max-w-lg mx-auto md:rounded-t-lg absolute">
+          <HotelCell hotel={this.state.hotels[this.state.selectedKey]}/>
         </div> : null}
       </div>
     );
