@@ -6200,7 +6200,7 @@ table {
 }
 
 .text-8xl {
-  font-size: 4rem;
+  font-size: 7.5rem;
 }
 
 .italic {
@@ -12264,7 +12264,7 @@ code {
   }
 
   .sm\:text-8xl {
-    font-size: 4rem;
+    font-size: 7.5rem;
   }
 
   .sm\:italic {
@@ -18307,7 +18307,7 @@ code {
   }
 
   .md\:text-8xl {
-    font-size: 4rem;
+    font-size: 7.5rem;
   }
 
   .md\:italic {
@@ -24350,7 +24350,7 @@ code {
   }
 
   .lg\:text-8xl {
-    font-size: 4rem;
+    font-size: 7.5rem;
   }
 
   .lg\:italic {
@@ -30393,7 +30393,7 @@ code {
   }
 
   .xl\:text-8xl {
-    font-size: 4rem;
+    font-size: 7.5rem;
   }
 
   .xl\:italic {
