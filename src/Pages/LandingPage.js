@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import hero from "../assets/hero@2x.png";
-import api from "../helper/endpoints";
-import { DateRangePicker } from "react-dates";
-import Geosuggest from "react-geosuggest";
+import React, { Component } from 'react';
+import hero from '../assets/hero@2x.png';
+import api from '../helper/endpoints';
+import { DateRangePicker } from 'react-dates';
+import Geosuggest from 'react-geosuggest';
+import moment from 'moment';
 
 class LandingPage extends Component {
   constructor() {
@@ -12,6 +13,7 @@ class LandingPage extends Component {
       focusedDatePicker: null,
       showPeople: false,
       location: null,
+      locDescription: null,
       startDate: null,
       endDate: null,
       people: 2,
@@ -50,36 +52,26 @@ class LandingPage extends Component {
     let destinations = [];
     this.state.popularDestinations.map(city => {
       destinations.push(
-        <div
-          key={city.city}
-          className="w-full md:w-1/4 p-2 cursor-pointer"
-          onClick={() => this.clickPopularDestinations(city.city)}
-        >
-          <img
-            src={city.url}
-            alt={city.city}
-            className="light-filter rounded"
-          />
-          <p className="absolute font-sans text-white text-3xl font-bold ml-4 mb-4 -mt-12">
-            {city.city}
-          </p>
-        </div>
-      );
-    });
-    return destinations;
-  };
+      <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
+        <img src={city.url} alt={city.city} className="light-filter rounded"/>
+        <p className="absolute font-sans text-white text-3xl font-bold ml-4 mb-4 -mt-12">{city.city}</p>
+      </div>
+      )
+    })
+    return destinations
+ }
 
-  clickPopularDestinations(city) {
-    console.log(city);
-  }
+ clickPopularDestinations(city) {
+  this.props.history.push(`/search?latitude=${city.lat}&longitude=${city.lng}&location=${city.city}&startDate=${moment().add(1,'days').format("YYYY-MM-DD")}&endDate=${moment().add(3, 'days').format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
+ }
 
-  selectedLocation(element) {
-    if (element) {
-      this.setState({ location: element.location });
-    } else {
-      this.setState({ location: null });
-    }
-  }
+ selectedLocation(element) {
+   if(element) {
+    this.setState({location: element.location, locDescription: element.description})
+   } else {
+    this.setState({location: null})
+   }
+ }
 
   changePeopleValue(newValue) {
     if (newValue > 0) {
@@ -107,28 +99,14 @@ class LandingPage extends Component {
     }
   }
 
-  search() {
-    const location = this.state.location;
-    if (
-      location &&
-      this.state.startDate &&
-      this.state.endDate &&
-      this.state.people &&
-      this.state.rooms
-    ) {
-      this.props.history.push(
-        `/search?lat=${location.lat}&long=${
-          location.lng
-        }&startDate=${this.state.startDate.format(
-          "L"
-        )}&endDate=${this.state.endDate.format("L")}&people=${
-          this.state.people
-        }&rooms=${this.state.rooms}`
-      );
-    } else {
-      alert("Please fill all fields");
-    }
-  }
+ search() {
+   const location = this.state.location
+   if(location && this.state.startDate && this.state.endDate && this.state.people && this.state.rooms) {
+    this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locDescription}&startDate=${this.state.startDate.format("YYYY-MM-DD")}&endDate=${this.state.endDate.format("YYYY-MM-DD")}&persons=${this.state.people}&rooms=${this.state.rooms}`);
+   } else {
+     alert("Please fill all fields")
+   }
+ }
 
   render() {
     return (
@@ -170,71 +148,22 @@ class LandingPage extends Component {
                   }
                 />
               </div>
-              <div
-                ref="peopleDropdown"
-                className="w-full md:w-1/5 mb-2 md:mr-4"
-              >
-                <input
-                  className="appearance-none bg-white font-bold w-full rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl"
-                  id="location"
-                  readOnly={true}
-                  onClick={() => this.setState({ showPeople: true })}
-                  type="text"
-                  value={`${this.state.people} ${
-                    this.state.people > 1 ? "people" : "person"
-                  } - ${this.state.rooms} ${
-                    this.state.rooms > 1 ? "rooms" : "room"
-                  }`}
-                  placeholder="2 people - 1 room"
-                />
-                {this.state.showPeople && (
-                  <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
-                    <div className="flex items-center justify-between  flex-wrap p-4">
-                      <p className="w-2/5">People</p>
-                      <button
-                        ref="peopleMinus"
-                        className="w-8 h-8 text-white bg-soft-blue rounded-full"
-                        onClick={() =>
-                          this.changePeopleValue(this.state.people - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <p className="w-16 md:w-1/5 text-center">
-                        {this.state.people}
-                      </p>
-                      <button
-                        className="w-8 h-8 text-white bg-soft-blue rounded-full"
-                        onClick={() =>
-                          this.changePeopleValue(this.state.people + 1)
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className="flex items-center justify-between flex-wrap p-4">
-                      <p className="w-2/5">Rooms</p>
-                      <button
-                        ref="roomsMinus"
-                        className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed"
-                        onClick={() =>
-                          this.changeRoomValue(this.state.rooms - 1)
-                        }
-                      >
-                        -
-                      </button>
-                      <p className="w-16 md:w-1/5 text-center">
-                        {this.state.rooms}
-                      </p>
-                      <button
-                        className="w-8 h-8 text-white bg-soft-blue rounded-full"
-                        onClick={() =>
-                          this.changeRoomValue(this.state.rooms + 1)
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
+              <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
+              <input className="appearance-none bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
+             id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
+              {this.state.showPeople &&
+                <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
+                  <div className="flex items-center justify-between  flex-wrap p-4">
+                    <p className="w-2/5">People</p>
+                    <button ref="peopleMinus" className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people-1)}>-</button>
+                    <p className="w-16 md:w-1/5 text-center">{this.state.people}</p>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.people+1)}>+</button>
+                  </div>
+                  <div className="flex items-center justify-between flex-wrap p-4">
+                    <p className="w-2/5">Rooms</p>
+                    <button ref="roomsMinus" className="w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed" onClick={() => this.changeRoomValue(this.state.rooms-1)}>-</button>
+                    <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
                   </div>
                 )}
               </div>
