@@ -6,8 +6,7 @@ class Map extends Component {
   render() {
     return (
       <div>
-        <div className="App">
-          <header className="App-header" />
+        <div className="h-64">
           <MapContainer />
         </div>
       </div>

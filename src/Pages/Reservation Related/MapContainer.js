@@ -4,8 +4,7 @@ import Dialog from "../../assets/dialog.png";
 
 const mapStyles = {
   width: "100%",
-  height: "100%",
-  position: "relative"
+  height: "90%"
 };
 
 const infoDivStyles = {

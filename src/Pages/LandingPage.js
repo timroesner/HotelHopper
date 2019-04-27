@@ -5,6 +5,7 @@ import { DateRangePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
 import moment from 'moment';
 class LandingPage extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -16,38 +17,38 @@ class LandingPage extends Component {
       startDate: null,
       endDate: null,
       people: 2,
-      rooms: 1
-    };
+      rooms: 1,
+    }
     this.handleClick = this.handleClick.bind(this);
-    this.popularDestinations();
+    this.popularDestinations()
   }
 
   popularDestinations = () => {
-    fetch(api + "/popularDestinations")
-      .then(results => {
+    fetch(api+"/popularDestinations").then(
+      results => {
         return results.json();
+      }).then(destinationsJson => {
+        this.setState({popularDestinations:  destinationsJson['data']})
       })
-      .then(destinationsJson => {
-        this.setState({ popularDestinations: destinationsJson['data'] });
-      })
-  };
-  componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
-  }
+ componentWillMount() {
+   document.addEventListener('mousedown', this.handleClick, false)
+ }
 
-  handleClick = e => {
-    if (!this.refs.peopleDropdown.contains(e.target)) {
-      this.setState({ showPeople: false });
-    }
-  };
+ componentWillUnmount() {
+   document.removeEventListener('mousedown', this.handleClick, false)
+ }
 
-  renderPopularDestinations = () => {
-    let destinations = [];
-    this.state.popularDestinations.map(city => {
+ handleClick = (e) => {
+   if(!this.refs.peopleDropdown.contains(e.target)) {
+      this.setState({showPeople: false})
+   }
+ }
+
+ renderPopularDestinations = () => {
+    let destinations = []
+    this.state.popularDestinations.map((city) => {
       destinations.push(
       <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>
@@ -70,31 +71,27 @@ class LandingPage extends Component {
    }
  }
 
-  changePeopleValue(newValue) {
-    if (newValue > 0) {
-      this.setState({ people: newValue });
-    }
-    if (newValue < 2) {
-      this.refs.peopleMinus.className =
-        "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed";
+ changePeopleValue(newValue) {
+    if(newValue > 0) {
+      this.setState({people: newValue})
+    } 
+    if(newValue < 2) {
+      this.refs.peopleMinus.className = "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed"
     } else {
-      this.refs.peopleMinus.className =
-        "w-8 h-8 text-white bg-soft-blue rounded-full";
+      this.refs.peopleMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
     }
-  }
+ }
 
-  changeRoomValue(newValue) {
-    if (newValue > 0) {
-      this.setState({ rooms: newValue });
+ changeRoomValue(newValue) {
+    if(newValue > 0) {
+      this.setState({rooms: newValue})
     }
-    if (newValue < 2) {
-      this.refs.roomsMinus.className =
-        "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed";
+    if(newValue < 2) {
+      this.refs.roomsMinus.className = "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed"
     } else {
-      this.refs.roomsMinus.className =
-        "w-8 h-8 text-white bg-soft-blue rounded-full";
+      this.refs.roomsMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
     }
-  }
+ }
 
  search() {
    const location = this.state.location
@@ -131,16 +128,10 @@ class LandingPage extends Component {
                   endDateId="end_date"
                   required={true}
                   readOnly={true}
-                  orientation={
-                    window.innerWidth > 768 ? "horizontal" : "vertical"
-                  }
-                  onDatesChange={({ startDate, endDate }) =>
-                    this.setState({ startDate, endDate })
-                  }
+                  orientation={window.innerWidth > 768 ? "horizontal" : "vertical"}
+                  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                   focusedInput={this.state.focusedDatePicker}
-                  onFocusChange={focusedDatePicker =>
-                    this.setState({ focusedDatePicker })
-                  }
+                  onFocusChange={focusedDatePicker => this.setState({ focusedDatePicker })}
                 />
               </div>
               <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
@@ -160,26 +151,16 @@ class LandingPage extends Component {
                     <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
                   </div>
-                )}
+                </div>
+              }
               </div>
-              <button
-                className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold"
-                onClick={() => this.search()}
-              >
-                Search
-              </button>
+              <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" onClick={() => this.search()}>Search</button>
             </div>
           </div>
-          <img
-            src={hero}
-            className="min-h-64 min-w-160 dark-filter"
-            alt="hero"
-          />
+          <img src={hero} className="min-h-64 min-w-160 dark-filter" alt="hero" /> 
         </div>
         <div className="ml-8 mr-8 mt-4">
-          <p className="text-2xl text-dark-blue font-sans font-bold mb-2">
-            Popular Destinations
-          </p>
+          <p className="text-2xl text-dark-blue font-sans font-bold mb-2">Popular Destinations</p>
           <div className="flex flex-wrap -m-2">
             {this.renderPopularDestinations()}
           </div>
