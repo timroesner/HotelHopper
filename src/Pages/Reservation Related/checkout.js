@@ -15,6 +15,7 @@ class Checkout extends Component {
         lastName: "",
         email: "",
       },
+      cardholder: "",
       reservation: {
         hotel: {}
       },
@@ -39,7 +40,8 @@ class Checkout extends Component {
       }).then(results => {
           return results.json();
       }).then(data => {
-        this.setState({user: data['data']})
+        data["data"]["cardholder"] = data['data'].firstName+" "+data['data'].lastName
+        this.setState({ user: data['data'] })
       })
     } else {
       this.props.history.push(`/login`);
@@ -187,13 +189,15 @@ class Checkout extends Component {
             </div>
             {this.rewardsDiv()}
             <div className="mt-8 pb-8 border-b">
-              <p className="text-sans font-bold text-2xl mb-8">Payment Information</p>
+              <p className="text-sans font-bold text-2xl mb-4">Payment Information</p>
+              <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full md:w-3/5 rounded h-14 mb-4 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                id="cardholder" value={this.state.user.cardholder} onChange={this.handleChange} type="text" placeholder="Cardholder name" />
               <Elements>
                 <StripeForm sendToken={this.handleSubmit} name={this.state.user.firstName+" "+this.state.user.lastName}/>
               </Elements>
             </div>
           </div>
-          <div className="md:w-1/3 md:mx-4">
+          <div className="md:w-1/3 md:mx-4 mt-8 md:mt-0">
             <CheckoutDetail reservation={this.state.reservation} />
           </div>
       </div>
