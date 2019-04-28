@@ -278,10 +278,12 @@ class Search extends Component {
   showMap() {
     this.props.history.push({
       pathname: '/map',
+      search: `?startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`,
       state: { 
         hotels: this.state.hotels,
         lat: this.state.latitude,
-        long: this.state.longitude
+        long: this.state.longitude,
+        location: this.state.locationPlaceholder
       }
     })
   }

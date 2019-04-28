@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import MarkerIcon from "../../assets/Marker.png";
+import CloseIcon from "../../assets/close.svg";
 import HotelCell from '../../components/searchCell';
 
 const mapStyles = {
@@ -58,15 +59,20 @@ export class MapPage extends Component {
           zoom={12}
           containerStyle={{position:'relative', height: window.innerHeight-64 }}
           style={mapStyles}
+          mapTypeControl={false}
+          fullscreenControl={false}
           initialCenter={{
             lat: this.state.lat,
             lng: this.state.long
           }}
         >
+          <div className="absolute flex items-center pl-8 bg-white z-20 pin-x pin-t w-full h-8 shadow">
+            <img src={CloseIcon} className="w-4 h-4 mr-4 cursor-pointer" onClick={() => this.props.history.goBack()}/> <p className="font-sans font-semibold">{this.state.location}</p>
+          </div>
           {this.markers()}
         </Map>
         {this.state.selectedKey > -1 ?
-        <div className="bg-white z-20 pl-2 md:pl-4 pin-x pin-b w-100% max-w-lg mx-auto md:rounded-t-lg absolute">
+        <div className="bg-white z-20 pl-2 md:pl-4 pin-x pin-b max-w-lg mx-auto md:rounded-t-lg absolute">
           <HotelCell hotel={this.state.hotels[this.state.selectedKey]}/>
         </div> : null}
       </div>
