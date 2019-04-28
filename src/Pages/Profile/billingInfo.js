@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideMenu from '../../components/sidemenu';
 import CreditCardInput from 'react-credit-card-input';
+import api from '../../helper/endpoints';
 class BillingInfo extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,28 @@ class BillingInfo extends Component {
     this.handleCardCVCChange = this.handleCardCVCChange.bind(this);
     this.handleCardExpiryChange = this.handleCardExpiryChange.bind(this);
     this.handleCardNumberChange = this.handleCardNumberChange.bind(this);
+  }
+  componentWillMount() {
+    this.loadUserData()
+  }
+
+  loadUserData = () => {
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      fetch(api + "/auth/userDetails", {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        this.setState({user: data['data']})
+      })
+    } else {
+      this.props.history.push(`/login`);
+    }
   }
   handleCardNumberChange(event){
     this.setState({number: event.target.value});
