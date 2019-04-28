@@ -9,12 +9,14 @@ class Trips extends Component {
     super(props)
     this.state = {
       upcomingTrips: [],
-      pastTrips: []
+      pastTrips: [],
+      loaded:false,
     }
   }
 
   componentWillMount() {
-    this.fetchTrips()
+
+    this.fetchTrips();
   }
 
   fetchTrips = () => {
@@ -38,16 +40,16 @@ class Trips extends Component {
 
         this.setState({
           upcomingTrips: upcomingTrips,
-          pastTrips: pastTrips
+          pastTrips: pastTrips,
+          loaded:true
         })
+
       })
     } else {
       this.props.history.push(`/login`);
     }
   }
-  componentWillMount() {
-    this.loadUserData()
-  }
+
 
   loadUserData = () => {
     const token = window.localStorage.getItem("token")
@@ -90,7 +92,7 @@ class Trips extends Component {
           </div>
         }
         {
-          this.state.pastTrips.length === 0 && this.state.upcomingTrips.length === 0 &&
+          this.state.pastTrips.length === 0 && this.state.upcomingTrips.length === 0 && this.state.loaded === true &&
           <div className="text-center w-full justify-center ">
           <div className="mt-8 md:mt-12 text-3xl font-bold mr-8 md:mr-0 ">
             No trips have been made yet. 
