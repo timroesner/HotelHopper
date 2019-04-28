@@ -20,12 +20,12 @@ class TripCell extends React.Component {
         const reservation = this.props.reservation
         return(
             <div className="border-b pb-4 md:pb-8">
-                <div key={reservation.id} 
+                <div key={reservation.reservationId} 
                 className="w-full h-20 md:h-48 flex items-flex mt-4 md:mt-8 cursor-pointer"
                 onClick={() => {
                     reservation.status === 'canceled' ?
                     alert("This reservation has been canceled") :
-                    this.navigateTo(reservation.id)
+                    this.navigateTo(reservation.reservationId)
                 }}
                 >
                     <img alt="Hotel" src={reservation.hotel.imageUrl} className="h-full w-auto rounded"/>
