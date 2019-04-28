@@ -45,7 +45,28 @@ class Trips extends Component {
       this.props.history.push(`/login`);
     }
   }
+  componentWillMount() {
+    this.loadUserData()
+  }
 
+  loadUserData = () => {
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      fetch(api + "/auth/userDetails", {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        this.setState({user: data['data']})
+      })
+    } else {
+      this.props.history.push(`/login`);
+    }
+  }
   render() {
     return (
       <div className="mt-4 md:mt-16 flex items-flex pb-8">
