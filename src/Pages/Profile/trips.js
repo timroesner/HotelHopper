@@ -91,9 +91,14 @@ class Trips extends Component {
         }
         {
           this.state.pastTrips.length === 0 && this.state.upcomingTrips.length === 0 &&
-          <div className="mt-8 md:mt-12 text-lg font-bold">
-            No trips to show
+          <div className="text-center w-full justify-center ">
+          <div className="mt-8 md:mt-12 text-3xl font-bold mr-8 md:mr-0 ">
+            No trips have been made yet. 
           </div>
+          <div className="mt-8 md:mt-12 text-3xl font-bold mr-8 md:mr-0 ">
+          Plan your next trip now!
+        </div>
+        </div>
         }
         </div>
       </div>
