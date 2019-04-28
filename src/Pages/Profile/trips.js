@@ -15,7 +15,6 @@ class Trips extends Component {
   }
 
   componentWillMount() {
-
     this.fetchTrips();
   }
 
@@ -43,13 +42,11 @@ class Trips extends Component {
           pastTrips: pastTrips,
           loaded:true
         })
-
       })
     } else {
       this.props.history.push(`/login`);
     }
   }
-
 
   loadUserData = () => {
     const token = window.localStorage.getItem("token")
@@ -69,6 +66,7 @@ class Trips extends Component {
       this.props.history.push(`/login`);
     }
   }
+
   render() {
     return (
       <div className="mt-4 md:mt-16 flex items-flex pb-8">

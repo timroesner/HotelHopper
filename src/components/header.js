@@ -51,7 +51,6 @@ class Header extends React.Component {
       this.setState({ token: undefined });
       window.localStorage.removeItem("token");
       window.location.reload();
-
     } else {
       this.props.history.push(`/${page}`);
     }
