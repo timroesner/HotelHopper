@@ -40,7 +40,6 @@ class Checkout extends Component {
       }).then(results => {
           return results.json();
       }).then(data => {
-        data["data"]["cardholder"] = data['data'].firstName+" "+data['data'].lastName
         this.setState({ user: data['data'] })
       })
     } else {
@@ -190,8 +189,6 @@ class Checkout extends Component {
             {this.rewardsDiv()}
             <div className="mt-8 pb-8 border-b">
               <p className="text-sans font-bold text-2xl mb-4">Payment Information</p>
-              <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full md:w-3/5 rounded h-14 mb-4 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                id="cardholder" value={this.state.user.cardholder} onChange={this.handleChange} type="text" placeholder="Cardholder name" />
               <Elements>
                 <StripeForm sendToken={this.handleSubmit} name={this.state.user.firstName+" "+this.state.user.lastName}/>
               </Elements>
