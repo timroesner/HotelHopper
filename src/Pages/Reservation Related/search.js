@@ -6,7 +6,6 @@ import { DateRangePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
 import queryString from 'query-string';
 import moment from 'moment';
-import StarRatings from 'react-star-ratings';
 import SearchCell from '../../components/searchCell'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -19,7 +18,7 @@ class Search extends Component {
       endDate: null,
       hotels: [],
       error: null,
-      locationPlaceholder: 'Choose Location',
+      locationPlaceholder: '',
       persons: 2,
       rooms: 1,
       page: 1,
@@ -57,6 +56,10 @@ class Search extends Component {
     this.assertButtons();
     this.handleClick = this.handleClick.bind(this);
     this.performSearch();
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   performSearch = () => {
@@ -99,92 +102,12 @@ class Search extends Component {
     this.props.history.push(`/${value}`);
   }
 
-  renderHotels() {
-    let hotelList = [];
-    if (this.state.hotels && Object.keys(this.state.hotels).length > 0) {
-      for (var key in this.state.hotels) {
-        let hotelQuery = this.state.hotels[key]["hotelId"] + "?startDate=" + moment(this.state.startDate).format("YYYY-MM-DD") + "&endDate=" + moment(this.state.endDate).format("YYYY-MM-DD");
-
-        hotelList.push(
-          <div class="z-50 flex mt-1 w-full overflow-hidden border-b py-3 border-grey-light" value={hotelQuery} onClick={e => this.goTo(hotelQuery)} style={{ cursor: 'pointer' }}>
-            <div className="w-full justify-between flex col-md-6 ">
-              <div class="flex col-md-6">
-                <img class="h-32 w-48 md:h-48 md:w-64 mr-2 rounded" alt="of Hotel" src={this.state.hotels[key]["imageUrl"]} />
-
-                <div class="justify-between flex-col">
-                  <div className="font-bold w-full overflow-hidden align-start text-lg md:text-xl ml-2 mb-2">{this.state.hotels[key]["title"]}</div>
-                  <div class=" text-grey font-sans align-start pb:2 md:pb-12 md:pb-24 text-sm md:text-base ml-2 mt-2">{this.state.hotels[key]["city"]}</div>
-                  {window.innerWidth < 768 && (
-                    <div class="font-bold align-start mt-2 mb-2 md:pb-24 text-sm md:text-xl ml-2">
-                      <StarRatings
-                        rating={this.state.hotels[key]["stars"]}
-                        starRatedColor="#597aee"
-                        starSpacing="3px"
-                        changeRating={this.changeRating}
-                        starDimension="20px"
-                        numberOfStars={5}
-                        name='rating'
-                      /></div>
-                  )}
-
-                  <div class=" font-bold align-start mb-2 md:pb-4 text-sm md:text-xl ml-2">{this.state.hotels[key]["rating"]} / 10 Guest Rating</div>
-                  {window.innerWidth < 768 && (
-                    <div class="font-bold relative pin-b pin-r md:pb-4 text-lg md:text-2xl ml-2">{"$" + this.state.hotels[key]["lowestPrice"]}</div>
-
-                  )}
-                </div>
-              </div>
-
-              <div class="text-right flex-col md:pt-0 justify-between align-text-bottom ">
-                {window.innerWidth > 768 ?
-                  <div class="font-bold align-start pb-12 md:pb-24 text-sm md:text-xl ml-2">
-
-                    <StarRatings
-                      rating={this.state.hotels[key]["stars"]}
-                      starRatedColor="#597aee"
-                      starSpacing="3px"
-                      changeRating={this.changeRating}
-                      numberOfStars={5}
-                      starDimension="30px"
-                      rating={this.state.hotels[key]["stars"]}
-                      name='rating'
-                    /></div>
-                  : <div class="pb-24"></div>}
-                {window.innerWidth > 768 &&
-                  <div class="font-bold text-right relative pin-b pin-r pt-4 md:pb-4 text-lg md:text-2xl ml-2">{"$" + this.state.hotels[key]["lowestPrice"]}</div>
-                }
-
-              </div>
-            </div>
-
-
-          </div>
-        );
-      }
-    }
-    else {
-      hotelList.push(
-
-        <div class="block font-bold justify-center content-center mt-24 col-md-6">
-          {this.state.hotels && this.state.error && this.state.searched ?
-            <div class="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
-            :
-            <div class="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
-          }
-        </div>
-      );
-
-
-
-
-    }
-    return hotelList;
-  }
   handleClick = (e) => {
     if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target)) {
       this.setState({ showOptions: false })
     }
   }
+
   componentWillMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
@@ -196,9 +119,11 @@ class Search extends Component {
   toggleDropdown() {
     this.setState({ showPeople: !this.state.showPeople });
   }
+
   toggleOptions() {
     this.setState({ showOptions: !this.state.showOptions });
   }
+
   changePeopleValue(newValue) {
     if (newValue > 0) {
       this.setState({ persons: newValue })
@@ -209,6 +134,7 @@ class Search extends Component {
       this.refs.peopleMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
     }
   }
+
   changePageValue(newValue) {
     if (newValue > 0) {
       this.setState({ page: newValue });
@@ -216,11 +142,11 @@ class Search extends Component {
       const lat = this.state.latitude;
       const long = this.state.longitude;
       if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
+        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
         window.location.reload();
       }
       else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
+        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
         window.location.reload();
       }
     }
@@ -237,14 +163,13 @@ class Search extends Component {
     }
   }
   selectedLocation(element) {
-
     if (element) {
-
-      this.setState({ location: element.location })
+      this.setState({ location: element.location, locationPlaceholder: element.description })
     } else {
       this.setState({ location: null })
     }
   }
+
   changeRadio = (e) => {
     let radios = this.state[e.target.name];
     for (var item in radios) {
@@ -332,22 +257,35 @@ class Search extends Component {
       this.state.filters['0to74']['checked'] = true;
     }
   }
+
   search() {
     const location = this.state.location;
     const lat = this.state.latitude;
     const long = this.state.longitude;
     if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
+      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
       window.location.reload();
     }
     else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
+      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
       window.location.reload();
     }
     else {
       alert("Please fill all fields")
     }
   }
+
+  showMap() {
+    this.props.history.push({
+      pathname: '/map',
+      state: { 
+        hotels: this.state.hotels,
+        lat: this.state.latitude,
+        long: this.state.longitude
+      }
+    })
+  }
+
   assertButtons() {
     if (this.state.persons < 2) {
       this.state.peopleSub = "w-8 h-8 text-white bg-grey rounded-full cursor-not-allowed";
@@ -360,8 +298,8 @@ class Search extends Component {
       this.state.roomSub = "w-8 h-8 text-white bg-soft-blue rounded-full";
     }
   }
+
   render() {
-    // console.log(this.state);
     return (
       <div class="md:flex p-4 md:p-0 scrolling-touch">
         <div class="md:mt-8 md:ml-8 h-auto md:h-screen  md:overflow-y-auto md:scrolling-touch md:w-1/4 md:w-1/4 md:block">
@@ -420,7 +358,12 @@ class Search extends Component {
             </div>
           </div>
           <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
-            <button className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" type="button">View on Map</button>
+            <button className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" 
+                    type="button"
+                    onClick={() => this.showMap()}
+            >
+              View on Map
+            </button>
           </div>
           <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
             <button ref="optionsButton" className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" onClick={() => this.toggleOptions()} type="button">Options</button>
@@ -484,7 +427,6 @@ class Search extends Component {
                 }
               </div>
             }
-            {/* {this.renderHotels()} */}
           </div>
         </div>
 

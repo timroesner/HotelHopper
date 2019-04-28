@@ -18,7 +18,7 @@ import Error from './Pages/Globals/error';
 import Checkout from './Pages/Reservation Related/checkout';
 import Confirmation from './Pages/Reservation Related/confirmation';
 import Forgot from './Pages/Authentication/forgotpass';
-import Map from './Pages/Reservation Related/map';
+import MapPage from './Pages/Reservation Related/map';
 import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
@@ -46,7 +46,7 @@ ReactDOM.render(
             <Route exact path='/confirmation' component={Confirmation} />
             <Route exact path='/confirmation/:params' component={Confirmation} />
             <Route exact path='/forgot' component={Forgot} />
-            <Route exact path='/map' component={Map} />
+            <Route exact path='/map' component={MapPage} />
             <Route exact path='/hotel' component={Hotel} />
             <Route exact path='/hotel/:id' component={Hotel} />
             <Route exact path='/reset/:token' component={Reset} />

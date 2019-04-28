@@ -3170,6 +3170,10 @@ table {
   height: 12rem;
 }
 
+.h-54 {
+  height: 14rem;
+}
+
 .h-64 {
   height: 16rem;
 }
@@ -6193,6 +6197,10 @@ table {
 
 .text-5xl {
   font-size: 3rem;
+}
+
+.text-8xl {
+  font-size: 7.5rem;
 }
 
 .italic {
@@ -9242,6 +9250,10 @@ code {
     height: 12rem;
   }
 
+  .sm\:h-54 {
+    height: 14rem;
+  }
+
   .sm\:h-64 {
     height: 16rem;
   }
@@ -12249,6 +12261,10 @@ code {
 
   .sm\:text-5xl {
     font-size: 3rem;
+  }
+
+  .sm\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .sm\:italic {
@@ -15277,6 +15293,10 @@ code {
     height: 12rem;
   }
 
+  .md\:h-54 {
+    height: 14rem;
+  }
+
   .md\:h-64 {
     height: 16rem;
   }
@@ -18284,6 +18304,10 @@ code {
 
   .md\:text-5xl {
     font-size: 3rem;
+  }
+
+  .md\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .md\:italic {
@@ -21312,6 +21336,10 @@ code {
     height: 12rem;
   }
 
+  .lg\:h-54 {
+    height: 14rem;
+  }
+
   .lg\:h-64 {
     height: 16rem;
   }
@@ -24319,6 +24347,10 @@ code {
 
   .lg\:text-5xl {
     font-size: 3rem;
+  }
+
+  .lg\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .lg\:italic {
@@ -27347,6 +27379,10 @@ code {
     height: 12rem;
   }
 
+  .xl\:h-54 {
+    height: 14rem;
+  }
+
   .xl\:h-64 {
     height: 16rem;
   }
@@ -30354,6 +30390,10 @@ code {
 
   .xl\:text-5xl {
     font-size: 3rem;
+  }
+
+  .xl\:text-8xl {
+    font-size: 7.5rem;
   }
 
   .xl\:italic {
