@@ -17,7 +17,9 @@ class Checkout extends Component {
       },
       cardholder: "",
       reservation: {
-        hotel: {}
+        hotel: {
+          rooms: []
+        }
       },
       error: '',
     };
