@@ -19,11 +19,7 @@ import Rewards from './Pages/Profile/rewards';
 import Search from './Pages/Reservation Related/search';
 import Checkout from './Pages/Reservation Related/checkout';
 import Confirmation from './Pages/Reservation Related/confirmation';
-import Map from './Pages/Reservation Related/map';
-||||||| merged common ancestors
-import Forgot from './Pages/Authentication/forgotpass';
-import Map from './Pages/Reservation Related/map';
-import Reset from './Pages/Authentication/resetpass';
+import MapPage from './Pages/Reservation Related/map';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
 import { StripeProvider } from 'react-stripe-elements';
@@ -34,7 +30,6 @@ ReactDOM.render(
     <StripeProvider apiKey="pk_test_jb9MEwI7swz2HaPrZXzMQSSL00stxhlhgd">
     <Router path="/App" history={browserHistory}>
     <div>
-        {/* <Hotel /> */}
         <Header/>
        
         <div className="pt-16"/>
