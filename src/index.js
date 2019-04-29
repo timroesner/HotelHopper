@@ -18,16 +18,17 @@ import Error from './Pages/Globals/error';
 import Checkout from './Pages/Reservation Related/checkout';
 import Confirmation from './Pages/Reservation Related/confirmation';
 import Forgot from './Pages/Authentication/forgotpass';
-import Map from './Pages/Reservation Related/map';
+import MapPage from './Pages/Reservation Related/map';
 import Reset from './Pages/Authentication/resetpass';
 import Hotel from './Pages/Reservation Related/hotel';
 import Header from './components/header'
+import { StripeProvider } from 'react-stripe-elements';
 
 
 const browserHistory = createBrowserHistory();
 ReactDOM.render(
-
-        <Router path="/App" history={browserHistory}>
+    <StripeProvider apiKey="pk_test_jb9MEwI7swz2HaPrZXzMQSSL00stxhlhgd">
+    <Router path="/App" history={browserHistory}>
     <div>
         <Header/>
         <div className="pt-16"/>
@@ -45,14 +46,15 @@ ReactDOM.render(
             <Route exact path='/confirmation' component={Confirmation} />
             <Route exact path='/confirmation/:params' component={Confirmation} />
             <Route exact path='/forgot' component={Forgot} />
-            <Route exact path='/map' component={Map} />
+            <Route exact path='/map' component={MapPage} />
             <Route exact path='/hotel' component={Hotel} />
             <Route exact path='/hotel/:id' component={Hotel} />
             <Route exact path='/reset/:token' component={Reset} />
             <Route component={Error}/>
         </Switch>
     </div>
-    </Router>, document.getElementById('root')
+    </Router>
+    </StripeProvider>, document.getElementById('root')
     
     );
 // If you want your app to work offline and load faster, you can change

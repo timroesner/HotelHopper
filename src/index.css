@@ -3254,6 +3254,10 @@ table {
   height: 12rem;
 }
 
+.h-54 {
+  height: 14rem;
+}
+
 .h-64 {
   height: 16rem;
 }
@@ -9444,6 +9448,10 @@ code {
     height: 12rem;
   }
 
+  .sm\:h-54 {
+    height: 14rem;
+  }
+
   .sm\:h-64 {
     height: 16rem;
   }
@@ -15595,6 +15603,10 @@ code {
 
   .md\:h-48 {
     height: 12rem;
+  }
+
+  .md\:h-54 {
+    height: 14rem;
   }
 
   .md\:h-64 {
@@ -21750,6 +21762,10 @@ code {
     height: 12rem;
   }
 
+  .lg\:h-54 {
+    height: 14rem;
+  }
+
   .lg\:h-64 {
     height: 16rem;
   }
@@ -27901,6 +27917,10 @@ code {
 
   .xl\:h-48 {
     height: 12rem;
+  }
+
+  .xl\:h-54 {
+    height: 14rem;
   }
 
   .xl\:h-64 {
