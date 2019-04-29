@@ -165,7 +165,7 @@ class LandingPage extends Component {
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms+1)}>+</button>
                   </div>
                 </div>
-				}
+              }
               </div>
               <button
                 className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold"
@@ -174,7 +174,6 @@ class LandingPage extends Component {
                 Search
               </button>
             </div>
-            <button className="bg-soft-blue w-full md:w-1/5 rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" onClick={() => this.search()}>Search</button>
           </div>
           <img
             src={hero}
@@ -191,8 +190,8 @@ class LandingPage extends Component {
           </div>
         </div>
       </div>
-    </div>
-  )}
+    );
+  }
 }
 
 export default LandingPage;
