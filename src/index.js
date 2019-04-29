@@ -29,7 +29,7 @@ ReactDOM.render(
 
         <Router path="/App" history={browserHistory}>
     <div>
-        <Hotel />
+        {/* <Hotel /> */}
         <Header/>
        
         <div className="pt-16"/>
