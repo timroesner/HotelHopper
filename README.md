@@ -12,7 +12,7 @@ Find a place to stay during your travel? Hotel Hopper got you. Hotel Hopper make
 
 
 ## Folder Hierarchy
-
+```
 Hotel Hopper
 ├── Server-side (back-end)
 │        controllers
@@ -26,7 +26,7 @@ Hotel Hopper
 │        package.json
 │        .....
 └── README.md
-
+```
 
 
 ## Usage
