@@ -67,6 +67,18 @@ class BookingDetailComp extends React.Component {
                 {moment(reservation.endDate).format("MMM D, YYYY")}
               </span>
             </p>
+            <p className="mt-4 text-sm md:text-lg">
+              {"Total paid: "}
+              <span className="float-right">
+                {"$"+(reservation.total*0.09).toFixed(2)}
+              </span>
+            </p>
+            <p className="mt-4 text-sm md:text-lg">
+              {"Cancellation fee: "}
+              <span className="float-right">
+                {"$93"}
+              </span>
+            </p>
           </div>
         </div>
       </div>
