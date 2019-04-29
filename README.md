@@ -1,5 +1,7 @@
 # Hotel Hopper
-Hotel Hopper is a project done in SE 165, at San José State University  in Spring 2019. You can check out the demo from this link: https://hotelhopper.cf
+Hotel Hopper is a one-semester long project in SE 165, Software Engineering Process Management, at San José State University in Spring 2019.
+
+You can check out the demo from this link: https://hotelhopper.cf
 
 
 
@@ -12,18 +14,18 @@ Find a place to stay during your travel? Hotel Hopper got you. Hotel Hopper make
 ## Folder Hierarchy
 
 Hotel Hopper
-├──Server-side (back-end)
+├── Server-side (back-end)
 │        controllers
 │        models
 │        app.js
 │        package.json
 │        .....
-├──Client-side (front-end)
+├── Client-side (front-end)
 │        src
 │        public
 │        package.json
 │        .....
-└───README.md
+└── README.md
 
 
 
@@ -47,11 +49,41 @@ Enables bootstrap buttons to be used for testing.
 
 #### 3. Run
 
+To run the server, server-side (back-end):
+
+`node app.js`
+
+To run the client-side (front-end):
+
 `npm start`
 
 Go to your localhost
 
 `http://localhost:3000`
+
+
+
+## Screenshots
+
+[Homepage 1- desktop]
+
+[Homepage 2 - mobile]
+
+[Popular Destincation]
+
+[People and date]
+
+[Hotel Rating]
+
+[User registration]
+
+User Profile:
+
+[Trips]
+
+[Billing]
+
+[Reward]
 
 
 
@@ -67,4 +99,3 @@ Go to your localhost
 * [Riley Chetwood](https://github.com/rchetwood "Riley Chetwood Title")
 * [Charles Leon](https://github.com/Charlesleonius "Charles Leon Title")
 * [Renji Ye](https://github.com/renjieye07 "Renji Ye Title")
-
