@@ -70,7 +70,7 @@ class BookingDetailComp extends React.Component {
             <p className="mt-4 text-sm md:text-lg">
               {"Total paid: "}
               <span className="float-right">
-                {"$"+(reservation.totalCost*0.09).toFixed(2)}
+                {"$"+(reservation.totalCost*1.09).toFixed(2)}
               </span>
             </p>
             <p className="mt-4 text-sm md:text-lg">
