@@ -128,7 +128,8 @@ class Checkout extends Component {
       startDate: reservation.startDate,
       endDate: reservation.endDate,
       stripeToken,
-      rooms: reservation.rooms
+      rooms: reservation.rooms,
+      usePoints: useRewardPoints
     }
 
     fetch(api + "/reservations/", {

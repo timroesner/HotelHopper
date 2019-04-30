@@ -86,7 +86,7 @@ class CheckoutDetail extends React.Component {
             <p className="mt-4 text-sm md:text-xl">
               {"If you cancel, you’ll pay: "}
               <span className="float-right">
-                {"$93"}
+                {"$45"}
               </span>
             </p>
           </div>
