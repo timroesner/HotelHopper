@@ -200,7 +200,7 @@ class Hotel extends Component {
             </div>
             {/* ROOMS */}
             <div className ="mt-8 md:mb-8 w-full-w/o-margins max-w-xl mx-auto flex flex-col md:flex-row">
-                <div className="md:mr-8">
+                <div className="md:mr-8 md:w-3/4">
                     <p className='text-dark-blue text-xl md:text-2xl font-bold'>Availability</p>
                     {this.renderRooms()}
                 </div>
