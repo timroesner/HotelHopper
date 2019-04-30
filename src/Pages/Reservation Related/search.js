@@ -64,7 +64,7 @@ class Search extends Component {
 
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring + "&perPage=5").then(function (response) {
+    fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
@@ -303,8 +303,8 @@ class Search extends Component {
 
   render() {
     return (
-      <div class="md:flex p-4 md:p-0 scrolling-touch">
-        <div class="md:mt-8 md:ml-8 h-auto md:h-screen  md:overflow-y-auto md:scrolling-touch md:w-1/4 md:w-1/4 md:block">
+      <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
+        <div class="md:mt-8 md:ml-8 h-auto  md:w-1/4 md:w-1/4 md:block">
           <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
 
             <Geosuggest
@@ -404,8 +404,8 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow ">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch h-screen" id="scrolling" >
+        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full ">
+          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch " id="scrolling" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
               <div>
                 <InfiniteScroll
