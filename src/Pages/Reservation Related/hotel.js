@@ -89,6 +89,7 @@ class Hotel extends Component {
                 id={room.roomTypeId}
                 placeholder="0"
                 type="number"
+                pattern="\d*"
                 value={this.state.rooms[room.roomTypeId]} 
                 onChange={this.handleChange}
               />
