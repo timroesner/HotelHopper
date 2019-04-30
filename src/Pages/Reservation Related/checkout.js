@@ -14,8 +14,10 @@ class Checkout extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        cardholder: "",
       },
-      cardholder: "",
+      paymentMethods: [],
+      newCard: true,
       reservation: {
         hotel: {
           rooms: []
@@ -28,6 +30,10 @@ class Checkout extends Component {
   componentWillMount() {
     this.loadUserData()
     this.parseParams()
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   loadUserData = () => {
@@ -44,6 +50,19 @@ class Checkout extends Component {
       }).then(data => {
         this.setState({ user: data['data'] })
       })
+
+      // Saved Payment Methods
+      fetch(api + "/users/paymentMethods", {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        this.setState({ paymentMethods: data.data })
+      })  
     } else {
       this.props.history.push(`/login`);
     }
@@ -112,6 +131,36 @@ class Checkout extends Component {
   }
 
   handleSubmit = (type) => {
+    var stripeToken = ""
+    if(type !== "Rewards") {
+      stripeToken = type
+    }
+
+    const token = window.localStorage.getItem("token")
+    if(this.state.newCard && stripeToken !== "") {
+      fetch(api + "/users/paymentMethods", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': "Bearer "+token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"token": stripeToken})
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        if (data["error"]) {
+          alert(data["message"])
+        } else {
+          this.postReservation(data.data.sourceId)
+        }
+      })
+    } else {
+      this.postReservation(type)
+    }
+  }
+
+  postReservation = (type) => {
     let reservation = this.state.reservation
     
     var stripeToken = ""
@@ -129,7 +178,8 @@ class Checkout extends Component {
       startDate: reservation.startDate,
       endDate: reservation.endDate,
       stripeToken,
-      rooms: reservation.rooms
+      rooms: reservation.rooms,
+      usePoints: useRewardPoints
     }
 
     fetch(api + "/reservations/", {
@@ -143,7 +193,6 @@ class Checkout extends Component {
     }).then(results => {
       return results.json();
     }).then(data => {
-      console.log(data)
       if (data["error"]) {
         alert(data["message"])
       } else {

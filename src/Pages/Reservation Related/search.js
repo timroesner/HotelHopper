@@ -58,10 +58,6 @@ class Search extends Component {
     this.performSearch();
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
-
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
     fetch(api + "/hotels" + querystring + "&perPage=5").then(function (response) {
@@ -278,10 +274,12 @@ class Search extends Component {
   showMap() {
     this.props.history.push({
       pathname: '/map',
+      search: `?startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`,
       state: { 
         hotels: this.state.hotels,
         lat: this.state.latitude,
-        long: this.state.longitude
+        long: this.state.longitude,
+        location: this.state.locationPlaceholder
       }
     })
   }

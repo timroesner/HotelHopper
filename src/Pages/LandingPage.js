@@ -21,7 +21,6 @@ class LandingPage extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.popularDestinations();
-    console.log(window.localStorage.getItem("token"));
   }
 
   popularDestinations = () => {
@@ -50,7 +49,7 @@ class LandingPage extends Component {
 
   renderPopularDestinations = () => {
     let destinations = [];
-    this.state.popularDestinations.map(city => {
+    this.state.popularDestinations.forEach(city => {
       destinations.push(
       <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>
@@ -118,7 +117,7 @@ class LandingPage extends Component {
             </p>
             <div className="flex flex-wrap -m-2">
               <Geosuggest
-                className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl"
+                className="w-full md:w-1/4 mb-2 md:mr-4 md:text-xl border border-soft-blue rounded"
                 placeholder="Where are you going"
                 inputClassName="appearance-none bg-white font-bold rounded w-full h-10 md:h-16 py-2 px-3 text-grey-darker"
                 suggestsClassName="absolute z-10 text-grey-darker md:text-xl bg-white list-reset min-w-full md:min-w-1/4 mt-px rounded"

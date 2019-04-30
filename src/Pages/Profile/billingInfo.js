@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideMenu from '../../components/sidemenu';
 import CreditCardInput from 'react-credit-card-input';
+import api from '../../helper/endpoints';
 class BillingInfo extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +28,28 @@ class BillingInfo extends Component {
     this.handleCardExpiryChange = this.handleCardExpiryChange.bind(this);
     this.handleCardNumberChange = this.handleCardNumberChange.bind(this);
   }
+  componentWillMount() {
+    this.loadUserData()
+  }
+
+  loadUserData = () => {
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      fetch(api + "/auth/userDetails", {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        this.setState({user: data['data']})
+      })
+    } else {
+      this.props.history.push(`/login`);
+    }
+  }
   handleCardNumberChange(event){
     this.setState({number: event.target.value});
   }
@@ -45,7 +68,7 @@ class BillingInfo extends Component {
   
   submitCard(event){
     event.preventDefault();
-    if(this.state.firstname != '' && this.state.lastname != '' && this.state.number != '' && this.state.cvc != '' && this.state.date != ''){
+    if(this.state.firstname !== '' && this.state.lastname !== '' && this.state.number !== '' && this.state.cvc !== '' && this.state.date !== ''){
       alert("First: " + this.state.firstname + " Last: "+this.state.lastname+ " Card Number:"+ this.state.number + " Date: "+ this.state.cvc + " Date: "+ this.state.date);
     }
     else{
@@ -54,8 +77,8 @@ class BillingInfo extends Component {
   }
   submitAddress(event){
     event.preventDefault();
-    if(this.state.address1 != '' && this.state.city != '' && this.state.state != '' && this.state.zip != ''){
-      if(this.state.address2 != ''){
+    if(this.state.address1 !== '' && this.state.city !== '' && this.state.state !== '' && this.state.zip !== ''){
+      if(this.state.address2 !== ''){
         alert("All fields are filled out");
       }
       else{      
@@ -73,19 +96,19 @@ class BillingInfo extends Component {
           window.innerWidth > 415 &&
           <SideMenu selected="Billing Info" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
         }
-        <div className="ml-8 md:ml-24 md:mr-0 mr-8 ">
-        <div class="w-full h-auto border-b pb-8">
+        <div className="ml-8 md:w-1/2 w-full md:ml-24 md:mr-0 mr-8 ">
+        <div class="pb-8 ">
         <form onSubmit={this.submitCard}>
         <label class="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
           Debit/Credit Card
         </label>
-        <div class="-mx-3 md:flex mb-2">
-          <div class="md:w-2/5 px-3 mb-3 md:mb-2 ">
-            <input class="appearance-none text-sm h-10 md:h-14 block w-full bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8" id="firstname" onChange={this.handleChange} type="text" placeholder="First Name"/>
+        <div class="-mx-3 md:flex mb-2 flex items-flex">
+          <div class="md:w-full px-3 mb-3 md:mb-2 ">
+            <input class="appearance-none h-10 md:h-14 block w-full bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3" id="firstname" onChange={this.handleChange} type="text" placeholder="First Name"/>
           </div>
-          <div class="md:w-2/5 px-3 mb-3 md:mb-2">
+          <div class="md:w-full px-3 mb-3 md:mb-2">
 
-            <input class="appearance-none block h-10 text-sm  md:h-14 w-full font-bold font-sans md:text-xl bg-white text-grey-darkest border border-soft-blue rounded pl-8 py-3 px-4" id="lastname" onChange={this.handleChange} type="text" placeholder="Last Name"/>
+            <input class="appearance-none block h-10  md:h-14 w-full font-bold font-sans bg-white text-grey-darkest border border-soft-blue rounded py-2 px-3" id="lastname" onChange={this.handleChange} type="text" placeholder="Last Name"/>
           </div>
         </div>
         {/* <div class="w-1/2">
@@ -98,40 +121,40 @@ class BillingInfo extends Component {
             <div class="text-grey-dark -mt-1 font-sans font-bold  ml-3 text-5xl"> / </div>
             <input type="text" id="payment" class="w-1/6 ml-4 font-sans font-bold h-14 inline-block bg-white text-grey-darkest border border-soft-blue rounded text-center text-grey-darkest p-3 focus:outline-none" placeholder="YYYY"/>
         </div> */}
-        <div class="w-full md:w-3/5 mb-3 md:mb-4">
+        <div class="w-full">
         <CreditCardInput
             cardNumberInputProps={{ value: this.state.number, onChange: this.handleCardNumberChange }}
             cardExpiryInputProps={{ value: this.state.date, onChange: this.handleCardExpiryChange }}
             cardCVCInputProps={{ value: this.state.cvc, onChange: this.handleCardCVCChange }}
             fieldClassName="input w-full h-10 md:h-14 border border-soft-blue "
-            inputClassName="font-bold text-xs md:text-xl font-sans text-grey-darkest"
-            containerClassName="font-bold text-xs md:text-xl font-sans text-grey-darkest"
+            inputClassName="font-bold font-sans text-grey-darkest"
+            containerClassName="font-bold font-sans text-grey-darkest"
           />
           </div>
-    <div className="w-full">
-      <input className="bg-soft-blue h-10 md:h-14 md:text-lg md:w-1/4 hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Save Changes" />
+    <div className="w-full flex items-flex">
+      <input className="mt-4 bg-soft-blue cursor-pointer rounded text-white py-3 px-4 font-sans text-xl font-bold" type="submit" value="Save changes" />
+    </div>
+    <div className="w-full border-b mt-8">
     </div>
     </form>
         </div>
-        <div class="w-full h-auto mb-12 md:mb-0 mt-8 pb-8">
+        <div class="mb-12 md:mb-0 pb-8">
         <form onSubmit={this.submitAddress}>
         <label class="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
           Billing Address
         </label>
-            <input class="appearance-none md:w-4/5 w-full text-sm h-10 md:h-14 block bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8 mb-3" id="address1" onChange={this.handleChange} type="text" placeholder="Address Line 1"/>
+            <input class="appearance-none  w-full h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address1" onChange={this.handleChange} type="text" placeholder="Address Line 1"/>
 
-            <input class="appearance-none md:w-4/5 w-full text-sm h-10 md:h-14 block bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8 mb-3" id="address2" onChange={this.handleChange} type="text" placeholder="Address Line 2"/>
-            <div class="md:flex mb-2">
-            <input class="appearance-none  mb-3 md:w-1/4 w-full text-sm h-10 md:h-14 md:mr-3 block bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8 md:mb-2" id="city" onChange={this.handleChange} type="text" placeholder="City"/>
-            <input class="appearance-none  mb-3 md:w-1/4 w-full text-sm h-10 md:h-14 md:ml-2 md:mr-3 block bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8 md:mb-2" id="state" onChange={this.handleChange} type="text" placeholder="State"/>
-            <input class="appearance-none  mb-3 md:w-1/4 w-full text-sm h-10 md:h-14 md:ml-3 block bg-white font-bold font-sans md:text-xl text-grey-darkest border border-soft-blue rounded py-3 px-4 pl-8 md:mb-2" id="zip" onChange={this.handleChange} type="text" placeholder="Zipcode"/>
-
-
+            <input class="appearance-none w-full  h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address2" onChange={this.handleChange} type="text" placeholder="Address Line 2"/>
+            <div class="md:flex md:items-flex mb-2">
+            <input class="appearance-none  mb-3 w-full  h-10 md:h-14 md:mr-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="city" onChange={this.handleChange} type="text" placeholder="City"/>
+            <input class="appearance-none  mb-3  w-full  h-10 md:h-14 md:ml-2 md:mr-3 block bg-white font-bold font-sans text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="state" onChange={this.handleChange} type="text" placeholder="State"/>
+            <input class="appearance-none  mb-3 w-full h-10 md:h-14 md:ml-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="zip" onChange={this.handleChange} type="text" placeholder="Zipcode"/>
             </div>
           
   
     <div className="w-full ">
-      <input className="bg-soft-blue h-10 md:h-14 md:text-lg md:w-1/4 hover:bg-blue text-white font-bold py-2 px-4 rounded cursor-pointer" type="submit" value="Save Changes" />
+      <input className="bg-soft-blue cursor-pointer rounded text-white py-3 px-4 font-sans text-xl font-bold" type="submit" value="Save changes" />
     </div>
     </form>
         </div>
@@ -143,3 +166,5 @@ class BillingInfo extends Component {
 }
 
 export default BillingInfo;
+
+
