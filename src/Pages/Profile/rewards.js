@@ -41,7 +41,7 @@ class Rewards extends Component {
           window.innerWidth > 415 &&
           <SideMenu selected="Rewards" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
         }
-        <div className="mx-auto md:px-24">
+        <div className="w-full-w/o-margins md:w-4/5 mx-auto md:px-24">
           <RewardsCard points={this.state.user.rewardPoints}/>
           <div className="md:max-w-xl mx-auto">
             <hr className="mt-4 border-b"/>
@@ -64,3 +64,5 @@ class Rewards extends Component {
 }
 
 export default Rewards;
+
+
