@@ -43,6 +43,20 @@ class Checkout extends Component {
         data["data"]["cardholder"] = data['data'].firstName+" "+data['data'].lastName
         this.setState({ user: data['data'] })
       })
+
+      // Saved Payment Methods
+      fetch(api + "/users/paymentMethods", {
+        method: "GET",
+        headers: {
+          'accept': 'application/json',
+          'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+        console.log(data)
+        this.setState({ paymentMethods: data.data })
+      })  
     } else {
       this.props.history.push(`/login`);
     }
