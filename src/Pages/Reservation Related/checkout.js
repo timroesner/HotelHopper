@@ -14,8 +14,10 @@ class Checkout extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        cardholder: "",
       },
-      cardholder: "",
+      paymentMethods: [],
+      newCard: true,
       reservation: {
         hotel: {}
       },
@@ -125,6 +127,37 @@ class Checkout extends Component {
   }
 
   handleSubmit = (type) => {
+    var stripeToken = ""
+    if(type !== "Rewards") {
+      stripeToken = type
+    }
+
+    const token = window.localStorage.getItem("token")
+    if(this.state.newCard && stripeToken !== "") {
+      fetch(api + "/users/paymentMethods", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': "Bearer "+token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"token": stripeToken})
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        if (data["error"]) {
+          alert(data["message"])
+        } else {
+          this.postReservation(type)
+          console.log(data)
+        }
+      })
+    } else {
+      this.postReservation(type)
+    }
+  }
+
+  postReservation = (type) => {
     let reservation = this.state.reservation
     
     var stripeToken = ""
@@ -157,7 +190,6 @@ class Checkout extends Component {
     }).then(results => {
       return results.json();
     }).then(data => {
-      console.log(data)
       if (data["error"]) {
         alert(data["message"])
       } else {
