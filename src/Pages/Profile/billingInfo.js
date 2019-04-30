@@ -68,7 +68,7 @@ class BillingInfo extends Component {
   
   submitCard(event){
     event.preventDefault();
-    if(this.state.firstname != '' && this.state.lastname != '' && this.state.number != '' && this.state.cvc != '' && this.state.date != ''){
+    if(this.state.firstname !== '' && this.state.lastname !== '' && this.state.number !== '' && this.state.cvc !== '' && this.state.date !== ''){
       alert("First: " + this.state.firstname + " Last: "+this.state.lastname+ " Card Number:"+ this.state.number + " Date: "+ this.state.cvc + " Date: "+ this.state.date);
     }
     else{
@@ -77,8 +77,8 @@ class BillingInfo extends Component {
   }
   submitAddress(event){
     event.preventDefault();
-    if(this.state.address1 != '' && this.state.city != '' && this.state.state != '' && this.state.zip != ''){
-      if(this.state.address2 != ''){
+    if(this.state.address1 !== '' && this.state.city !== '' && this.state.state !== '' && this.state.zip !== ''){
+      if(this.state.address2 !== ''){
         alert("All fields are filled out");
       }
       else{      
