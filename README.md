@@ -87,50 +87,39 @@ Go to your localhost
 
 Homepage
 
-![homepage](/Users/BruceLin/Desktop/homepage.png)
-
+<img width="1670" alt="homepage" src="https://user-images.githubusercontent.com/3439103/56998386-efc15200-6b5f-11e9-8152-f601df6bbeaf.png">
 
 
 Hotel Search
 
-![Search](/Users/BruceLin/Desktop/Search.png)
-
+<img width="1670" alt="Search" src="https://user-images.githubusercontent.com/3439103/56998450-31ea9380-6b60-11e9-92f5-6b06c8099fed.png">
 
 
 View the hotels on Map
 
-![view on map](/Users/BruceLin/Desktop/view on map.png)
-
+<img width="1666" alt="view on map" src="https://user-images.githubusercontent.com/3439103/56998487-534b7f80-6b60-11e9-9c5b-6096073718af.png">
 
 
 Search Filter
 
-![search filter](/Users/BruceLin/Desktop/search filter.png)
-
-
-
-User Signup![signup](/Users/BruceLin/Desktop/signup.png)
-
+<img width="1184" alt="search filter" src="https://user-images.githubusercontent.com/3439103/56998542-770ec580-6b60-11e9-869e-b426b3c14192.png">
 
 
 User Profile
 
-![profile](/Users/BruceLin/Desktop/profile.png)
-
+<img width="1668" alt="profile" src="https://user-images.githubusercontent.com/3439103/56998582-99a0de80-6b60-11e9-9324-58d0a916e0c4.png">
 
 
 User Billing
 
-![billing](/Users/BruceLin/Desktop/billing.png)
-
+<img width="1669" alt="billing" src="https://user-images.githubusercontent.com/3439103/56998601-ade4db80-6b60-11e9-830b-1722a43d9b90.png">
 
 
 User Imcoming Trips
 
-![incoming trips](/Users/BruceLin/Desktop/incoming trips.png)
-
+<img width="1667" alt="incoming trips" src="https://user-images.githubusercontent.com/3439103/56998627-c81eb980-6b60-11e9-8885-03b9242fb605.png">
 
 
 User Rewards
 
-![User rewards](/Users/BruceLin/Desktop/User rewards.png)
+<img width="1440" alt="User rewards" src="https://user-images.githubusercontent.com/3439103/56998654-e71d4b80-6b60-11e9-8b89-d720fd5c06f0.png">
