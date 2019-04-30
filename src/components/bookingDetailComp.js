@@ -74,7 +74,7 @@ class BookingDetailComp extends React.Component {
             </p>
             <p className="mt-4 text-sm md:text-lg">
               {"Cancellation fee: "}
-              <span className="float-right">{"$93"}</span>
+              <span className="float-right">{"$45"}</span>
             </p>
           </div>
         </div>
