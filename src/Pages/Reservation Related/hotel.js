@@ -22,7 +22,7 @@ class Hotel extends Component {
         focusedDatePicker: null,
         startDate: null,
         endDate: null,
-        rooms: []
+        rooms: {}
     }
   }
 
@@ -55,10 +55,13 @@ class Hotel extends Component {
   };
 
   handleChange = (event) => {
+    let roomArray = this.state.rooms;
+    roomArray[event.target.id] = event.target.value;
     this.setState({
-      rooms: {[event.target.id]: event.target.value}
+      rooms: roomArray
     });
   }
+  
 
   getTotalPrice = () => {
     const nights = moment(this.state.endDate).diff(this.state.startDate, 'days')
