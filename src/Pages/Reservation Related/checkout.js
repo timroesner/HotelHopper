@@ -17,7 +17,9 @@ class Checkout extends Component {
       },
       cardholder: "",
       reservation: {
-        hotel: {}
+        hotel: {
+          rooms: []
+        }
       },
       error: '',
     };
@@ -26,6 +28,10 @@ class Checkout extends Component {
   componentWillMount() {
     this.loadUserData()
     this.parseParams()
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   loadUserData = () => {
