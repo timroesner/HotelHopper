@@ -70,9 +70,8 @@ class StripeForm extends React.Component {
 	 renderExistingCards = () => {
 		let cardsList = [];
 		 this.state.paymentMethods.forEach(card => {
-			 console.log(card)
 			 cardsList.push(
-				 <div className="md:w-3/5 mb-4 font-semibold text-lg flex items-center border-b pb-4" key={card.fingerprint}>
+				 <div className="md:w-3/5 mb-4 font-semibold text-lg flex items-center border-b pb-4" key={card.id}>
 				 	<input
 						type="radio"
 						id="cardId"
