@@ -55,7 +55,7 @@ class Profile extends Component {
           window.innerWidth > 415 &&
           <SideMenu selected="Profile" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
         }
-        <div className="mx-4 md:ml-24 ">
+        <div className="mx-4 md:w-1/2 md:ml-24 ">
           <p className="text-sans font-bold text-2xl">Basic Information</p>
           <div className="mt-4 flex items-flex">
             <input className="shadow appearance-none bg-white font-bold mr-4 border border-soft-blue w-full rounded h-14  py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
@@ -89,3 +89,5 @@ class Profile extends Component {
 }
 
 export default Profile;
+
+
