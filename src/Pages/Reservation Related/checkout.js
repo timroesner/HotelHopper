@@ -17,7 +17,6 @@ class Checkout extends Component {
         cardholder: "",
       },
       paymentMethods: [],
-      newCard: true,
       reservation: {
         hotel: {
           rooms: []
@@ -50,19 +49,6 @@ class Checkout extends Component {
       }).then(data => {
         this.setState({ user: data['data'] })
       })
-
-      // Saved Payment Methods
-      fetch(api + "/users/paymentMethods", {
-        method: "GET",
-        headers: {
-          'accept': 'application/json',
-          'Authorization': "Bearer "+token
-        }
-      }).then(results => {
-          return results.json();
-      }).then(data => {
-        this.setState({ paymentMethods: data.data })
-      })  
     } else {
       this.props.history.push(`/login`);
     }
@@ -137,7 +123,7 @@ class Checkout extends Component {
     }
 
     const token = window.localStorage.getItem("token")
-    if(this.state.newCard && stripeToken !== "") {
+    if(stripeToken.includes("tok")) {
       fetch(api + "/users/paymentMethods", {
         method: "POST",
         headers: {
@@ -204,7 +190,7 @@ class Checkout extends Component {
   rewardsDiv = () => {
     if(this.state.reservation.total*2 <= this.state.user.rewardPoints) {
       return [
-        <div className="mt-8 pb-8 border-b">
+        <div className="mt-8 pb-8 border-b" key="rewards">
            <p className="text-dark-blue text-sans font-bold text-2xl">You are eligible for a free stay</p>
            <div className="mt-8 flex items-flex">
             <p className="w-full text-sans font-bold text-xl">Your Balance:</p>
