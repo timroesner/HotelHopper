@@ -199,12 +199,12 @@ class Hotel extends Component {
               </button>
             </div>
             {/* ROOMS */}
-            <div className ="mt-8 md:mb-8 w-full-w/o-margins max-w-xl mx-auto flex flex-col md:flex-row">
+            <div className ="mt-8 md:mb-8 w-full-w/o-margins max-w-xl mx-auto flex items-start flex-col md:flex-row">
                 <div className="md:mr-8 md:w-3/4">
                     <p className='text-dark-blue text-xl md:text-2xl font-bold'>Availability</p>
                     {this.renderRooms()}
                 </div>
-                <div className="w-full md:w-1/4">
+                <div className="w-full md:w-1/4 h-auto md:sticky" style={{top: "4rem"}}>
                   <p className="my-4 text-xl font-semibold">
                     {"Subtotal: "}
                     <span className="float-right">
