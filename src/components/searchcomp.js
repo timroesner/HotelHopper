@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../index.css';
 import { withRouter } from 'react-router-dom';
-import api from '../helper/endpoints';
-import { DateRangePicker,SingleDatePicker } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import Geosuggest from 'react-geosuggest';
 //import Geosuggest from 'react-geosuggest';
 
