@@ -59,7 +59,7 @@ class Login extends React.Component {
         window.localStorage.setItem(userKey, userValue)
       }
       if (success) {
-        this.props.history.push('/');
+        this.props.history.goBack();
       }
     }.bind(this));
   }
