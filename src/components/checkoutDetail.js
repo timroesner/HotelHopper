@@ -46,13 +46,13 @@ class CheckoutDetail extends React.Component {
             <p className="mt-4 text-sm md:text-xl">
               {"Check-in: "}
               <span className="float-right">
-                {moment(reservation.startDate).format("MMM D, YYYY")}
+                {moment.utc(reservation.startDate).format("MMM D, YYYY")}
               </span>
             </p>
             <p className="mt-4 text-sm md:text-xl">
               {"Check-out: "}
               <span className="float-right">
-                {moment(reservation.endDate).format("MMM D, YYYY")}
+                {moment.utc(reservation.endDate).format("MMM D, YYYY")}
               </span>
             </p>
 
