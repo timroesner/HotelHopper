@@ -1,7 +1,6 @@
 
-  import React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as moment from 'moment';
 import StarRatings from 'react-star-ratings';
 import queryString from 'query-string';
 

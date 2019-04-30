@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import room404 from '../../assets/404.jpg';
 
-class Error extends React.Component {
-	constructor(props){
-  		super(props);
-  		
- }
-		
+class Error extends React.Component {	
 	render() {
     	return (
         <div className="w-full">

@@ -49,7 +49,7 @@ class LandingPage extends Component {
 
   renderPopularDestinations = () => {
     let destinations = [];
-    this.state.popularDestinations.map(city => {
+    this.state.popularDestinations.forEach(city => {
       destinations.push(
       <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>

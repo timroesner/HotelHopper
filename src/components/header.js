@@ -50,6 +50,7 @@ class Header extends React.Component {
     if (page === "signout") {
       this.setState({ token: undefined });
       window.localStorage.removeItem("token");
+      window.location.reload();
     } else {
       this.props.history.push(`/${page}`);
     }
