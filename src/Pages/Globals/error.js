@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import room404 from '../../assets/404.jpg';
 
 class Error extends React.Component {	
