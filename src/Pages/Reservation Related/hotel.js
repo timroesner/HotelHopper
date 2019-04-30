@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import { withRouter } from 'react-router-dom';
-import mgm from '../../assets/mgmsm.jpg';
-import wifiicon from '../../assets/wifi-icon.png';
+import mgm from '../../assets/MGM.jpg';
+import wifiicon from '../../assets/wifi-icon@2x.png';
 import queryString from 'query-string';
 import StarRating from 'react-star-ratings';
 import api from '../../helper/endpoints';
