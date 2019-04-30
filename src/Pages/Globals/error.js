@@ -1,12 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from '../../assets/logo.svg';
 
-class Error extends React.Component {
-	constructor(props){
-  		super(props);
-  		
- }
-		
+class Error extends React.Component {	
 	render() {
     	return (
         <div>
