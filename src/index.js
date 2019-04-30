@@ -44,11 +44,9 @@ ReactDOM.render(
             <Route exact path='/search' component={Search}/>
             <Route exact path='/search/:params' component={Search}/>
             <Route exact path='/checkout' component={Checkout} />	
-            <Route exact path='/confirmation' component={Confirmation} />
             <Route exact path='/confirmation/:params' component={Confirmation} />
             <Route exact path='/forgot' component={Forgot} />
             <Route exact path='/map' component={MapPage} />
-            <Route exact path='/hotel' component={Hotel} />
             <Route exact path='/hotel/:id' component={Hotel} />
             <Route exact path='/reset/:token' component={Reset} />
             <Route component={Error}/>
