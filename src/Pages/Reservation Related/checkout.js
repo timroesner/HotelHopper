@@ -28,6 +28,10 @@ class Checkout extends Component {
     this.parseParams()
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   loadUserData = () => {
     const token = window.localStorage.getItem("token")
     if(token !== null) {
