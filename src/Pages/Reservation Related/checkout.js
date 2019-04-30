@@ -56,7 +56,6 @@ class Checkout extends Component {
       }).then(results => {
           return results.json();
       }).then(data => {
-        console.log(data)
         this.setState({ paymentMethods: data.data })
       })  
     } else {
@@ -148,8 +147,7 @@ class Checkout extends Component {
         if (data["error"]) {
           alert(data["message"])
         } else {
-          this.postReservation(type)
-          console.log(data)
+          this.postReservation(data.data.sourceId)
         }
       })
     } else {
