@@ -14,10 +14,13 @@ class Checkout extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        cardholder: "",
       },
-      cardholder: "",
+      paymentMethods: [],
       reservation: {
-        hotel: {}
+        hotel: {
+          rooms: []
+        }
       },
       error: '',
     };
@@ -26,6 +29,10 @@ class Checkout extends Component {
   componentWillMount() {
     this.loadUserData()
     this.parseParams()
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   loadUserData = () => {
@@ -40,7 +47,6 @@ class Checkout extends Component {
       }).then(results => {
           return results.json();
       }).then(data => {
-        data["data"]["cardholder"] = data['data'].firstName+" "+data['data'].lastName
         this.setState({ user: data['data'] })
       })
     } else {
@@ -111,6 +117,36 @@ class Checkout extends Component {
   }
 
   handleSubmit = (type) => {
+    var stripeToken = ""
+    if(type !== "Rewards") {
+      stripeToken = type
+    }
+
+    const token = window.localStorage.getItem("token")
+    if(stripeToken.includes("tok")) {
+      fetch(api + "/users/paymentMethods", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': "Bearer "+token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"token": stripeToken})
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        if (data["error"]) {
+          alert(data["message"])
+        } else {
+          this.postReservation(data.data.sourceId)
+        }
+      })
+    } else {
+      this.postReservation(type)
+    }
+  }
+
+  postReservation = (type) => {
     let reservation = this.state.reservation
     
     var stripeToken = ""
@@ -128,7 +164,8 @@ class Checkout extends Component {
       startDate: reservation.startDate,
       endDate: reservation.endDate,
       stripeToken,
-      rooms: reservation.rooms
+      rooms: reservation.rooms,
+      usePoints: useRewardPoints
     }
 
     fetch(api + "/reservations/", {
@@ -142,7 +179,6 @@ class Checkout extends Component {
     }).then(results => {
       return results.json();
     }).then(data => {
-      console.log(data)
       if (data["error"]) {
         alert(data["message"])
       } else {
@@ -154,7 +190,7 @@ class Checkout extends Component {
   rewardsDiv = () => {
     if(this.state.reservation.total*2 <= this.state.user.rewardPoints) {
       return [
-        <div className="mt-8 pb-8 border-b">
+        <div className="mt-8 pb-8 border-b" key="rewards">
            <p className="text-dark-blue text-sans font-bold text-2xl">You are eligible for a free stay</p>
            <div className="mt-8 flex items-flex">
             <p className="w-full text-sans font-bold text-xl">Your Balance:</p>
@@ -190,8 +226,6 @@ class Checkout extends Component {
             {this.rewardsDiv()}
             <div className="mt-8 pb-8 border-b">
               <p className="text-sans font-bold text-2xl mb-4">Payment Information</p>
-              <input className="shadow appearance-none bg-white font-bold border border-soft-blue w-full md:w-3/5 rounded h-14 mb-4 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-                id="cardholder" value={this.state.user.cardholder} onChange={this.handleChange} type="text" placeholder="Cardholder name" />
               <Elements>
                 <StripeForm sendToken={this.handleSubmit} name={this.state.user.firstName+" "+this.state.user.lastName}/>
               </Elements>

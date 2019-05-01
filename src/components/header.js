@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
@@ -102,18 +101,18 @@ class Header extends React.Component {
           </div>
         ) : (
           <div className="mr-8 ml-auto">
-            <Button
+            <button
               className="mr-4 bg-soft-blue rounded text-white p-2 font-sans text-xl font-bold"
               onClick={() => this.navigateTo("signup")}
             >
               Sign up
-            </Button>
-            <Button
+            </button>
+            <button
               className="font-sans text-xl font-bold"
               onClick={() => this.navigateTo("login")}
             >
               Log in
-            </Button>
+            </button>
           </div>
         )}
       </div>

@@ -3418,6 +3418,10 @@ table {
   margin: 10%;
 }
 
+.m-7\/20 {
+  margin: 35%;
+}
+
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
@@ -3596,6 +3600,16 @@ table {
 .mx-1\/10 {
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.my-7\/20 {
+  margin-top: 35%;
+  margin-bottom: 35%;
+}
+
+.mx-7\/20 {
+  margin-left: 35%;
+  margin-right: 35%;
 }
 
 .mt-0 {
@@ -3884,6 +3898,22 @@ table {
 
 .ml-1\/10 {
   margin-left: 10%;
+}
+
+.mt-7\/20 {
+  margin-top: 35%;
+}
+
+.mr-7\/20 {
+  margin-right: 35%;
+}
+
+.mb-7\/20 {
+  margin-bottom: 35%;
+}
+
+.ml-7\/20 {
+  margin-left: 35%;
 }
 
 .max-h-full {
@@ -6589,6 +6619,10 @@ table {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .w-32 {
@@ -9612,6 +9646,10 @@ code {
     margin: 10%;
   }
 
+  .sm\:m-7\/20 {
+    margin: 35%;
+  }
+
   .sm\:my-0 {
     margin-top: 0;
     margin-bottom: 0;
@@ -9790,6 +9828,16 @@ code {
   .sm\:mx-1\/10 {
     margin-left: 10%;
     margin-right: 10%;
+  }
+
+  .sm\:my-7\/20 {
+    margin-top: 35%;
+    margin-bottom: 35%;
+  }
+
+  .sm\:mx-7\/20 {
+    margin-left: 35%;
+    margin-right: 35%;
   }
 
   .sm\:mt-0 {
@@ -10078,6 +10126,22 @@ code {
 
   .sm\:ml-1\/10 {
     margin-left: 10%;
+  }
+
+  .sm\:mt-7\/20 {
+    margin-top: 35%;
+  }
+
+  .sm\:mr-7\/20 {
+    margin-right: 35%;
+  }
+
+  .sm\:mb-7\/20 {
+    margin-bottom: 35%;
+  }
+
+  .sm\:ml-7\/20 {
+    margin-left: 35%;
   }
 
   .sm\:max-h-full {
@@ -12767,6 +12831,10 @@ code {
 
   .sm\:w-24 {
     width: 6rem;
+  }
+
+  .sm\:w-28 {
+    width: 7rem;
   }
 
   .sm\:w-32 {
@@ -15769,6 +15837,10 @@ code {
     margin: 10%;
   }
 
+  .md\:m-7\/20 {
+    margin: 35%;
+  }
+
   .md\:my-0 {
     margin-top: 0;
     margin-bottom: 0;
@@ -15947,6 +16019,16 @@ code {
   .md\:mx-1\/10 {
     margin-left: 10%;
     margin-right: 10%;
+  }
+
+  .md\:my-7\/20 {
+    margin-top: 35%;
+    margin-bottom: 35%;
+  }
+
+  .md\:mx-7\/20 {
+    margin-left: 35%;
+    margin-right: 35%;
   }
 
   .md\:mt-0 {
@@ -16235,6 +16317,22 @@ code {
 
   .md\:ml-1\/10 {
     margin-left: 10%;
+  }
+
+  .md\:mt-7\/20 {
+    margin-top: 35%;
+  }
+
+  .md\:mr-7\/20 {
+    margin-right: 35%;
+  }
+
+  .md\:mb-7\/20 {
+    margin-bottom: 35%;
+  }
+
+  .md\:ml-7\/20 {
+    margin-left: 35%;
   }
 
   .md\:max-h-full {
@@ -18924,6 +19022,10 @@ code {
 
   .md\:w-24 {
     width: 6rem;
+  }
+
+  .md\:w-28 {
+    width: 7rem;
   }
 
   .md\:w-32 {
@@ -21926,6 +22028,10 @@ code {
     margin: 10%;
   }
 
+  .lg\:m-7\/20 {
+    margin: 35%;
+  }
+
   .lg\:my-0 {
     margin-top: 0;
     margin-bottom: 0;
@@ -22104,6 +22210,16 @@ code {
   .lg\:mx-1\/10 {
     margin-left: 10%;
     margin-right: 10%;
+  }
+
+  .lg\:my-7\/20 {
+    margin-top: 35%;
+    margin-bottom: 35%;
+  }
+
+  .lg\:mx-7\/20 {
+    margin-left: 35%;
+    margin-right: 35%;
   }
 
   .lg\:mt-0 {
@@ -22392,6 +22508,22 @@ code {
 
   .lg\:ml-1\/10 {
     margin-left: 10%;
+  }
+
+  .lg\:mt-7\/20 {
+    margin-top: 35%;
+  }
+
+  .lg\:mr-7\/20 {
+    margin-right: 35%;
+  }
+
+  .lg\:mb-7\/20 {
+    margin-bottom: 35%;
+  }
+
+  .lg\:ml-7\/20 {
+    margin-left: 35%;
   }
 
   .lg\:max-h-full {
@@ -25081,6 +25213,10 @@ code {
 
   .lg\:w-24 {
     width: 6rem;
+  }
+
+  .lg\:w-28 {
+    width: 7rem;
   }
 
   .lg\:w-32 {
@@ -28083,6 +28219,10 @@ code {
     margin: 10%;
   }
 
+  .xl\:m-7\/20 {
+    margin: 35%;
+  }
+
   .xl\:my-0 {
     margin-top: 0;
     margin-bottom: 0;
@@ -28261,6 +28401,16 @@ code {
   .xl\:mx-1\/10 {
     margin-left: 10%;
     margin-right: 10%;
+  }
+
+  .xl\:my-7\/20 {
+    margin-top: 35%;
+    margin-bottom: 35%;
+  }
+
+  .xl\:mx-7\/20 {
+    margin-left: 35%;
+    margin-right: 35%;
   }
 
   .xl\:mt-0 {
@@ -28549,6 +28699,22 @@ code {
 
   .xl\:ml-1\/10 {
     margin-left: 10%;
+  }
+
+  .xl\:mt-7\/20 {
+    margin-top: 35%;
+  }
+
+  .xl\:mr-7\/20 {
+    margin-right: 35%;
+  }
+
+  .xl\:mb-7\/20 {
+    margin-bottom: 35%;
+  }
+
+  .xl\:ml-7\/20 {
+    margin-left: 35%;
   }
 
   .xl\:max-h-full {
@@ -31238,6 +31404,10 @@ code {
 
   .xl\:w-24 {
     width: 6rem;
+  }
+
+  .xl\:w-28 {
+    width: 7rem;
   }
 
   .xl\:w-32 {
