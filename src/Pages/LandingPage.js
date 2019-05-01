@@ -149,7 +149,7 @@ class LandingPage extends Component {
                 />
               </div>
               <div ref="peopleDropdown" className="w-full md:w-1/5 mb-2 md:mr-4">
-              <input className="appearance-none md:hidden bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
+              <input className="appearance-none bg-white font-bold w-full border border-soft-blue rounded h-10 md:h-16 py-2 px-3 text-grey-darker md:text-xl" 
              id="location" readOnly={true} onClick={() => this.setState({showPeople: true})} type="text" value={`${this.state.people} ${this.state.people > 1 ? "people" : "person"} - ${this.state.rooms} ${this.state.rooms > 1 ? "rooms" : "room"}`} placeholder="2 people - 1 room" />
               {this.state.showPeople &&
                 <div className="absolute rounded w-full md:w-1/5 bg-white mt-px">
