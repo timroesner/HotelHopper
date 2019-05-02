@@ -21,6 +21,10 @@ class Confirmation extends Component {
     this.fetchPoints()
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   fetchReservation() {
     const id = this.props.match.params.params
     const token = window.localStorage.getItem("token")
