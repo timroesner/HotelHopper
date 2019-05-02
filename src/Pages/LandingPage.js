@@ -39,6 +39,7 @@ class LandingPage extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClick, false);
+    window.scrollTo(0, 0)
   }
 
   handleClick = e => {
