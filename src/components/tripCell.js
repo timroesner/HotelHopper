@@ -23,8 +23,8 @@ class TripCell extends React.Component {
                 <div key={reservation.reservationId} 
                 className="w-full h-20 md:h-48 flex items-flex mt-4 md:mt-8 cursor-pointer"
                 onClick={() => {
-                    reservation.status === 'canceled' ?
-                    alert("This reservation has been canceled") :
+                    reservation.status === 'cancelled' ?
+                    alert("This reservation has been cancelled") :
                     this.navigateTo(reservation.reservationId)
                 }}
                 >
@@ -33,7 +33,7 @@ class TripCell extends React.Component {
                         <p className="font-bold md:text-2xl truncate">{reservation.hotel.title}</p>
                         <p className="mt-1 md:mt-2 text-xs md:text-lg truncate">{`${reservation.hotel.street}, ${reservation.hotel.city}, ${reservation.hotel.state}`}</p>
                         {
-                            reservation.status === "canceled" &&
+                            reservation.status === "cancelled" &&
                             <p className="w-24 rounded border-2 border-red p-1 absolute md:relative text-center font-bold bg-red md:bg-white text-white md:text-red md:mt-4 -mb-12">Canceled</p>
                         }
                         <p className="mt-3 md:mt-16 text-sm md:text-xl">{this.getNumberOfRooms(reservation)}{this.getNumberOfRooms(reservation) > 1 ? " rooms" : " room"}</p>

@@ -67,7 +67,7 @@ export class MapPage extends Component {
           }}
         >
           <div className="absolute flex items-center pl-8 bg-white z-20 pin-x pin-t w-full h-8 shadow">
-            <img src={CloseIcon} className="w-4 h-4 mr-4 cursor-pointer" onClick={() => this.props.history.goBack()}/> <p className="font-sans font-semibold">{this.state.location}</p>
+            <img src={CloseIcon} alt="close" className="w-4 h-4 mr-4 cursor-pointer" onClick={() => this.props.history.goBack()}/> <p className="font-sans font-semibold">{this.state.location}</p>
           </div>
           {this.markers()}
         </Map>

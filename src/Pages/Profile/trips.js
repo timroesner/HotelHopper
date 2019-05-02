@@ -74,7 +74,7 @@ class Trips extends Component {
           window.innerWidth > 415 &&
           <SideMenu selected="Trips" items={["Profile", "Billing Info", "Trips", "Rewards"]} />
         }
-        <div className="ml-8 md:ml-24 ">
+        <div className="ml-8 md:ml-24">
         {
           this.state.upcomingTrips.length > 0 &&
           <div>
