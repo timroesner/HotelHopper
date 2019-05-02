@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 class Search extends Component {
   constructor(props) {
     super(props);
+    this.myDiv = React.createRef();
     this.state = {
       focusedDatePicker: null,
       startDate: null,
@@ -28,7 +29,7 @@ class Search extends Component {
       location: null,
       hasMore: true,
       searched: false,
-      showOptions: false,
+      showOptions: window.innerWidth > 768 ? true : false,
 
       sorts: {
         'user-rating': { 'name': 'User Rating', 'checked': false },
@@ -52,6 +53,7 @@ class Search extends Component {
         'aircon': { 'name': 'Air Conditioning', 'checked': false },
       }
     }
+    console.log(window.innerWidth);
     this.getWebsite();
     this.assertButtons();
     this.handleClick = this.handleClick.bind(this);
@@ -60,7 +62,7 @@ class Search extends Component {
 
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring + "&perPage=5").then(function (response) {
+    fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
@@ -99,7 +101,7 @@ class Search extends Component {
   }
 
   handleClick = (e) => {
-    if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target)) {
+    if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target) && window.innerWidth < 768) {
       this.setState({ showOptions: false })
     }
   }
@@ -299,8 +301,8 @@ class Search extends Component {
 
   render() {
     return (
-      <div class="md:flex p-4 md:p-0 scrolling-touch">
-        <div class="md:mt-8 md:ml-8 h-auto md:h-screen  md:overflow-y-auto md:scrolling-touch md:w-1/4 md:w-1/4 md:block">
+      <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
+        <div ref={this.myDiv} class="md:mt-8 md:ml-8 h-auto  md:w-1/4 md:w-1/4 md:block">
           <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
 
             <Geosuggest
@@ -363,8 +365,8 @@ class Search extends Component {
               View on Map
             </button>
           </div>
-          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
-            <button ref="optionsButton" className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" onClick={() => this.toggleOptions()} type="button">Options</button>
+          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 md:hidden bg-white ">
+            <button ref="optionsButton" className="Rectangle bg-white border md:hidden border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" onClick={() => this.toggleOptions()} type="button">Options</button>
           </div>
           <div ref="optionsMenu">
             {this.state.showOptions && (
@@ -400,8 +402,8 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow ">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch h-screen" id="scrolling" >
+        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full ">
+          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch " id="scrolling" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
               <div>
                 <InfiniteScroll
@@ -411,6 +413,7 @@ class Search extends Component {
                   hasMore={this.state.hasMore}
                   scrollableTarget={"scrolling"}
                   scrollThreshold={.8}
+                  height= {this.myDiv.current.offsetHeight}
                 >
                   {this.state.hotels.map(item => <SearchCell hotel={item} />)}
 
