@@ -178,7 +178,7 @@ class LandingPage extends Component {
           </div>
           <img
             src={hero}
-            className="min-h-64 min-w-160 dark-filter"
+            className="min-h-72 min-w-160 dark-filter"
             alt="hero"
           />
         </div>

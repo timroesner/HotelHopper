@@ -3940,6 +3940,10 @@ table {
   min-height: 16rem;
 }
 
+.min-h-72 {
+  min-height: 18rem;
+}
+
 .min-h-auto {
   min-height: auto;
 }
@@ -10054,6 +10058,10 @@ code {
     min-height: 16rem;
   }
 
+  .sm\:min-h-72 {
+    min-height: 18rem;
+  }
+
   .sm\:min-h-auto {
     min-height: auto;
   }
@@ -16129,6 +16137,10 @@ code {
 
   .md\:min-h-64 {
     min-height: 16rem;
+  }
+
+  .md\:min-h-72 {
+    min-height: 18rem;
   }
 
   .md\:min-h-auto {
@@ -22208,6 +22220,10 @@ code {
     min-height: 16rem;
   }
 
+  .lg\:min-h-72 {
+    min-height: 18rem;
+  }
+
   .lg\:min-h-auto {
     min-height: auto;
   }
@@ -28283,6 +28299,10 @@ code {
 
   .xl\:min-h-64 {
     min-height: 16rem;
+  }
+
+  .xl\:min-h-72 {
+    min-height: 18rem;
   }
 
   .xl\:min-h-auto {
