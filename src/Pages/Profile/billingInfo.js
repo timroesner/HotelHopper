@@ -27,25 +27,29 @@ class BillingInfo extends Component {
   }
 
   fetchPaymentMethods = () => {
-		const token = window.localStorage.getItem("token")
-		fetch(api + "/users/paymentMethods", {
-			method: "GET",
-			headers: {
-			'accept': 'application/json',
-			'Authorization': "Bearer "+token
-			}
-		}).then(results => {
-			return results.json();
-		}).then(data => {
-			var cardId = ""
-			if(data.data.length > 0) {
-				cardId = data.data[0].id
-			}
-			this.setState({ 
-				paymentMethods: data.data, 
-				cardId
-			})
-		}) 
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      fetch(api + "/users/paymentMethods", {
+        method: "GET",
+        headers: {
+        'accept': 'application/json',
+        'Authorization': "Bearer "+token
+        }
+      }).then(results => {
+        return results.json();
+      }).then(data => {
+        var cardId = ""
+        if(data.data.length > 0) {
+          cardId = data.data[0].id
+        }
+        this.setState({ 
+          paymentMethods: data.data, 
+          cardId
+        })
+      })
+    } else {
+      this.props.history.push(`/login`);
+    } 
   }
 
   delete = (cardId) => {
