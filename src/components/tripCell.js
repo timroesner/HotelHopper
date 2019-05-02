@@ -37,7 +37,7 @@ class TripCell extends React.Component {
                             <p className="w-24 rounded border-2 border-red p-1 absolute md:relative text-center font-bold bg-red md:bg-white text-white md:text-red md:mt-4 -mb-12">Canceled</p>
                         }
                         <p className="mt-3 md:mt-16 text-sm md:text-xl">{this.getNumberOfRooms(reservation)}{this.getNumberOfRooms(reservation) > 1 ? " rooms" : " room"}</p>
-                        <p className="mt-1 md:mt-4 text-sm md:text-xl">{moment(reservation.startDate).format("MMM D")+" - "+moment(reservation.endDate).format("MMM D, YYYY")}</p>
+                        <p className="mt-1 md:mt-4 text-sm md:text-xl">{moment.utc(reservation.startDate).format("MMM D")+" - "+moment.utc(reservation.endDate).format("MMM D, YYYY")}</p>
                     </div>
                 </div>
             </div>

@@ -21,7 +21,6 @@ class LandingPage extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.popularDestinations();
-    console.log(window.localStorage.getItem("token"));
   }
 
   popularDestinations = () => {
