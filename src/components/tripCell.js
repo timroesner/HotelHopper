@@ -28,7 +28,7 @@ class TripCell extends React.Component {
                     this.navigateTo(reservation.reservationId)
                 }}
                 >
-                    <img alt="Hotel" src={reservation.hotel.imageUrl} className="h-full w-auto rounded"/>
+                    <img alt="Hotel" src={reservation.hotel.imageUrl} className="h-full w-28 md:w-64 rounded" style={{objectFit: "cover"}}/>
                     <div className="ml-4 md:ml-8 w-48 md:w-3/5"> 
                         <p className="font-bold md:text-2xl truncate">{reservation.hotel.title}</p>
                         <p className="mt-1 md:mt-2 text-xs md:text-lg truncate">{`${reservation.hotel.street}, ${reservation.hotel.city}, ${reservation.hotel.state}`}</p>

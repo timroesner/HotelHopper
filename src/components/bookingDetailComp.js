@@ -25,7 +25,8 @@ class BookingDetailComp extends React.Component {
           <img
             alt="Hotel"
             src={reservation.hotel.imageUrl}
-            className="h-auto w-auto rounded md:rounded-lg"
+            className="h-48 md:h-96 w-full rounded md:rounded-lg"
+            style={{objectFit: "cover"}}
           />
           <div className="mt-4 md:mt-0 md:ml-12 md:w-1/2">
             <p className="font-bold md:text-2xl">{reservation.hotel.title}</p>
