@@ -11,7 +11,9 @@ class Confirmation extends Component {
     this.state = {
       user: {},
       reservation: {
-        hotel: {}
+        hotel: {
+          imageUrl: ""
+        }
       }
     };
   }
@@ -97,12 +99,14 @@ class Confirmation extends Component {
         <p className="text-2xl md:text-4xl text-dark-blue font-sans font-bold my-4 md:my-8">
           Your Booking Details
         </p>
-
         <BookingDetail reservation={this.state.reservation} />
         <hr className="pt-4 md:pt-8 border-b" />
-        <p className="text-sm md:text-2xl my-4 md:my-8 font-bold">
-          You will collect {parseInt(this.state.reservation.totalCost*0.10)} additional points upon staying.
-        </p>
+        {
+          this.state.reservation.usePoints === false &&
+          <p className="text-sm md:text-2xl my-4 md:my-8 font-bold">
+            You will collect {parseInt(this.state.reservation.totalCost*0.10)} additional points upon staying.
+          </p>
+        }
         <RewardsCard points={this.state.user.rewardPoints} />
         <hr className="pt-4 md:pt-8 border-b" />
         <button className="bg-white text-red md:text-2xl border-red border md:border-2 rounded md:rounded-lg p-2 md:p-4 float-right mt-4 md:mt8 mb-6 hover:bg-red hover:text-white"

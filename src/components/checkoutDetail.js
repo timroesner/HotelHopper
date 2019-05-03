@@ -14,7 +14,8 @@ class CheckoutDetail extends React.Component {
           <img
             alt="Hotel"
             src={reservation.hotel.imageUrl}
-            className="w-full h-auto rounded"
+            className='w-full h-48 md:h-64 rounded' 
+            style={{objectFit: "cover"}}
           />
 
           <div className="w-auto">

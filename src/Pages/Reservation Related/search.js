@@ -46,41 +46,73 @@ class Search extends Component {
         '300+': { 'name': 'Greater than $300', 'checked': false },
       },
       amens: {
-        'breakfast': { 'name': 'Free Breakfast', 'checked': false },
-        'pool': { 'name': 'Swimming Pool', 'checked': false },
-        'pets': { 'name': 'Pet Friendly', 'checked': false },
-        'internet': { 'name': 'High Speed Internet', 'checked': false },
-        'aircon': { 'name': 'Air Conditioning', 'checked': false },
+        'aircon': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
+        'business': { 'name': 'Business Service', 'id': 8, 'checked': false},
+        'breakfast': { 'name': 'Breakfast', 'id': 7, 'checked': false },
+        'fullbar': { 'name': 'Full Bar', 'id': 10, 'checked': false },
+        'wifi': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
+        'gym': { 'name': 'Gym', 'id': 6, 'checked': false },
+        'parking': { 'name': 'Parking', 'id': 9, 'checked': false },
+        'pool': { 'name': 'Pool', 'id': 1, 'checked': false },
+        'restaurant': { 'name': 'Restaurant', 'id': 5, 'checked': false },
+        'roomservice': { 'name': 'Room Service', 'id': 11, 'checked': false },
+        'spa': { 'name': 'Spa', 'id': 3, 'checked': false },
       }
     }
-    console.log(window.innerWidth);
-    this.getWebsite();
     this.assertButtons();
-    this.handleClick = this.handleClick.bind(this);
+    this.getWebsite();
     this.performSearch();
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  getWebsite() {
+    const values = queryString.parse(this.props.location.search);
+
+    for (let item in values) {
+      if (item === 'startDate' || item === 'endDate') {
+        let date = moment(values[item], 'YYYY-MM-DD')
+        this.state[item] = date;
+      }
+      else if (item === 'persons' || item === 'rooms' || item === 'page') {
+        let count = parseInt(values[item], 10);
+        this.state[item] = count;
+      }
+      else if (item === 'location') {
+        this.state["locationPlaceholder"] = values[item]
+      }
+      else {
+        this.state[item] = values[item];
+      }
+    }
+
+    if (values["sortBy"]) {
+      this.state.sorts[values["sortBy"]]['checked'] = true;
+    }
+    else {
+      this.state.sorts['user-rating']['checked'] = true;
+    }
+
+    if (values["filterBy"]) {
+      this.state.filters[values["filterBy"]]['checked'] = true;
+    }
   }
 
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring).then(function (response) {
+    fetch(api + "/hotels" + querystring + "&perPage=10").then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        let message = data["message"]
-        if (typeof (message) !== String && typeof (message) === 'object') {
-          let errorMsg = '';
-          for (var prop in message) {
-            errorMsg = message[prop];
-            break;
-          }
-          this.setState({
-            error: errorMsg
-          });
-        } else {
-          this.setState({
-            error: data["message"]
-          });
-        }
+        this.setState({
+          error: data["message"]
+        });
       }
       else {
         this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
@@ -104,14 +136,6 @@ class Search extends Component {
     if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target) && window.innerWidth < 768) {
       this.setState({ showOptions: false })
     }
-  }
-
-  componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false)
   }
 
   toggleDropdown() {
@@ -177,6 +201,7 @@ class Search extends Component {
     radios[e.target.value]["checked"] = true;
     this.setState({ [e.target.name]: radios });
   }
+
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
@@ -207,6 +232,7 @@ class Search extends Component {
 
     return filterOptions;
   }
+
   renderAmenities = () => {
     let amenOptions = []
     for (var key in this.state.amens) {
@@ -221,39 +247,6 @@ class Search extends Component {
     }
 
     return amenOptions;
-  }
-  getWebsite() {
-    const values = queryString.parse(this.props.location.search);
-
-    for (let item in values) {
-      if (item === 'startDate' || item === 'endDate') {
-        let date = moment(values[item], 'YYYY-MM-DD')
-        this.state[item] = date;
-      }
-      else if (item === 'persons' || item === 'rooms' || item === 'page') {
-        let count = parseInt(values[item], 10);
-        this.state[item] = count;
-      }
-      else if (item === 'location') {
-        this.state["locationPlaceholder"] = values[item]
-      }
-      else {
-        this.state[item] = values[item];
-      }
-    }
-    if (values["sortBy"]) {
-      this.state.sorts[values["sortBy"]]['checked'] = true;
-    }
-    else {
-      this.state.sorts['user-rating']['checked'] = true;
-    }
-
-    if (values["filterBy"]) {
-      this.state.filters[values["filterBy"]]['checked'] = true;
-    }
-    else {
-      this.state.filters['0to74']['checked'] = true;
-    }
   }
 
   search() {
@@ -301,10 +294,16 @@ class Search extends Component {
 
   render() {
     return (
+      <InfiniteScroll
+        pageStart={0}
+        dataLength={Object.keys(this.state.hotels).length}
+        next={this.performSearch}
+        hasMore={true}
+        scrollThreshold={.8}
+      >
       <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div ref={this.myDiv} class="md:mt-8 md:ml-8 h-auto  md:w-1/4 md:w-1/4 md:block">
+        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
           <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
-
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
               initialValue={this.state.locationPlaceholder}
@@ -370,9 +369,9 @@ class Search extends Component {
           </div>
           <div ref="optionsMenu">
             {this.state.showOptions && (
-              <div className="w-full border p-4 border-soft-blue mb-2 md:mr-4 rounded" >
-                <div class="align-center container-sm font-sans font-bold rounded mb-4  bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Sort By</span>
+              <div className="w-full border p-4 border-soft-blue md:border-white mb-2 md:mr-4 rounded" >
+                <div class="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
+                  <p class="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
                   <div class="pl-4">
                     <form>
                       {this.renderSorts()}
@@ -380,9 +379,9 @@ class Search extends Component {
                   </div>
                 </div>
                 <div class="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Filter By</span>
+                  <p class="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
                   <div>
-                    <span class="md:text-xl text-base text-dark-blue mb-4 "> Your Budget</span>
+                    <p class="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
                   </div>
                   <div class="pl-4">
                     <form>
@@ -392,7 +391,7 @@ class Search extends Component {
                 </div>
 
                 <div class="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Amenities</span>
+                  <p class="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
                   <div class="pl-4">
                     <form>
                       {this.renderAmenities()}
@@ -402,22 +401,11 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full ">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch " id="scrolling" >
+        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
+          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
               <div>
-                <InfiniteScroll
-                  pageStart={0}
-                  dataLength={Object.keys(this.state.hotels).length}
-                  next={this.performSearch}
-                  hasMore={this.state.hasMore}
-                  scrollableTarget={"scrolling"}
-                  scrollThreshold={.8}
-                  height= {this.myDiv.current.offsetHeight}
-                >
                   {this.state.hotels.map(item => <SearchCell hotel={item} />)}
-
-                </InfiniteScroll>
               </div>
               :
               <div class="block font-bold justify-center content-center mt-24 col-md-6">
@@ -430,9 +418,8 @@ class Search extends Component {
             }
           </div>
         </div>
-
-
       </div>
+      </InfiniteScroll>
     );
   }
 }
