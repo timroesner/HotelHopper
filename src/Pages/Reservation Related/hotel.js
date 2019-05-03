@@ -15,7 +15,7 @@ class Hotel extends Component {
     super(props);
     this.state = {
         hotel: {
-            imageURL: '',
+            imageUrl: "",
             hotelAmenities: [],
             rooms: []
         },
@@ -151,7 +151,7 @@ class Hotel extends Component {
     return (
         <div>
             <div className='flex justify-between flex-col md:flex-row w-full-w/o-margins max-w-xl mx-auto'>
-                <img className= 'w-full h-auto mt-6 rounded' alt="hotelImage" src={this.state.hotel.imageUrl} />
+                <img className= 'w-full md:w-3/5 h-full mt-6 rounded' alt="hotelImage" src={this.state.hotel.imageUrl.replace("max500", "max1024x768")} />
                 <div className= 'mb-4 md:ml-6'>
                     <div className="mb-2 flex-col mt-6 mb-2">
                         <p className="font-bold text-lg md:text-3xl my-2">{this.state.hotel.title}</p>
