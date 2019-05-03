@@ -106,7 +106,7 @@ class Search extends Component {
 
   performSearch = () => {
     let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring).then(function (response) {
+    fetch(api + "/hotels" + querystring + "&perPage=10").then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
@@ -294,10 +294,16 @@ class Search extends Component {
 
   render() {
     return (
+      <InfiniteScroll
+        pageStart={0}
+        dataLength={Object.keys(this.state.hotels).length}
+        next={this.performSearch}
+        hasMore={true}
+        scrollThreshold={.8}
+      >
       <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div ref={this.myDiv} class="md:mt-8 md:ml-8 h-auto  md:w-1/4 md:w-1/4 md:block">
+        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4 md:block">
           <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
-
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
               initialValue={this.state.locationPlaceholder}
@@ -395,22 +401,11 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full ">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch " id="scrolling" >
+        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
+          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
               <div>
-                <InfiniteScroll
-                  pageStart={0}
-                  dataLength={Object.keys(this.state.hotels).length}
-                  next={this.performSearch}
-                  hasMore={this.state.hasMore}
-                  scrollableTarget={"scrolling"}
-                  scrollThreshold={.8}
-                  height= {this.myDiv.current.offsetHeight}
-                >
                   {this.state.hotels.map(item => <SearchCell hotel={item} />)}
-
-                </InfiniteScroll>
               </div>
               :
               <div class="block font-bold justify-center content-center mt-24 col-md-6">
@@ -423,9 +418,8 @@ class Search extends Component {
             }
           </div>
         </div>
-
-
       </div>
+      </InfiniteScroll>
     );
   }
 }
