@@ -11,7 +11,9 @@ class Confirmation extends Component {
     this.state = {
       user: {},
       reservation: {
-        hotel: {}
+        hotel: {
+          imageUrl: ""
+        }
       }
     };
   }
