@@ -26,7 +26,12 @@ class Reset extends Component {
     console.log(value);
     this.props.history.push(`/${value}`);
   }
-
+  componentWillMount() {
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      this.props.history.push('/');
+    }
+  }
   handleSubmit(event) {
     event.preventDefault();
     this.setState({
