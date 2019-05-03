@@ -302,7 +302,7 @@ class Search extends Component {
         scrollThreshold={.8}
       >
       <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4 md:block">
+        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
           <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
@@ -371,7 +371,7 @@ class Search extends Component {
             {this.state.showOptions && (
               <div className="w-full border p-4 border-soft-blue md:border-white mb-2 md:mr-4 rounded" >
                 <div class="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-2"> Sort By</p>
+                  <p class="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
                   <div class="pl-4">
                     <form>
                       {this.renderSorts()}
@@ -379,7 +379,7 @@ class Search extends Component {
                   </div>
                 </div>
                 <div class="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-4"> Filter By</p>
+                  <p class="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
                   <div>
                     <p class="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
                   </div>
@@ -391,7 +391,7 @@ class Search extends Component {
                 </div>
 
                 <div class="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <p class="md:text-xl text-base text-dark-blue mb-2"> Amenities</p>
+                  <p class="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
                   <div class="pl-4">
                     <form>
                       {this.renderAmenities()}
