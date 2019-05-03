@@ -46,18 +46,62 @@ class Search extends Component {
         '300+': { 'name': 'Greater than $300', 'checked': false },
       },
       amens: {
-        'breakfast': { 'name': 'Free Breakfast', 'checked': false },
-        'pool': { 'name': 'Swimming Pool', 'checked': false },
-        'pets': { 'name': 'Pet Friendly', 'checked': false },
-        'internet': { 'name': 'High Speed Internet', 'checked': false },
-        'aircon': { 'name': 'Air Conditioning', 'checked': false },
+        'aircon': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
+        'business': { 'name': 'Business Service', 'id': 8, 'checked': false},
+        'breakfast': { 'name': 'Breakfast', 'id': 7, 'checked': false },
+        'fullbar': { 'name': 'Full Bar', 'id': 10, 'checked': false },
+        'wifi': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
+        'gym': { 'name': 'Gym', 'id': 6, 'checked': false },
+        'parking': { 'name': 'Parking', 'id': 9, 'checked': false },
+        'pool': { 'name': 'Pool', 'id': 1, 'checked': false },
+        'restaurant': { 'name': 'Restaurant', 'id': 5, 'checked': false },
+        'roomservice': { 'name': 'Room Service', 'id': 11, 'checked': false },
+        'spa': { 'name': 'Spa', 'id': 3, 'checked': false },
       }
     }
-    console.log(window.innerWidth);
-    this.getWebsite();
     this.assertButtons();
-    this.handleClick = this.handleClick.bind(this);
+    this.getWebsite();
     this.performSearch();
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  getWebsite() {
+    const values = queryString.parse(this.props.location.search);
+
+    for (let item in values) {
+      if (item === 'startDate' || item === 'endDate') {
+        let date = moment(values[item], 'YYYY-MM-DD')
+        this.state[item] = date;
+      }
+      else if (item === 'persons' || item === 'rooms' || item === 'page') {
+        let count = parseInt(values[item], 10);
+        this.state[item] = count;
+      }
+      else if (item === 'location') {
+        this.state["locationPlaceholder"] = values[item]
+      }
+      else {
+        this.state[item] = values[item];
+      }
+    }
+
+    if (values["sortBy"]) {
+      this.state.sorts[values["sortBy"]]['checked'] = true;
+    }
+    else {
+      this.state.sorts['user-rating']['checked'] = true;
+    }
+
+    if (values["filterBy"]) {
+      this.state.filters[values["filterBy"]]['checked'] = true;
+    }
   }
 
   performSearch = () => {
@@ -66,21 +110,9 @@ class Search extends Component {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
-        let message = data["message"]
-        if (typeof (message) !== String && typeof (message) === 'object') {
-          let errorMsg = '';
-          for (var prop in message) {
-            errorMsg = message[prop];
-            break;
-          }
-          this.setState({
-            error: errorMsg
-          });
-        } else {
-          this.setState({
-            error: data["message"]
-          });
-        }
+        this.setState({
+          error: data["message"]
+        });
       }
       else {
         this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
@@ -104,14 +136,6 @@ class Search extends Component {
     if (!this.refs.optionsMenu.contains(e.target) && !this.refs.optionsButton.contains(e.target) && window.innerWidth < 768) {
       this.setState({ showOptions: false })
     }
-  }
-
-  componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false)
   }
 
   toggleDropdown() {
@@ -177,6 +201,7 @@ class Search extends Component {
     radios[e.target.value]["checked"] = true;
     this.setState({ [e.target.name]: radios });
   }
+
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
@@ -207,6 +232,7 @@ class Search extends Component {
 
     return filterOptions;
   }
+
   renderAmenities = () => {
     let amenOptions = []
     for (var key in this.state.amens) {
@@ -221,39 +247,6 @@ class Search extends Component {
     }
 
     return amenOptions;
-  }
-  getWebsite() {
-    const values = queryString.parse(this.props.location.search);
-
-    for (let item in values) {
-      if (item === 'startDate' || item === 'endDate') {
-        let date = moment(values[item], 'YYYY-MM-DD')
-        this.state[item] = date;
-      }
-      else if (item === 'persons' || item === 'rooms' || item === 'page') {
-        let count = parseInt(values[item], 10);
-        this.state[item] = count;
-      }
-      else if (item === 'location') {
-        this.state["locationPlaceholder"] = values[item]
-      }
-      else {
-        this.state[item] = values[item];
-      }
-    }
-    if (values["sortBy"]) {
-      this.state.sorts[values["sortBy"]]['checked'] = true;
-    }
-    else {
-      this.state.sorts['user-rating']['checked'] = true;
-    }
-
-    if (values["filterBy"]) {
-      this.state.filters[values["filterBy"]]['checked'] = true;
-    }
-    else {
-      this.state.filters['0to74']['checked'] = true;
-    }
   }
 
   search() {
