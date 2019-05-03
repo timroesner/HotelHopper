@@ -370,9 +370,9 @@ class Search extends Component {
           </div>
           <div ref="optionsMenu">
             {this.state.showOptions && (
-              <div className="w-full border p-4 border-soft-blue mb-2 md:mr-4 rounded" >
-                <div class="align-center container-sm font-sans font-bold rounded mb-4  bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Sort By</span>
+              <div className="w-full border p-4 border-soft-blue md:border-white mb-2 md:mr-4 rounded" >
+                <div class="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
+                  <p class="md:text-2xl text-lg text-dark-blue mb-2"> Sort By</p>
                   <div class="pl-4">
                     <form>
                       {this.renderSorts()}
@@ -380,9 +380,9 @@ class Search extends Component {
                   </div>
                 </div>
                 <div class="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Filter By</span>
+                  <p class="md:text-2xl text-lg text-dark-blue mb-4"> Filter By</p>
                   <div>
-                    <span class="md:text-xl text-base text-dark-blue mb-4 "> Your Budget</span>
+                    <p class="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
                   </div>
                   <div class="pl-4">
                     <form>
@@ -392,7 +392,7 @@ class Search extends Component {
                 </div>
 
                 <div class="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <span class="md:text-2xl text-lg text-dark-blue mb-4 "> Amenities</span>
+                  <p class="md:text-xl text-base text-dark-blue mb-2"> Amenities</p>
                   <div class="pl-4">
                     <form>
                       {this.renderAmenities()}
