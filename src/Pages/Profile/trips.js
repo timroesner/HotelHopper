@@ -31,10 +31,10 @@ class Trips extends Component {
           return results.json();
       }).then(data => {
         let trips = data['data']
-        const upcomingTrips = trips.filter(reservation => moment(reservation.endDate) >=  moment() && reservation.status !== "canceled")
+        const upcomingTrips = trips.filter(reservation => moment(reservation.endDate) >=  moment() && reservation.status !== "cancelled")
         upcomingTrips.sort(function(a, b) {return moment(a.startDate) > moment(b.startDate) })
     
-        const pastTrips = trips.filter(reservation => moment(reservation.endDate) <  moment() || reservation.status === "canceled")
+        const pastTrips = trips.filter(reservation => moment(reservation.endDate) <  moment() || reservation.status === "cancelled")
         pastTrips.sort(function(a, b) {return moment(a.startDate) < moment(b.startDate) })
 
         this.setState({

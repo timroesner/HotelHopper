@@ -24,10 +24,11 @@ class BookingDetailComp extends React.Component {
         >
           <img
             alt="Hotel"
-            src={reservation.hotel.imageUrl}
-            className="h-auto w-auto rounded md:rounded-lg"
+            src={"https://t-ec.bstatic.com/images/hotel/max500/886/88658230.jpg".replace("max500", "max1024x768")}
+            className="h-48 w-full md:h-96 md:w-3/5 rounded md:rounded-lg"
+            style={{objectFit: "cover"}}
           />
-          <div className="mt-4 md:mt-0 md:ml-12 md:w-1/2">
+          <div className="mt-4 md:mt-0 md:ml-6 md:w-1/2">
             <p className="font-bold md:text-2xl">{reservation.hotel.title}</p>
             <div className="mt-2">
               <StarRating
@@ -50,7 +51,8 @@ class BookingDetailComp extends React.Component {
               {reservation.hotel.rating + " / 10 User rating"}
             </p>
 
-            <p className="mt-8 text-sm md:text-lg">
+            <p className="mt-6 mb-2 text-sans font-semibold text-xl">Your Booking Details</p>
+            <p className="text-sm md:text-lg">
               {"Rooms: "}
               <span className="float-right">{this.createRoomsString()}</span>
             </p>

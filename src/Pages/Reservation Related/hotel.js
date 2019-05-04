@@ -15,7 +15,7 @@ class Hotel extends Component {
     super(props);
     this.state = {
         hotel: {
-            imageURL: '',
+            imageUrl: "",
             hotelAmenities: [],
             rooms: []
         },
@@ -93,6 +93,8 @@ class Hotel extends Component {
                 placeholder="0"
                 type="number"
                 pattern="\d*"
+                min="0"
+                max={room.available}
                 value={this.state.rooms[room.roomTypeId]} 
                 onChange={this.handleChange}
               />
@@ -151,7 +153,7 @@ class Hotel extends Component {
     return (
         <div>
             <div className='flex justify-between flex-col md:flex-row w-full-w/o-margins max-w-xl mx-auto'>
-                <img className= 'w-full h-auto mt-6 rounded' alt="hotelImage" src={this.state.hotel.imageUrl} />
+                <img className= 'w-full md:w-3/5 h-48 md:h-112 mt-6 rounded' style={{objectFit: "cover"}}  alt="hotelImage" src={this.state.hotel.imageUrl.replace("max500", "max1024x768")} />
                 <div className= 'mb-4 md:ml-6'>
                     <div className="mb-2 flex-col mt-6 mb-2">
                         <p className="font-bold text-lg md:text-3xl my-2">{this.state.hotel.title}</p>

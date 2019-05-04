@@ -3262,6 +3262,14 @@ table {
   height: 16rem;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
+.h-112 {
+  height: 28rem;
+}
+
 .h-auto {
   height: auto;
 }
@@ -9494,6 +9502,14 @@ code {
     height: 16rem;
   }
 
+  .sm\:h-96 {
+    height: 24rem;
+  }
+
+  .sm\:h-112 {
+    height: 28rem;
+  }
+
   .sm\:h-auto {
     height: auto;
   }
@@ -15687,6 +15703,14 @@ code {
 
   .md\:h-64 {
     height: 16rem;
+  }
+
+  .md\:h-96 {
+    height: 24rem;
+  }
+
+  .md\:h-112 {
+    height: 28rem;
   }
 
   .md\:h-auto {
@@ -21884,6 +21908,14 @@ code {
     height: 16rem;
   }
 
+  .lg\:h-96 {
+    height: 24rem;
+  }
+
+  .lg\:h-112 {
+    height: 28rem;
+  }
+
   .lg\:h-auto {
     height: auto;
   }
@@ -28077,6 +28109,14 @@ code {
 
   .xl\:h-64 {
     height: 16rem;
+  }
+
+  .xl\:h-96 {
+    height: 24rem;
+  }
+
+  .xl\:h-112 {
+    height: 28rem;
   }
 
   .xl\:h-auto {
