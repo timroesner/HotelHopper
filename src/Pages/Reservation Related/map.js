@@ -72,7 +72,7 @@ export class MapPage extends Component {
           {this.markers()}
         </Map>
         {this.state.selectedKey > -1 ?
-        <div className="bg-white z-20 pl-2 md:pl-4 pin-x pin-b max-w-lg mx-auto md:rounded-t-lg absolute">
+        <div className="bg-white z-20 px-2 md:px-4 pin-x pin-b max-w-lg mx-auto md:rounded-t-lg absolute">
           <HotelCell hotel={this.state.hotels[this.state.selectedKey]}/>
         </div> : null}
       </div>
