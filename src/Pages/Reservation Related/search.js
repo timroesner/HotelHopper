@@ -46,17 +46,17 @@ class Search extends Component {
         '300+': { 'name': 'Greater than $300', 'checked': false },
       },
       amens: {
-        'aircon': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
-        'business': { 'name': 'Business Service', 'id': 8, 'checked': false},
-        'breakfast': { 'name': 'Breakfast', 'id': 7, 'checked': false },
-        'fullbar': { 'name': 'Full Bar', 'id': 10, 'checked': false },
-        'wifi': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
-        'gym': { 'name': 'Gym', 'id': 6, 'checked': false },
-        'parking': { 'name': 'Parking', 'id': 9, 'checked': false },
-        'pool': { 'name': 'Pool', 'id': 1, 'checked': false },
-        'restaurant': { 'name': 'Restaurant', 'id': 5, 'checked': false },
-        'roomservice': { 'name': 'Room Service', 'id': 11, 'checked': false },
-        'spa': { 'name': 'Spa', 'id': 3, 'checked': false },
+        '4': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
+        '8': { 'name': 'Business Service', 'id': 8, 'checked': false},
+        '7': { 'name': 'Breakfast', 'id': 7, 'checked': false },
+        '10': { 'name': 'Full Bar', 'id': 10, 'checked': false },
+        '2': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
+        '6': { 'name': 'Gym', 'id': 6, 'checked': false },
+        '9': { 'name': 'Parking', 'id': 9, 'checked': false },
+        '1': { 'name': 'Pool', 'id': 1, 'checked': false },
+        '5': { 'name': 'Restaurant', 'id': 5, 'checked': false },
+        '11': { 'name': 'Room Service', 'id': 11, 'checked': false },
+        '3': { 'name': 'Spa', 'id': 3, 'checked': false },
       }
     }
     this.assertButtons();
@@ -99,14 +99,26 @@ class Search extends Component {
       this.state.sorts['user-rating']['checked'] = true;
     }
 
-    if (values["filterBy"]) {
-      this.state.filters[values["filterBy"]]['checked'] = true;
+    if (values["listAmenities"]) {
+      values["listAmenities"].split(",").forEach(amenityId => {
+        this.setState({amens: {amenityId: {...this, checked: true}}})
+      })
     }
   }
 
   performSearch = () => {
-    let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring + "&perPage=10").then(function (response) {
+    let querystring = 
+    `?latitude=${this.state.latitude}`
+    +`&longitude=${this.state.longitude}`
+    +`&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}`
+    +`&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`
+    +`&persons=${this.state.persons}`
+    +`&rooms=${this.state.rooms}`
+    +`&page=${this.state.page}`
+    + this.buildAmentiesString()
+    +`&perPage=10`
+    
+    fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
@@ -202,14 +214,20 @@ class Search extends Component {
     this.setState({ [e.target.name]: radios });
   }
 
+  changeCheckbox = (e) => {
+    let radios = this.state[e.target.name];
+    radios[e.target.value].checked = !radios[e.target.value].checked;
+    this.setState({ [e.target.name]: radios }, this.search());
+  }
+
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
       sortOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onClick={e => this.changeRadio(e)} name="sorts" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onChange={e => this.changeRadio(e)} name="sorts" value={key} />
+            <span className="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
           </label>
         </div>
       )
@@ -221,10 +239,10 @@ class Search extends Component {
     let filterOptions = []
     for (var key in this.state.filters) {
       filterOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onClick={e => this.changeRadio(e)} name="filters" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onChange={e => this.changeRadio(e)} name="filters" value={key} />
+            <span className="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
           </label>
         </div>
       )
@@ -237,10 +255,10 @@ class Search extends Component {
     let amenOptions = []
     for (var key in this.state.amens) {
       amenOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1" type="checkbox" name="amens" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.amens[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1" type="checkbox" name="amens" value={key} checked={this.state.amens[key].checked} onChange={e => this.changeCheckbox(e)} />
+            <span className="text-dark-blue opacity-75">{this.state.amens[key]["name"]}</span>
           </label>
         </div>
       )
@@ -249,17 +267,40 @@ class Search extends Component {
     return amenOptions;
   }
 
+  buildAmentiesString = () => {
+    var idArray = []
+    Object.keys(this.state.amens).forEach(amenityKey => {
+      let amenity = this.state.amens[amenityKey]
+      if(amenity.checked) {
+        idArray.push(amenity.id)
+      }
+    })
+    if(idArray.length === 0) {
+      return ""
+    } else {
+      return "&listAmenities="+idArray.join(",")
+    }
+  }
+
   search() {
-    const location = this.state.location;
     const lat = this.state.latitude;
     const long = this.state.longitude;
-    if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
-      window.location.reload();
-    }
-    else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
-      window.location.reload();
+
+    if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
+      this.setState({hotels: []})
+      this.props.history.push(
+        `/search?latitude=${lat}`
+        +`&longitude=${long}`
+        +`&location=${this.state.locationPlaceholder}`
+        +`&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}`
+        +`&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`
+        +`&persons=${this.state.persons}`
+        +`&rooms=${this.state.rooms}`
+        + this.buildAmentiesString()
+        +`&page=1`
+      );
+      this.getWebsite()
+      this.performSearch()
     }
     else {
       alert("Please fill all fields")
@@ -301,9 +342,9 @@ class Search extends Component {
         hasMore={true}
         scrollThreshold={.8}
       >
-      <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
-          <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
+      <div className="md:flex p-4 md:p-0 scrolling-touch h-auto">
+        <div className="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
+          <div className="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
               initialValue={this.state.locationPlaceholder}
@@ -356,7 +397,7 @@ class Search extends Component {
               <button className="cursor-pointer bg-soft-blue w-full md:w-full rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" type="button" onClick={() => this.search()}>Search</button>
             </div>
           </div>
-          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
+          <div className="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
             <button className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" 
                     type="button"
                     onClick={() => this.showMap()}
@@ -364,35 +405,35 @@ class Search extends Component {
               View on Map
             </button>
           </div>
-          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 md:hidden bg-white ">
+          <div className="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 md:hidden bg-white ">
             <button ref="optionsButton" className="Rectangle bg-white border md:hidden border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" onClick={() => this.toggleOptions()} type="button">Options</button>
           </div>
           <div ref="optionsMenu">
             {this.state.showOptions && (
               <div className="w-full border p-4 border-soft-blue md:border-white mb-2 md:mr-4 rounded" >
-                <div class="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
-                  <div class="pl-4">
+                <div className="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
+                  <p className="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
+                  <div className="pl-4">
                     <form>
                       {this.renderSorts()}
                     </form>
                   </div>
                 </div>
-                <div class="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
+                <div className="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
+                  <p className="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
                   <div>
-                    <p class="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
+                    <p className="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
                   </div>
-                  <div class="pl-4">
+                  <div className="pl-4">
                     <form>
                       {this.renderFilters()}
                     </form>
                   </div>
                 </div>
 
-                <div class="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <p class="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
-                  <div class="pl-4">
+                <div className="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
+                  <p className="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
+                  <div className="pl-4">
                     <form>
                       {this.renderAmenities()}
                     </form>
@@ -401,18 +442,16 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
+        <div className="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
+          <div className="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
-              <div>
-                  {this.state.hotels.map(item => <SearchCell hotel={item} />)}
-              </div>
+                this.state.hotels.map(item => <SearchCell hotel={item} />)
               :
-              <div class="block font-bold justify-center content-center mt-24 col-md-6">
+              <div className="block font-bold justify-center content-center mt-24 col-md-6">
                 {this.state.hotels && !this.state.error && this.state.searched ?
-                  <div class="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
+                  <div className="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
                   :
-                  <div class="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
+                  <div className="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
                 }
               </div>
             }
