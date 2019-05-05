@@ -138,7 +138,7 @@ class Hotel extends Component {
       this.state.hotel.hotelAmenities.forEach( amenity => {
         hotelamenities.push(
             <div className='flex items-center my-2' key={amenity.amenityId}>
-              <img alt='amenity' src={amenity.imageUrl} className="h-auto w-8" />
+              <img alt='amenity' src={amenity.amenity.imageUrl} className="h-auto w-6" />
               <p className="ml-2 text-dark-blue font-bold w-28 md:w-32 truncate">{amenity.amenity.title}</p>                   
             </div>
         )
