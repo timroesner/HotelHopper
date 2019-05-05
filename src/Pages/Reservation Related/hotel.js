@@ -61,7 +61,6 @@ class Hotel extends Component {
       rooms: roomArray
     });
   }
-  
 
   getTotalPrice = () => {
     const nights = moment(this.state.endDate).diff(this.state.startDate, 'days')
@@ -80,8 +79,7 @@ class Hotel extends Component {
       this.state.hotel.rooms.forEach( room => {
         roomList.push(
           <div className="relative flex items-start flex-col md:flex-row border-b py-4" key={room.roomTypeId}>
-            {/* TODO: Replace with image from backend */}
-            <img className="w-full md:w-1/3 h-auto mr-2 rounded" alt="Room" src={mgm} />
+            <img className="w-full md:w-1/3 h-auto mr-2 rounded" alt="Room" src={room.imageUrl} />
             <div className="h-24 md:h-auto mt-4 md:mt-0 w-full md:w-2/3">
               <p className="text-lg md:text-2xl font-bold absolute pin-l md:ml-7/20">{room.title}</p>
               <div className="md:text-xl text-grey-darker absolute pb-4 pin-b pin-l md:ml-7/20">
@@ -140,8 +138,7 @@ class Hotel extends Component {
       this.state.hotel.hotelAmenities.forEach( amenity => {
         hotelamenities.push(
             <div className='flex items-center my-2' key={amenity.amenityId}>
-              {/* TODO: include Dynamic images later */}
-              <img alt='amenity' src={wifiicon} className="h-auto w-8" />
+              <img alt='amenity' src={amenity.imageUrl} className="h-auto w-8" />
               <p className="ml-2 text-dark-blue font-bold w-28 md:w-32 truncate">{amenity.amenity.title}</p>                   
             </div>
         )
