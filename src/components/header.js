@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
@@ -50,6 +49,7 @@ class Header extends React.Component {
     if (page === "signout") {
       this.setState({ token: undefined });
       window.localStorage.removeItem("token");
+      window.location.reload();
     } else {
       this.props.history.push(`/${page}`);
     }
@@ -90,29 +90,29 @@ class Header extends React.Component {
             onMouseEnter={() => this.handleDropdown()}
             onMouseLeave={() => this.handleDropdown()}
           >
-            <p className="font-sans text-xl font-bold">
+            <p className="font-sans text-xl font-bold py-2">
               Hi, {this.state.user.firstName}
             </p>
             {this.state.showDropdown && (
-              <div className="mr-4 pr-12 pl-8 pt-2 pb-2 pin-r absolute bg-grey-lightest rounded ">
+              <div className="mr-4 pr-12 pl-8 pt-2 pb-2 pin-r absolute bg-white rounded border-2">
                 {this.createDropDowm()}
               </div>
             )}
           </div>
         ) : (
           <div className="mr-8 ml-auto">
-            <Button
+            <button
               className="mr-4 bg-soft-blue rounded text-white p-2 font-sans text-xl font-bold"
               onClick={() => this.navigateTo("signup")}
             >
               Sign up
-            </Button>
-            <Button
+            </button>
+            <button
               className="font-sans text-xl font-bold"
               onClick={() => this.navigateTo("login")}
             >
               Log in
-            </Button>
+            </button>
           </div>
         )}
       </div>

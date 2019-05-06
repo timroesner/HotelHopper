@@ -21,7 +21,6 @@ class LandingPage extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.popularDestinations();
-    console.log(window.localStorage.getItem("token"));
   }
 
   popularDestinations = () => {
@@ -40,6 +39,7 @@ class LandingPage extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClick, false);
+    window.scrollTo(0, 0)
   }
 
   handleClick = e => {
@@ -50,7 +50,7 @@ class LandingPage extends Component {
 
   renderPopularDestinations = () => {
     let destinations = [];
-    this.state.popularDestinations.map(city => {
+    this.state.popularDestinations.forEach(city => {
       destinations.push(
       <div key={city.city} className="w-full md:w-1/4 p-2 cursor-pointer" onClick={() => this.clickPopularDestinations(city)}>
         <img src={city.url} alt={city.city} className="light-filter rounded"/>
@@ -178,7 +178,7 @@ class LandingPage extends Component {
           </div>
           <img
             src={hero}
-            className="min-h-64 min-w-160 dark-filter"
+            className="min-h-72 min-w-160 dark-filter"
             alt="hero"
           />
         </div>

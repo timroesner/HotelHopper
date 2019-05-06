@@ -14,7 +14,8 @@ class CheckoutDetail extends React.Component {
           <img
             alt="Hotel"
             src={reservation.hotel.imageUrl}
-            className="w-full h-auto rounded"
+            className='w-full h-48 md:h-64 rounded' 
+            style={{objectFit: "cover"}}
           />
 
           <div className="w-auto">
@@ -46,13 +47,13 @@ class CheckoutDetail extends React.Component {
             <p className="mt-4 text-sm md:text-xl">
               {"Check-in: "}
               <span className="float-right">
-                {moment(reservation.startDate).format("MMM D, YYYY")}
+                {moment.utc(reservation.startDate).format("MMM D, YYYY")}
               </span>
             </p>
             <p className="mt-4 text-sm md:text-xl">
               {"Check-out: "}
               <span className="float-right">
-                {moment(reservation.endDate).format("MMM D, YYYY")}
+                {moment.utc(reservation.endDate).format("MMM D, YYYY")}
               </span>
             </p>
 
@@ -86,7 +87,7 @@ class CheckoutDetail extends React.Component {
             <p className="mt-4 text-sm md:text-xl">
               {"If you cancel, you’ll pay: "}
               <span className="float-right">
-                {"$93"}
+                {"$45"}
               </span>
             </p>
           </div>

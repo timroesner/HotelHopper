@@ -15,6 +15,12 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    const token = window.localStorage.getItem("token")
+    if(token !== null) {
+      this.props.history.push('/');
+    }
+  }
   handleChange(event) {
     this.setState({
       [event.target.id]: event.target.value
@@ -59,7 +65,7 @@ class Login extends React.Component {
         window.localStorage.setItem(userKey, userValue)
       }
       if (success) {
-        this.props.history.push('/');
+        this.props.history.goBack();
       }
     }.bind(this));
   }
