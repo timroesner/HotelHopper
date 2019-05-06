@@ -70,7 +70,7 @@ class Search extends Component {
     //console.log(values)
 
     let startDate = moment(values.startDate, 'YYYY-MM-DD')
-    let endDate = moment(values.startDate, 'YYYY-MM-DD')
+    let endDate = moment(values.endDate, 'YYYY-MM-DD')
     let locationPlaceholder = values.location
     let latitude = values.latitude
     let longitude = values.longitude

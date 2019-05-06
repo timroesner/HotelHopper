@@ -5,8 +5,10 @@
         { "src": "package.json", "use": "@now/static-build" }
     ],
     "alias": ["hotelhopper.cf", "www.hotelhopper.cf"],
-    "env": {
-        "REACT_APP_GOOGLE_API_CODE": "@react_app_google_api_code "
+    "build": {
+        "env": {
+            "REACT_APP_GOOGLE_API_CODE": "@googleapikey"
+        }
     },
     "routes": [
         {"src": "^/static/(.*)", "dest": "/static/$1"},
