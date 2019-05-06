@@ -24,8 +24,8 @@ class SearchComp extends Component {
       }
       render(){
         return(
-            <div class="mt-4 ml-4 h-full w-1/4">
-                <div class="align-center container-sm rounded-lg pt-4 pr-4 pl-4 pb-4 border bg-white border-soft-blue">
+            <div className="mt-4 ml-4 h-full w-1/4">
+                <div className="align-center container-sm rounded-lg pt-4 pr-4 pl-4 pb-4 border bg-white border-soft-blue">
             <div className="w-full md:w-full mb-3 mt-2 text-center">
              <Geosuggest
               className="w-full md:w-full h-10 md:h-16 mb-2 md:mr-4 md:text-xl border-soft-blue border rounded "
