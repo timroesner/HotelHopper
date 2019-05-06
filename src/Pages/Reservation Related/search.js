@@ -250,7 +250,7 @@ class Search extends Component {
         <div key={key}>
           <label>
             <input className="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onChange={e => this.changeSort(e)} value={key} />
-            <span className="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
+            <span className="text-soft-blue md:text-lg">{this.state.sorts[key]["name"]}</span>
           </label>
         </div>
       )
@@ -265,7 +265,7 @@ class Search extends Component {
         <div key={key}>
           <label>
             <input className="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onChange={e => this.changeFilter(e)} value={key} />
-            <span className="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
+            <span className="text-soft-blue md:text-lg">{this.state.filters[key]["name"]}</span>
           </label>
         </div>
       )
@@ -280,7 +280,7 @@ class Search extends Component {
         <div key={key}>
           <label>
             <input className="mr-4 mt-1 mb-1" type="checkbox" value={key} checked={this.state.amens[key].checked} onChange={e => this.changeCheckbox(e)} />
-            <span className="text-dark-blue opacity-75">{this.state.amens[key]["name"]}</span>
+            <span className="text-soft-blue md:text-lg">{this.state.amens[key]["name"]}</span>
           </label>
         </div>
       )
@@ -391,7 +391,7 @@ class Search extends Component {
         scrollThreshold={.8}
       >
       <div className="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div className="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
+        <div className="md:mt-8 md:ml-8 h-auto md:w-1/3">
           <div className="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
@@ -470,7 +470,7 @@ class Search extends Component {
                 <div className="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
                   <p className="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
                   <div>
-                    <p className="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
+                    <p className="md:text-xl text-base text-soft-blue mb-2">Your Budget</p>
                   </div>
                   <div className="pl-4">
                     <form>
@@ -480,7 +480,7 @@ class Search extends Component {
                 </div>
 
                 <div className="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <p className="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
+                  <p className="md:text-xl text-base text-soft-blue mb-2">Amenities</p>
                   <div className="pl-4">
                     <form>
                       {this.renderAmenities()}
