@@ -38,7 +38,7 @@ export class MapPage extends Component {
           name={index}
           position={{ lat: hotel.latitude, lng: hotel.longitude }}
           label={{
-            text: "$" + hotel.lowestPrice,
+            text: "$" + hotel.lowPrice,
             color: "white"
           }}
           icon={{
