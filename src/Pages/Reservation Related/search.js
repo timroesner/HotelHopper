@@ -15,26 +15,16 @@ class Search extends Component {
     this.myDiv = React.createRef();
     this.state = {
       focusedDatePicker: null,
-      startDate: null,
-      endDate: null,
       hotels: [],
       error: null,
-      locationPlaceholder: '',
-      persons: 2,
-      rooms: 1,
-      page: 1,
       showPeople: false,
-      latitude: null,
-      longitude: null,
-      location: null,
       hasMore: true,
       searched: false,
       showOptions: window.innerWidth > 768 ? true : false,
-
       sortBy: 'rating',
       filterBy: '',
       sorts: {
-        'rating': { 'name': 'User Rating', 'checked': true },
+        'rating': { 'name': 'User Rating', 'checked': false },
         'priceLow': { 'name': 'Price: Low to High', 'checked': false },
         'priceHigh': { 'name': 'Price: High to Low', 'checked': false },
         'distance': { 'name': 'Distance', 'checked': false },
@@ -62,17 +52,12 @@ class Search extends Component {
       }
     }
   }
-componentDidMount(){
 
-    this.performSearch();
-}
   componentWillMount() {
-    this.assertButtons();
-    this.getWebsite();
     document.addEventListener('mousedown', this.handleClick, false)
+    this.initalizeFiltersSorts();
     this.assertButtons();
     this.getWebsite();
-    this.performSearch();
   }
 
   componentWillUnmount() {
@@ -81,62 +66,65 @@ componentDidMount(){
 
   getWebsite() {
     const values = queryString.parse(this.props.location.search);
+    //console.log(values)
 
-    Object.keys(values).forEach(function(item){
-      if (item === 'startDate' || item === 'endDate') {
-        let date = moment(values[item], 'YYYY-MM-DD')
-        this.state[item] = date;
-      }
-      else if (item === 'persons' || item === 'rooms' || item === 'page') {
-        let count = parseInt(values[item], 10);
-        this.state[item] = count;
-      }
-      else if (item === 'location') {
-        this.state["locationPlaceholder"] = values[item]
-      }
-      else if (item === 'sortBy' || item === 'filterBy'){
-        if (values["sortBy"] && this.state.sorts[values["sortBy"]]) {
-          // this.state.sorts[values["sortBy"]]['checked'] = true;
-          // this.state["sortBy"]= values["sortBy"];
-          let name = values["sortBy"];
-          console.log(name);
-          this.setState(prevState =>({
-            sortBy: values["sortBy"],
-            sorts:{
-            ...prevState.sorts,
-            [values["sortBy"]]:{...prevState.sorts[values["sortBy"]],
-              checked:true
-              }
-            }
-          }), () => console.log(this.state));
-          this.setState( {});
-        }
-        else {
-          this.setState(prevState =>({
-            sortBy:'rating',
-            sorts:{
-            ...prevState.sorts,
-            rating:{...prevState.sorts['rating'],
-              checked:true
-              }
-            }
-          }), () => console.log(this.state));
-        
-        }
-    
-        if (values["filterBy"] && this.state.filters[values["filterBy"]]) {
-          this.state.filters[values["filterBy"]]['checked'] = true;
-          this.state["filterBy"]= values["filterBy"];
-        }
-      }
-      else {
-        this.state[item] = values[item];
-      }
-    }.bind(this), () => this.performSearch());
+    let startDate = moment(values.startDate, 'YYYY-MM-DD')
+    let endDate = moment(values.startDate, 'YYYY-MM-DD')
+    let locationPlaceholder = values.location
+    let latitude = values.latitude
+    let longitude = values.longitude
+    let persons = values.persons
+    let rooms = values.rooms
+    var page = 1
+    if(values.page) {
+      page = values.page
+    }
 
-    if (values["requestedAmenities"]) {
-      values["requestedAmenities"].split(",").forEach(amenityId => {
-        this.setState({amens: {amenityId: {...this, checked: true}}})
+    this.setState({
+      startDate,
+      endDate,
+      locationPlaceholder,
+      latitude,
+      longitude,
+      persons,
+      rooms,
+      page,
+    }, () => this.performSearch())
+  }
+  
+  initalizeFiltersSorts = () => {
+    const values = queryString.parse(this.props.location.search);
+
+    // Sort by
+    if(values.sortBy) {
+      Object.keys(this.state.sorts).forEach(sortKey => {
+        if(sortKey === values.sortBy) {
+          this.state.sorts[sortKey].checked = true
+        }
+      })
+      this.setState({sortBy: values.sortBy})
+    } else {
+      this.state.sorts.rating.checked = true
+    }
+
+    // Budget 
+    if(values.filterBy) {
+      Object.keys(this.state.filters).forEach(filterKey => {
+        if(filterKey === values.filterBy) {
+          this.state.filters[filterKey].checked = true
+        }
+      })
+      this.setState({filterBy: values.filterBy})
+    }
+
+    // Amenities
+    if(values.requestedAmenities) {
+      let selectedAmenities = values.requestedAmenities.split(",")
+      Object.keys(this.state.amens).forEach(amenityId => {
+        let amenity = this.state.amens[amenityId]
+        if(selectedAmenities.includes(amenityId)) {
+          amenity.checked = true
+        }
       })
     }
   }
@@ -151,10 +139,9 @@ componentDidMount(){
     +`&rooms=${this.state.rooms}`
     +`&page=${this.state.page}`
     + this.buildAmentiesString()
-                      '&sortBy='    + this.state.sortBy + 
+    +'&sortBy='+this.state.sortBy
     + this.buildMinMaxString()
     +`&perPage=10`
-    console.log(querystring)
 
     fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
@@ -165,16 +152,16 @@ componentDidMount(){
         });
       }
       else {
-        this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
-        console.log(this.state.hotels);
+        var hasMore = true
+        var page = parseInt(this.state.page)
         if (Object.keys(data["data"]).length === 0) {
-          this.setState({ hasMore: false });
+          hasMore = false
         }
         else {
-          this.setState({ page: this.state.page + 1 })
+          page += 1
         }
       }
-      this.setState({ searched: true });
+      this.setState({ hotels: [...this.state.hotels, ...data["data"]], searched: true, hasMore, page });
     }.bind(this))
   }
 
@@ -218,6 +205,7 @@ componentDidMount(){
       this.refs.roomsMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
     }
   }
+
   selectedLocation(element) {
     if (element) {
       this.setState({ location: element.location, locationPlaceholder: element.description })
@@ -227,51 +215,39 @@ componentDidMount(){
   }
 
   changeSort = (e) => {
-    let radios = this.state[e.target.name];
+    let radios = this.state.sorts;
     for (var item in radios) {
-      radios[item]["checked"] = false;
+      radios[item].checked = false;
     }
 
-    radios[e.target.value]["checked"] = true;
-    this.setState({
-                    [e.target.name]: radios,
-                    hotels: [],
-                    page:1,
-                    searched:false,
-                    sortBy: e.target.value},
-    () => this.search());
+    radios[e.target.value].checked = true;
+    this.setState({ sortBy: e.target.value }, () => this.search());
   }
 
   changeCheckbox = (e) => {
-    let radios = this.state[e.target.name];
-    radios[e.target.value].checked = !radios[e.target.value].checked;
-    this.setState({ [e.target.name]: radios }, this.search());
+    let radios = this.state.amens;
+    radios[e.target.value].checked = e.target.checked;
+    this.setState({ amens: radios }, () => this.search());
   }
 
   changeFilter = (e) => {
-    let radios = this.state[e.target.name];
+    let radios = this.state.filters;
     for (var item in radios) {
       radios[item]["checked"] = false;
     }
 
     radios[e.target.value]["checked"] = true;
-    this.setState({
-                    [e.target.name]: radios,
-                    hotels: [],
-                    page:1,
-                    searched:false,
-                    filterBy: e.target.value},
-                    
-    () => this.search());
+    this.setState({ filterBy: e.target.value }, () => this.search());
   }
+
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
       sortOptions.push(
         <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onClick={e => this.changeSort(e)} name="sorts" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onChange={e => this.changeSort(e)} value={key} />
+            <span className="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
           </label>
         </div>
       )
@@ -285,13 +261,12 @@ componentDidMount(){
       filterOptions.push(
         <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onClick={e => this.changeFilter(e)} name="filters" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onChange={e => this.changeFilter(e)} value={key} />
+            <span className="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
           </label>
         </div>
       )
     }
-
     return filterOptions;
   }
 
@@ -301,13 +276,12 @@ componentDidMount(){
       amenOptions.push(
         <div key={key}>
           <label>
-            <input className="mr-4 mt-1 mb-1" type="checkbox" name="amens" value={key} checked={this.state.amens[key].checked} onChange={e => this.changeCheckbox(e)} />
+            <input className="mr-4 mt-1 mb-1" type="checkbox" value={key} checked={this.state.amens[key].checked} onChange={e => this.changeCheckbox(e)} />
             <span className="text-dark-blue opacity-75">{this.state.amens[key]["name"]}</span>
           </label>
         </div>
       )
     }
-
     return amenOptions;
   }
 
@@ -358,7 +332,7 @@ componentDidMount(){
     const long = this.state.longitude;
 
     if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.setState({hotels: []})
+      this.setState({hotels: [], searched: false})
       this.props.history.push(
         `/search?latitude=${lat}`
         +`&longitude=${long}`
@@ -368,12 +342,11 @@ componentDidMount(){
         +`&persons=${this.state.persons}`
         +`&rooms=${this.state.rooms}`
         + this.buildAmentiesString()
-        + this.buildMinMaxString()
-      '&sortBy='    + this.state.sortBy + 
+        +`&filterBy=${this.state.filterBy}`
+        +'&sortBy='+this.state.sortBy 
         +`&page=1`
       );
       this.getWebsite()
-      this.performSearch()
     }
     else {
       alert("Please fill all fields")
@@ -411,7 +384,7 @@ componentDidMount(){
       <InfiniteScroll
         pageStart={0}
         dataLength={Object.keys(this.state.hotels).length}
-        next={this.performSearch}
+        next={() => this.performSearch()}
         hasMore={true}
         scrollThreshold={.8}
       >
