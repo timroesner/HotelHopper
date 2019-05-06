@@ -37,7 +37,7 @@ class SearchCell extends React.Component {
                       </div>
                       
                       <div className=" font-bold align-start mb-2 md:pb-4 text-sm md:text-xl ml-2">{hotel.rating} / 10 Guest Rating</div>
-                      <div className="relative pin-b pin-r md:pb-4 ml-2 flex flex-col md:flex-row items-baseline"><p className="text-grey-dark text-xs md:text-base mb-1 mr-2">Rooms starting at</p><p className="font-bold text-lg md:text-2xl ">{"$"+hotel.lowestPrice}</p></div>
+                      <div className="relative pin-b pin-r md:pb-4 ml-2 flex flex-col md:flex-row items-baseline"><p className="text-grey-dark text-xs md:text-base mb-1 mr-2">Rooms starting at</p><p className="font-bold text-lg md:text-2xl ">{"$"+hotel.lowPrice}</p></div>
                     </div>
                     </div>
               </div>
