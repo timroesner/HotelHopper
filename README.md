@@ -105,16 +105,12 @@ Search Filter
 <img width="1184" alt="search filter" src="https://user-images.githubusercontent.com/13894518/57204424-9e083580-6f6c-11e9-9d95-d9dcca09ef91.png">
 
 
-User Billing
+User Checkout
 
 <img width="1669" alt="billing" src="https://user-images.githubusercontent.com/13894518/57204441-c2fca880-6f6c-11e9-873f-d4f7d46dbd09.png">
 
 
-User Imcoming Trips
+User Upcoming Trips
 
 <img width="1667" alt="incoming trips" src="https://user-images.githubusercontent.com/3439103/56998627-c81eb980-6b60-11e9-8885-03b9242fb605.png">
 
-
-User Rewards
-
-<img width="1440" alt="User rewards" src="https://user-images.githubusercontent.com/3439103/56998654-e71d4b80-6b60-11e9-8b89-d720fd5c06f0.png">
