@@ -7,7 +7,7 @@ You can check out the demo from this link: https://hotelhopper.cf
 
 ## What is Hotel Hopper?
 
-Find a place to stay during your travel? Hotel Hopper got you. Hotel Hopper makes it so easy to find your desired place to stay. SImply choose how many people and the date to start browsing the awesome hotels with ratings we provide. 
+Find a place to stay during your travel? Hotel Hopper got you. Hotel Hopper makes it so easy to find your desired place to stay. Simply choose how many people and the date to start browsing the awesome hotels with ratings we provide. 
 
 
 
@@ -95,12 +95,12 @@ Hotel Search
 <img width="1670" alt="Search" src="https://user-images.githubusercontent.com/13894518/57204333-f985f380-6f6b-11e9-93a3-ef3d20dc8a07.png">
 
 
-View the hotels on Map
+View the Hotels on Map
 
 <img width="1666" alt="view on map" src="https://user-images.githubusercontent.com/13894518/57204334-fb4fb700-6f6b-11e9-9056-9aed52d4db68.png">
 
 
-Search Filter
+Hotel Info
 
 <img width="1184" alt="search filter" src="https://user-images.githubusercontent.com/13894518/57204424-9e083580-6f6c-11e9-9d95-d9dcca09ef91.png">
 
