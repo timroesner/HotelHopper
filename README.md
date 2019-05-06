@@ -87,32 +87,27 @@ Go to your localhost
 
 Homepage
 
-<img width="1670" alt="homepage" src="https://user-images.githubusercontent.com/3439103/56998386-efc15200-6b5f-11e9-8152-f601df6bbeaf.png">
+<img width="1670" alt="homepage" src="https://user-images.githubusercontent.com/13894518/57204329-f7bc3000-6f6b-11e9-8fcc-ea399c72bfef.png">
 
 
 Hotel Search
 
-<img width="1670" alt="Search" src="https://user-images.githubusercontent.com/3439103/56998450-31ea9380-6b60-11e9-92f5-6b06c8099fed.png">
+<img width="1670" alt="Search" src="https://user-images.githubusercontent.com/13894518/57204333-f985f380-6f6b-11e9-93a3-ef3d20dc8a07.png">
 
 
 View the hotels on Map
 
-<img width="1666" alt="view on map" src="https://user-images.githubusercontent.com/3439103/56998487-534b7f80-6b60-11e9-9c5b-6096073718af.png">
+<img width="1666" alt="view on map" src="https://user-images.githubusercontent.com/13894518/57204334-fb4fb700-6f6b-11e9-9056-9aed52d4db68.png">
 
 
 Search Filter
 
-<img width="1184" alt="search filter" src="https://user-images.githubusercontent.com/3439103/56998542-770ec580-6b60-11e9-869e-b426b3c14192.png">
-
-
-User Profile
-
-<img width="1668" alt="profile" src="https://user-images.githubusercontent.com/3439103/56998582-99a0de80-6b60-11e9-9324-58d0a916e0c4.png">
+<img width="1184" alt="search filter" src="https://user-images.githubusercontent.com/13894518/57204424-9e083580-6f6c-11e9-9d95-d9dcca09ef91.png">
 
 
 User Billing
 
-<img width="1669" alt="billing" src="https://user-images.githubusercontent.com/3439103/56998601-ade4db80-6b60-11e9-830b-1722a43d9b90.png">
+<img width="1669" alt="billing" src="https://user-images.githubusercontent.com/13894518/57204441-c2fca880-6f6c-11e9-873f-d4f7d46dbd09.png">
 
 
 User Imcoming Trips
