@@ -96,7 +96,7 @@ class Trips extends Component {
             No trips have been made yet. 
           </div>
           <div className="mt-8 md:mt-12 text-3xl font-bold mr-8 md:mr-0 ">
-          Plan your next trip now!
+            Plan your next trip now!
         </div>
         </div>
         }

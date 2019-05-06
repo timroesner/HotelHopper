@@ -32,18 +32,18 @@ class Search extends Component {
       showOptions: window.innerWidth > 768 ? true : false,
 
       sorts: {
-        'user-rating': { 'name': 'User Rating', 'checked': false },
-        'low-first': { 'name': 'Price: Low to High', 'checked': false },
-        'high-first': { 'name': 'Price: High to Low', 'checked': false },
+        'rating': { 'name': 'User Rating', 'checked': true },
+        'priceLow': { 'name': 'Price: Low to High', 'checked': false },
+        'priceHigh': { 'name': 'Price: High to Low', 'checked': false },
         'distance': { 'name': 'Distance', 'checked': false },
-        'star-rating': { 'name': 'Star Rating', 'checked': false },
+        'stars': { 'name': 'Star Rating', 'checked': false },
       },
       filters: {
-        '0to74': { 'name': 'Less than $75', 'checked': false },
-        '75to124': { 'name': '$75 to $124', 'checked': false },
-        '125to199': { 'name': '$125 to $199', 'checked': false },
-        '200to299': { 'name': '$200 to $299', 'checked': false },
-        '300+': { 'name': 'Greater than $300', 'checked': false },
+        '0to74': { 'name': 'Less than $75', 'max': 74, 'checked': false },
+        '75to124': { 'name': '$75 to $124', 'min': 75, 'max': 124, 'checked': false },
+        '125to199': { 'name': '$125 to $199', 'min': 125, 'max': 199, 'checked': false },
+        '200to299': { 'name': '$200 to $299', 'min': 200, 'max': 299, 'checked': false },
+        '300+': { 'name': 'Greater than $300', 'min': 300, 'checked': false },
       },
       amens: {
         '4': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
@@ -59,13 +59,13 @@ class Search extends Component {
         '3': { 'name': 'Spa', 'id': 3, 'checked': false },
       }
     }
-    this.assertButtons();
-    this.getWebsite();
-    this.performSearch();
   }
 
   componentWillMount() {
     document.addEventListener('mousedown', this.handleClick, false)
+    this.assertButtons();
+    this.getWebsite();
+    this.performSearch();
   }
 
   componentWillUnmount() {
@@ -92,15 +92,12 @@ class Search extends Component {
       }
     }
 
-    if (values["sortBy"]) {
-      this.state.sorts[values["sortBy"]]['checked'] = true;
-    }
-    else {
-      this.state.sorts['user-rating']['checked'] = true;
-    }
+    // if (values["sortBy"]) {
+    //   this.setState({sorts: {...this, [values.sortBy]: {...this, checked: true }}})
+    // }
 
-    if (values["listAmenities"]) {
-      values["listAmenities"].split(",").forEach(amenityId => {
+    if (values["requestedAmenities"]) {
+      values["requestedAmenities"].split(",").forEach(amenityId => {
         this.setState({amens: {amenityId: {...this, checked: true}}})
       })
     }
@@ -116,8 +113,11 @@ class Search extends Component {
     +`&rooms=${this.state.rooms}`
     +`&page=${this.state.page}`
     + this.buildAmentiesString()
+    + "&sortBy=rating"
+    + this.buildMinMaxString()
     +`&perPage=10`
-    
+    console.log(querystring)
+
     fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
     }).then(function (data) {
@@ -211,7 +211,7 @@ class Search extends Component {
     }
 
     radios[e.target.value]["checked"] = true;
-    this.setState({ [e.target.name]: radios });
+    this.setState({ [e.target.name]: radios }, this.search());
   }
 
   changeCheckbox = (e) => {
@@ -267,6 +267,17 @@ class Search extends Component {
     return amenOptions;
   }
 
+  buildSortString = () => {
+    var string = ""
+    Object.keys(this.state.sorts).forEach(sortKey => {
+      let sort = this.state.sorts[sortKey]
+      if(sort.checked) {
+        string += `&sortBy=${sortKey}`
+      }
+    })
+    return string
+  }
+
   buildAmentiesString = () => {
     var idArray = []
     Object.keys(this.state.amens).forEach(amenityKey => {
@@ -278,8 +289,24 @@ class Search extends Component {
     if(idArray.length === 0) {
       return ""
     } else {
-      return "&listAmenities="+idArray.join(",")
+      return "&requestedAmenities="+idArray.join(",")
     }
+  }
+
+  buildMinMaxString = () => {
+    var string = ""
+    Object.keys(this.state.filters).forEach(filterKey => {
+      let filter = this.state.filters[filterKey]
+      if(filter.checked) {
+        if(filter.min) { 
+          string += `&minPrice=${filter.min}`
+        }
+        if(filter.max) { 
+          string += `&maxPrice=${filter.max}`
+        }
+      }
+    })
+    return string
   }
 
   search() {
@@ -297,6 +324,8 @@ class Search extends Component {
         +`&persons=${this.state.persons}`
         +`&rooms=${this.state.rooms}`
         + this.buildAmentiesString()
+        + this.buildMinMaxString()
+        + this.buildSortString()
         +`&page=1`
       );
       this.getWebsite()
