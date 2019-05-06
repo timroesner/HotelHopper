@@ -67,18 +67,17 @@ class Search extends Component {
 
   getWebsite() {
     const values = queryString.parse(this.props.location.search);
-    //console.log(values)
 
     let startDate = moment(values.startDate, 'YYYY-MM-DD')
     let endDate = moment(values.endDate, 'YYYY-MM-DD')
     let locationPlaceholder = values.location
     let latitude = values.latitude
     let longitude = values.longitude
-    let persons = values.persons
-    let rooms = values.rooms
+    let persons = parseInt(values.persons)
+    let rooms = parseInt(values.rooms)
     var page = 1
     if(values.page) {
-      page = values.page
+      page = parseInt(values.page)
     }
 
     this.setState({
@@ -145,6 +144,7 @@ class Search extends Component {
     +'&sortBy='+this.state.sortBy
     + this.buildMinMaxString()
     +`&perPage=10`
+    console.log(querystring)
 
     fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
@@ -211,7 +211,7 @@ class Search extends Component {
 
   selectedLocation(element) {
     if (element) {
-      this.setState({ location: element.location, locationPlaceholder: element.description })
+      this.setState({ latitude: element.location.lat, longitude: element.location.lng, locationPlaceholder: element.description })
     } else {
       this.setState({ location: null })
     }
@@ -335,7 +335,6 @@ class Search extends Component {
     const long = this.state.longitude;
 
     if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.setState({hotels: [], searched: false})
       this.props.history.push(
         `/search?latitude=${lat}`
         +`&longitude=${long}`
@@ -349,7 +348,7 @@ class Search extends Component {
         +'&sortBy='+this.state.sortBy 
         +`&page=1`
       );
-      this.getWebsite()
+      this.setState({hotels: [], searched: false, page: 1}, () => this.getWebsite())
     }
     else {
       alert("Please fill all fields")
@@ -429,13 +428,13 @@ class Search extends Component {
                 <div className="rounded bg-white mt-px">
                   <div className="flex items-center justify-between flex-wrap p-4 border-t border-soft-blue ">
                     <p className="w-1/5">People</p>
-                    <button ref="peopleMinus" className={this.state.peopleSub} onClick={() => this.changePeopleValue(this.state.persons - 1)}>-</button>
+                    <button ref="peopleMinus" className={this.state.peopleSub} onClick={() => this.changePeopleValue(this.state.persons) - 1}>-</button>
                     <p className="w-16 md:w-1/5 text-center">{this.state.persons}</p>
-                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.persons + 1)}>+</button>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.persons) + 1}>+</button>
                   </div>
                   <div className="flex items-center justify-between flex-wrap p-4 border-t border-soft-blue ">
                     <p className="w-1/5">Rooms</p>
-                    <button ref="roomsMinus" className={this.state.roomSub} onClick={() => this.changeRoomValue(this.state.rooms - 1)}>-</button>
+                    <button ref="roomsMinus" className={this.state.roomSub} onClick={() => this.changeRoomValue(this.state.rooms) - 1}>-</button>
                     <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms + 1)}>+</button>
                   </div>
