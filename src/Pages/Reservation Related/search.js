@@ -31,6 +31,7 @@ class Search extends Component {
         'stars': { 'name': 'Star Rating', 'checked': false },
       },
       filters: {
+        'all': { 'name': 'Show all', 'checked': false },
         '0to74': { 'name': 'Less than $75', 'max': 74, 'checked': false },
         '75to124': { 'name': '$75 to $124', 'min': 75, 'max': 124, 'checked': false },
         '125to199': { 'name': '$125 to $199', 'min': 125, 'max': 199, 'checked': false },
@@ -115,6 +116,8 @@ class Search extends Component {
         }
       })
       this.setState({filterBy: values.filterBy})
+    } else {
+      this.state.filters.all.checked = true
     }
 
     // Amenities
