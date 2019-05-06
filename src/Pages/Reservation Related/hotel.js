@@ -79,7 +79,7 @@ class Hotel extends Component {
       this.state.hotel.rooms.forEach( room => {
         roomList.push(
           <div className="relative flex items-start flex-col md:flex-row border-b py-4" key={room.roomTypeId}>
-            <img className="w-full md:w-1/3 h-auto mr-2 rounded" alt="Room" src={room.imageUrl} />
+            <img className="w-full md:w-1/3 h-auto mr-2 rounded" alt="Room" src={room.image_url} />
             <div className="h-24 md:h-auto mt-4 md:mt-0 w-full md:w-2/3">
               <p className="text-lg md:text-2xl font-bold absolute pin-l md:ml-7/20">{room.title}</p>
               <div className="md:text-xl text-grey-darker absolute pb-4 pin-b pin-l md:ml-7/20">
