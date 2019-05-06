@@ -31,6 +31,8 @@ class Search extends Component {
       searched: false,
       showOptions: window.innerWidth > 768 ? true : false,
 
+      sortBy: 'rating',
+      filterBy: '',
       sorts: {
         'rating': { 'name': 'User Rating', 'checked': true },
         'priceLow': { 'name': 'Price: Low to High', 'checked': false },
@@ -60,8 +62,13 @@ class Search extends Component {
       }
     }
   }
+componentDidMount(){
 
+    this.performSearch();
+}
   componentWillMount() {
+    this.assertButtons();
+    this.getWebsite();
     document.addEventListener('mousedown', this.handleClick, false)
     this.assertButtons();
     this.getWebsite();
@@ -75,7 +82,7 @@ class Search extends Component {
   getWebsite() {
     const values = queryString.parse(this.props.location.search);
 
-    for (let item in values) {
+    Object.keys(values).forEach(function(item){
       if (item === 'startDate' || item === 'endDate') {
         let date = moment(values[item], 'YYYY-MM-DD')
         this.state[item] = date;
@@ -87,14 +94,45 @@ class Search extends Component {
       else if (item === 'location') {
         this.state["locationPlaceholder"] = values[item]
       }
+      else if (item === 'sortBy' || item === 'filterBy'){
+        if (values["sortBy"] && this.state.sorts[values["sortBy"]]) {
+          // this.state.sorts[values["sortBy"]]['checked'] = true;
+          // this.state["sortBy"]= values["sortBy"];
+          let name = values["sortBy"];
+          console.log(name);
+          this.setState(prevState =>({
+            sortBy: values["sortBy"],
+            sorts:{
+            ...prevState.sorts,
+            [values["sortBy"]]:{...prevState.sorts[values["sortBy"]],
+              checked:true
+              }
+            }
+          }), () => console.log(this.state));
+          this.setState( {});
+        }
+        else {
+          this.setState(prevState =>({
+            sortBy:'rating',
+            sorts:{
+            ...prevState.sorts,
+            rating:{...prevState.sorts['rating'],
+              checked:true
+              }
+            }
+          }), () => console.log(this.state));
+        
+        }
+    
+        if (values["filterBy"] && this.state.filters[values["filterBy"]]) {
+          this.state.filters[values["filterBy"]]['checked'] = true;
+          this.state["filterBy"]= values["filterBy"];
+        }
+      }
       else {
         this.state[item] = values[item];
       }
-    }
-
-    // if (values["sortBy"]) {
-    //   this.setState({sorts: {...this, [values.sortBy]: {...this, checked: true }}})
-    // }
+    }.bind(this), () => this.performSearch());
 
     if (values["requestedAmenities"]) {
       values["requestedAmenities"].split(",").forEach(amenityId => {
@@ -113,7 +151,7 @@ class Search extends Component {
     +`&rooms=${this.state.rooms}`
     +`&page=${this.state.page}`
     + this.buildAmentiesString()
-    + "&sortBy=rating"
+                      '&sortBy='    + this.state.sortBy + 
     + this.buildMinMaxString()
     +`&perPage=10`
     console.log(querystring)
@@ -128,6 +166,7 @@ class Search extends Component {
       }
       else {
         this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
+        console.log(this.state.hotels);
         if (Object.keys(data["data"]).length === 0) {
           this.setState({ hasMore: false });
         }
@@ -169,23 +208,6 @@ class Search extends Component {
     }
   }
 
-  changePageValue(newValue) {
-    if (newValue > 0) {
-      this.setState({ page: newValue });
-      const location = this.state.location;
-      const lat = this.state.latitude;
-      const long = this.state.longitude;
-      if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
-        window.location.reload();
-      }
-      else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
-        window.location.reload();
-      }
-    }
-  }
-
   changeRoomValue(newValue) {
     if (newValue > 0) {
       this.setState({ rooms: newValue })
@@ -204,14 +226,20 @@ class Search extends Component {
     }
   }
 
-  changeRadio = (e) => {
+  changeSort = (e) => {
     let radios = this.state[e.target.name];
     for (var item in radios) {
       radios[item]["checked"] = false;
     }
 
     radios[e.target.value]["checked"] = true;
-    this.setState({ [e.target.name]: radios }, this.search());
+    this.setState({
+                    [e.target.name]: radios,
+                    hotels: [],
+                    page:1,
+                    searched:false,
+                    sortBy: e.target.value},
+    () => this.search());
   }
 
   changeCheckbox = (e) => {
@@ -220,14 +248,30 @@ class Search extends Component {
     this.setState({ [e.target.name]: radios }, this.search());
   }
 
+  changeFilter = (e) => {
+    let radios = this.state[e.target.name];
+    for (var item in radios) {
+      radios[item]["checked"] = false;
+    }
+
+    radios[e.target.value]["checked"] = true;
+    this.setState({
+                    [e.target.name]: radios,
+                    hotels: [],
+                    page:1,
+                    searched:false,
+                    filterBy: e.target.value},
+                    
+    () => this.search());
+  }
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
       sortOptions.push(
         <div key={key}>
           <label>
-            <input className="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onChange={e => this.changeRadio(e)} name="sorts" value={key} />
-            <span className="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
+            <input class="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onClick={e => this.changeSort(e)} name="sorts" value={key} />
+            <span class="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
           </label>
         </div>
       )
@@ -241,8 +285,8 @@ class Search extends Component {
       filterOptions.push(
         <div key={key}>
           <label>
-            <input className="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onChange={e => this.changeRadio(e)} name="filters" value={key} />
-            <span className="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
+            <input class="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onClick={e => this.changeFilter(e)} name="filters" value={key} />
+            <span class="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
           </label>
         </div>
       )
@@ -325,7 +369,7 @@ class Search extends Component {
         +`&rooms=${this.state.rooms}`
         + this.buildAmentiesString()
         + this.buildMinMaxString()
-        + this.buildSortString()
+      '&sortBy='    + this.state.sortBy + 
         +`&page=1`
       );
       this.getWebsite()
