@@ -15,57 +15,50 @@ class Search extends Component {
     this.myDiv = React.createRef();
     this.state = {
       focusedDatePicker: null,
-      startDate: null,
-      endDate: null,
       hotels: [],
       error: null,
-      locationPlaceholder: '',
-      persons: 2,
-      rooms: 1,
-      page: 1,
       showPeople: false,
-      latitude: null,
-      longitude: null,
-      location: null,
       hasMore: true,
       searched: false,
       showOptions: window.innerWidth > 768 ? true : false,
-
+      sortBy: 'rating',
+      filterBy: '',
       sorts: {
-        'user-rating': { 'name': 'User Rating', 'checked': false },
-        'low-first': { 'name': 'Price: Low to High', 'checked': false },
-        'high-first': { 'name': 'Price: High to Low', 'checked': false },
+        'rating': { 'name': 'User Rating', 'checked': false },
+        'priceLow': { 'name': 'Price: Low to High', 'checked': false },
+        'priceHigh': { 'name': 'Price: High to Low', 'checked': false },
         'distance': { 'name': 'Distance', 'checked': false },
-        'star-rating': { 'name': 'Star Rating', 'checked': false },
+        'stars': { 'name': 'Star Rating', 'checked': false },
       },
       filters: {
-        '0to74': { 'name': 'Less than $75', 'checked': false },
-        '75to124': { 'name': '$75 to $124', 'checked': false },
-        '125to199': { 'name': '$125 to $199', 'checked': false },
-        '200to299': { 'name': '$200 to $299', 'checked': false },
-        '300+': { 'name': 'Greater than $300', 'checked': false },
+        'all': { 'name': 'Show all', 'checked': false },
+        '0to74': { 'name': 'Less than $75', 'max': 74, 'checked': false },
+        '75to124': { 'name': '$75 to $124', 'min': 75, 'max': 124, 'checked': false },
+        '125to199': { 'name': '$125 to $199', 'min': 125, 'max': 199, 'checked': false },
+        '200to299': { 'name': '$200 to $299', 'min': 200, 'max': 299, 'checked': false },
+        '300+': { 'name': 'Greater than $300', 'min': 300, 'checked': false },
       },
       amens: {
-        'aircon': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
-        'business': { 'name': 'Business Service', 'id': 8, 'checked': false},
-        'breakfast': { 'name': 'Breakfast', 'id': 7, 'checked': false },
-        'fullbar': { 'name': 'Full Bar', 'id': 10, 'checked': false },
-        'wifi': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
-        'gym': { 'name': 'Gym', 'id': 6, 'checked': false },
-        'parking': { 'name': 'Parking', 'id': 9, 'checked': false },
-        'pool': { 'name': 'Pool', 'id': 1, 'checked': false },
-        'restaurant': { 'name': 'Restaurant', 'id': 5, 'checked': false },
-        'roomservice': { 'name': 'Room Service', 'id': 11, 'checked': false },
-        'spa': { 'name': 'Spa', 'id': 3, 'checked': false },
+        '4': { 'name': 'Air Conditioning', 'id': 4, 'checked': false },
+        '8': { 'name': 'Business Service', 'id': 8, 'checked': false},
+        '7': { 'name': 'Breakfast', 'id': 7, 'checked': false },
+        '10': { 'name': 'Full Bar', 'id': 10, 'checked': false },
+        '2': { 'name': 'Free Wifi', 'id': 2, 'checked': false },
+        '6': { 'name': 'Gym', 'id': 6, 'checked': false },
+        '9': { 'name': 'Parking', 'id': 9, 'checked': false },
+        '1': { 'name': 'Pool', 'id': 1, 'checked': false },
+        '5': { 'name': 'Restaurant', 'id': 5, 'checked': false },
+        '11': { 'name': 'Room Service', 'id': 11, 'checked': false },
+        '3': { 'name': 'Spa', 'id': 3, 'checked': false },
       }
     }
-    this.assertButtons();
-    this.getWebsite();
-    this.performSearch();
   }
 
   componentWillMount() {
     document.addEventListener('mousedown', this.handleClick, false)
+    this.initalizeFiltersSorts();
+    this.assertButtons();
+    this.getWebsite();
   }
 
   componentWillUnmount() {
@@ -75,38 +68,85 @@ class Search extends Component {
   getWebsite() {
     const values = queryString.parse(this.props.location.search);
 
-    for (let item in values) {
-      if (item === 'startDate' || item === 'endDate') {
-        let date = moment(values[item], 'YYYY-MM-DD')
-        this.state[item] = date;
-      }
-      else if (item === 'persons' || item === 'rooms' || item === 'page') {
-        let count = parseInt(values[item], 10);
-        this.state[item] = count;
-      }
-      else if (item === 'location') {
-        this.state["locationPlaceholder"] = values[item]
-      }
-      else {
-        this.state[item] = values[item];
-      }
+    let startDate = moment(values.startDate, 'YYYY-MM-DD')
+    let endDate = moment(values.endDate, 'YYYY-MM-DD')
+    let locationPlaceholder = values.location
+    let latitude = values.latitude
+    let longitude = values.longitude
+    let persons = parseInt(values.persons)
+    let rooms = parseInt(values.rooms)
+    var page = 1
+    if(values.page) {
+      page = parseInt(values.page)
     }
 
-    if (values["sortBy"]) {
-      this.state.sorts[values["sortBy"]]['checked'] = true;
-    }
-    else {
-      this.state.sorts['user-rating']['checked'] = true;
+    this.setState({
+      startDate,
+      endDate,
+      locationPlaceholder,
+      latitude,
+      longitude,
+      persons,
+      rooms,
+      page,
+    }, () => this.performSearch())
+  }
+  
+  initalizeFiltersSorts = () => {
+    const values = queryString.parse(this.props.location.search);
+
+    // Sort by
+    if(values.sortBy) {
+      Object.keys(this.state.sorts).forEach(sortKey => {
+        if(sortKey === values.sortBy) {
+          this.state.sorts[sortKey].checked = true
+        }
+      })
+      this.setState({sortBy: values.sortBy})
+    } else {
+      this.state.sorts.rating.checked = true
     }
 
-    if (values["filterBy"]) {
-      this.state.filters[values["filterBy"]]['checked'] = true;
+    // Budget 
+    if(values.filterBy) {
+      Object.keys(this.state.filters).forEach(filterKey => {
+        if(filterKey === values.filterBy) {
+          this.state.filters[filterKey].checked = true
+        }
+      })
+      this.setState({filterBy: values.filterBy})
+    } else {
+      this.state.filters.all.checked = true
+    }
+
+    // Amenities
+    if(values.requestedAmenities) {
+      let selectedAmenities = values.requestedAmenities.split(",")
+      Object.keys(this.state.amens).forEach(amenityId => {
+        let amenity = this.state.amens[amenityId]
+        if(selectedAmenities.includes(amenityId)) {
+          amenity.checked = true
+        }
+      })
     }
   }
 
   performSearch = () => {
-    let querystring = `?latitude=${this.state.latitude}&longitude=${this.state.longitude}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${this.state.page}`
-    fetch(api + "/hotels" + querystring + "&perPage=10").then(function (response) {
+    let querystring = 
+    `?latitude=${this.state.latitude}`
+    +`&longitude=${this.state.longitude}`
+    +`&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}`
+    +`&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`
+    +`&persons=${this.state.persons}`
+    +`&rooms=${this.state.rooms}`
+    +`&page=${this.state.page}`
+    + this.buildAmentiesString()
+    +'&sortBy='+this.state.sortBy
+    + this.buildMinMaxString()
+    +`&perPage=10`
+    console.log(querystring)
+
+    fetch(api + "/hotels" + querystring).then(function (response) {
       return response.json();
     }).then(function (data) {
       if (data["error"]) {
@@ -115,15 +155,16 @@ class Search extends Component {
         });
       }
       else {
-        this.setState({ hotels: [...this.state.hotels, ...data["data"]] });
+        var hasMore = true
+        var page = parseInt(this.state.page)
         if (Object.keys(data["data"]).length === 0) {
-          this.setState({ hasMore: false });
+          hasMore = false
         }
         else {
-          this.setState({ page: this.state.page + 1 })
+          page += 1
         }
       }
-      this.setState({ searched: true });
+      this.setState({ hotels: [...this.state.hotels, ...data["data"]], searched: true, hasMore, page });
     }.bind(this))
   }
 
@@ -157,23 +198,6 @@ class Search extends Component {
     }
   }
 
-  changePageValue(newValue) {
-    if (newValue > 0) {
-      this.setState({ page: newValue });
-      const location = this.state.location;
-      const lat = this.state.latitude;
-      const long = this.state.longitude;
-      if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-        this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
-        window.location.reload();
-      }
-      else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-        this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=${newValue}`);
-        window.location.reload();
-      }
-    }
-  }
-
   changeRoomValue(newValue) {
     if (newValue > 0) {
       this.setState({ rooms: newValue })
@@ -184,32 +208,49 @@ class Search extends Component {
       this.refs.roomsMinus.className = "w-8 h-8 text-white bg-soft-blue rounded-full"
     }
   }
+
   selectedLocation(element) {
     if (element) {
-      this.setState({ location: element.location, locationPlaceholder: element.description })
+      this.setState({ latitude: element.location.lat, longitude: element.location.lng, locationPlaceholder: element.description })
     } else {
       this.setState({ location: null })
     }
   }
 
-  changeRadio = (e) => {
-    let radios = this.state[e.target.name];
+  changeSort = (e) => {
+    let radios = this.state.sorts;
+    for (var item in radios) {
+      radios[item].checked = false;
+    }
+
+    radios[e.target.value].checked = true;
+    this.setState({ sortBy: e.target.value }, () => this.search());
+  }
+
+  changeCheckbox = (e) => {
+    let radios = this.state.amens;
+    radios[e.target.value].checked = e.target.checked;
+    this.setState({ amens: radios }, () => this.search());
+  }
+
+  changeFilter = (e) => {
+    let radios = this.state.filters;
     for (var item in radios) {
       radios[item]["checked"] = false;
     }
 
     radios[e.target.value]["checked"] = true;
-    this.setState({ [e.target.name]: radios });
+    this.setState({ filterBy: e.target.value }, () => this.search());
   }
 
   renderSorts = () => {
     let sortOptions = []
     for (var key in this.state.sorts) {
       sortOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onClick={e => this.changeRadio(e)} name="sorts" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.sorts[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1 " type="radio" checked={this.state.sorts[key]["checked"]} onChange={e => this.changeSort(e)} value={key} />
+            <span className="text-soft-blue md:text-lg">{this.state.sorts[key]["name"]}</span>
           </label>
         </div>
       )
@@ -221,15 +262,14 @@ class Search extends Component {
     let filterOptions = []
     for (var key in this.state.filters) {
       filterOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onClick={e => this.changeRadio(e)} name="filters" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.filters[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1" type="radio" checked={this.state.filters[key]["checked"]} onChange={e => this.changeFilter(e)} value={key} />
+            <span className="text-soft-blue md:text-lg">{this.state.filters[key]["name"]}</span>
           </label>
         </div>
       )
     }
-
     return filterOptions;
   }
 
@@ -237,29 +277,78 @@ class Search extends Component {
     let amenOptions = []
     for (var key in this.state.amens) {
       amenOptions.push(
-        <div>
+        <div key={key}>
           <label>
-            <input class="mr-4 mt-1 mb-1" type="checkbox" name="amens" value={key} />
-            <span class="text-dark-blue opacity-75">{this.state.amens[key]["name"]}</span>
+            <input className="mr-4 mt-1 mb-1" type="checkbox" value={key} checked={this.state.amens[key].checked} onChange={e => this.changeCheckbox(e)} />
+            <span className="text-soft-blue md:text-lg">{this.state.amens[key]["name"]}</span>
           </label>
         </div>
       )
     }
-
     return amenOptions;
   }
 
+  buildSortString = () => {
+    var string = ""
+    Object.keys(this.state.sorts).forEach(sortKey => {
+      let sort = this.state.sorts[sortKey]
+      if(sort.checked) {
+        string += `&sortBy=${sortKey}`
+      }
+    })
+    return string
+  }
+
+  buildAmentiesString = () => {
+    var idArray = []
+    Object.keys(this.state.amens).forEach(amenityKey => {
+      let amenity = this.state.amens[amenityKey]
+      if(amenity.checked) {
+        idArray.push(amenity.id)
+      }
+    })
+    if(idArray.length === 0) {
+      return ""
+    } else {
+      return "&requestedAmenities="+idArray.join(",")
+    }
+  }
+
+  buildMinMaxString = () => {
+    var string = ""
+    Object.keys(this.state.filters).forEach(filterKey => {
+      let filter = this.state.filters[filterKey]
+      if(filter.checked) {
+        if(filter.min) { 
+          string += `&minPrice=${filter.min}`
+        }
+        if(filter.max) { 
+          string += `&maxPrice=${filter.max}`
+        }
+      }
+    })
+    return string
+  }
+
   search() {
-    const location = this.state.location;
     const lat = this.state.latitude;
     const long = this.state.longitude;
-    if (location && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms) {
-      this.props.history.push(`/search?latitude=${location.lat}&longitude=${location.lng}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
-      window.location.reload();
-    }
-    else if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
-      this.props.history.push(`/search?latitude=${lat}&longitude=${long}&location=${this.state.locationPlaceholder}&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}&persons=${this.state.persons}&rooms=${this.state.rooms}&page=1`);
-      window.location.reload();
+
+    if ((lat && long && this.state.startDate && this.state.endDate && this.state.persons && this.state.rooms)) {
+      this.props.history.push(
+        `/search?latitude=${lat}`
+        +`&longitude=${long}`
+        +`&location=${this.state.locationPlaceholder}`
+        +`&startDate=${moment(this.state.startDate).format("YYYY-MM-DD")}`
+        +`&endDate=${moment(this.state.endDate).format("YYYY-MM-DD")}`
+        +`&persons=${this.state.persons}`
+        +`&rooms=${this.state.rooms}`
+        + this.buildAmentiesString()
+        +`&filterBy=${this.state.filterBy}`
+        +'&sortBy='+this.state.sortBy 
+        +`&page=1`
+      );
+      this.setState({hotels: [], searched: false, page: 1}, () => this.getWebsite())
     }
     else {
       alert("Please fill all fields")
@@ -297,13 +386,13 @@ class Search extends Component {
       <InfiniteScroll
         pageStart={0}
         dataLength={Object.keys(this.state.hotels).length}
-        next={this.performSearch}
+        next={() => this.performSearch()}
         hasMore={true}
         scrollThreshold={.8}
       >
-      <div class="md:flex p-4 md:p-0 scrolling-touch h-auto">
-        <div class="md:mt-8 md:ml-8 h-auto md:w-1/4 md:w-1/4">
-          <div class="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
+      <div className="md:flex p-4 md:p-0 scrolling-touch h-auto">
+        <div className="md:mt-8 md:ml-8 h-auto md:w-1/3">
+          <div className="align-center container-sm rounded pt-4 pr-4 pl-4 pb-4 mb-4 border bg-white border-soft-blue">
             <Geosuggest
               className="w-full h-full md:w-full h-10 md:h-16 mb-4 md:mr-4 md:text-xl text-grey-darker"
               initialValue={this.state.locationPlaceholder}
@@ -339,13 +428,13 @@ class Search extends Component {
                 <div className="rounded bg-white mt-px">
                   <div className="flex items-center justify-between flex-wrap p-4 border-t border-soft-blue ">
                     <p className="w-1/5">People</p>
-                    <button ref="peopleMinus" className={this.state.peopleSub} onClick={() => this.changePeopleValue(this.state.persons - 1)}>-</button>
+                    <button ref="peopleMinus" className={this.state.peopleSub} onClick={() => this.changePeopleValue(this.state.persons) - 1}>-</button>
                     <p className="w-16 md:w-1/5 text-center">{this.state.persons}</p>
-                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.persons + 1)}>+</button>
+                    <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changePeopleValue(this.state.persons) + 1}>+</button>
                   </div>
                   <div className="flex items-center justify-between flex-wrap p-4 border-t border-soft-blue ">
                     <p className="w-1/5">Rooms</p>
-                    <button ref="roomsMinus" className={this.state.roomSub} onClick={() => this.changeRoomValue(this.state.rooms - 1)}>-</button>
+                    <button ref="roomsMinus" className={this.state.roomSub} onClick={() => this.changeRoomValue(this.state.rooms) - 1}>-</button>
                     <p className="w-16 md:w-1/5 text-center">{this.state.rooms}</p>
                     <button className="w-8 h-8 text-white bg-soft-blue rounded-full" onClick={() => this.changeRoomValue(this.state.rooms + 1)}>+</button>
                   </div>
@@ -356,7 +445,7 @@ class Search extends Component {
               <button className="cursor-pointer bg-soft-blue w-full md:w-full rounded text-white mb-2 p-2 h-10 md:h-16 font-sans text-xl font-bold" type="button" onClick={() => this.search()}>Search</button>
             </div>
           </div>
-          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
+          <div className="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 bg-white ">
             <button className="Rectangle bg-white border border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" 
                     type="button"
                     onClick={() => this.showMap()}
@@ -364,35 +453,35 @@ class Search extends Component {
               View on Map
             </button>
           </div>
-          <div class="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 md:hidden bg-white ">
+          <div className="align-center container-sm rounded md:pt-4 pr-4 pl-4 pb-4 md:hidden bg-white ">
             <button ref="optionsButton" className="Rectangle bg-white border md:hidden border-soft-blue h-10 md:h-14 md:text-2xl text-lg text-soft-blue w-full font-sans font-bold py-2 px-4 rounded cursor-pointer" onClick={() => this.toggleOptions()} type="button">Options</button>
           </div>
           <div ref="optionsMenu">
             {this.state.showOptions && (
               <div className="w-full border p-4 border-soft-blue md:border-white mb-2 md:mr-4 rounded" >
-                <div class="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
-                  <div class="pl-4">
+                <div className="align-center container-sm font-sans font-bold rounded mb-6 bg-white">
+                  <p className="md:text-2xl text-lg text-dark-blue mb-2">Sort By</p>
+                  <div className="pl-4">
                     <form>
                       {this.renderSorts()}
                     </form>
                   </div>
                 </div>
-                <div class="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
-                  <p class="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
+                <div className="align-center container-sm font-sans font-bold mb-4 rounded bg-white">
+                  <p className="md:text-2xl text-lg text-dark-blue mb-4">Filter By</p>
                   <div>
-                    <p class="md:text-xl text-base text-dark-blue mb-2">Your Budget</p>
+                    <p className="md:text-xl text-base text-soft-blue mb-2">Your Budget</p>
                   </div>
-                  <div class="pl-4">
+                  <div className="pl-4">
                     <form>
                       {this.renderFilters()}
                     </form>
                   </div>
                 </div>
 
-                <div class="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
-                  <p class="md:text-xl text-base text-dark-blue mb-2">Amenities</p>
-                  <div class="pl-4">
+                <div className="align-center container-sm font-sans font-bold rounded mb-4 bg-white">
+                  <p className="md:text-xl text-base text-soft-blue mb-2">Amenities</p>
+                  <div className="pl-4">
                     <form>
                       {this.renderAmenities()}
                     </form>
@@ -401,18 +490,16 @@ class Search extends Component {
               </div>)}
           </div>
         </div>
-        <div class="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
-          <div class="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
+        <div className="md:ml-8 mt-4 md:w-3/4 md:mr-8 w-full md:flex-grow h-full">
+          <div className="align-center container-sm rounded bg-white overflow-y-auto scrolling-touch" >
             {this.state.hotels && Object.keys(this.state.hotels).length > 0 ?
-              <div>
-                  {this.state.hotels.map(item => <SearchCell hotel={item} />)}
-              </div>
+                this.state.hotels.map(item => <SearchCell hotel={item} />)
               :
-              <div class="block font-bold justify-center content-center mt-24 col-md-6">
+              <div className="block font-bold justify-center content-center mt-24 col-md-6">
                 {this.state.hotels && !this.state.error && this.state.searched ?
-                  <div class="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
+                  <div className="text text-2xl text-red text-center mb-4 ">No Search Results found for this area.</div>
                   :
-                  <div class="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
+                  <div className="text text-2xl text-red text-center mb-4 ">{this.state.error}</div>
                 }
               </div>
             }

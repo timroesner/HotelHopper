@@ -24,7 +24,7 @@ class BookingDetailComp extends React.Component {
         >
           <img
             alt="Hotel"
-            src={"https://t-ec.bstatic.com/images/hotel/max500/886/88658230.jpg".replace("max500", "max1024x768")}
+            src={reservation.hotel.imageUrl.replace("max500", "max1024x768")}
             className="h-48 w-full md:h-96 md:w-3/5 rounded md:rounded-lg"
             style={{objectFit: "cover"}}
           />

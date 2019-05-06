@@ -113,22 +113,22 @@ class BillingInfo extends Component {
         }
         <div className="ml-8 md:w-1/2 w-full md:ml-24 md:mr-0 mr-8 ">
           <div className="mb-8">
-            <label class="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
+            <label className="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
               Credit / Debit Cards
             </label>
             {this.renderExistingCards()}
           </div>
-          <div class="mb-12 md:mb-0 pb-8">
+          <div className="mb-12 md:mb-0 pb-8">
             <form onSubmit={this.submitAddress}>
-              <label class="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
+              <label className="block tracking-wide text-black text-2xl mb-4 font-sans font-bold mb-2">
                 Billing Address
               </label>
-              <input class="appearance-none  w-full h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address1" onChange={this.handleChange} type="text" placeholder="Address Line 1"/>
-              <input class="appearance-none w-full  h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address2" onChange={this.handleChange} type="text" placeholder="Address Line 2"/>
-              <div class="md:flex md:items-flex mb-2">
-                <input class="appearance-none  mb-3 w-full  h-10 md:h-14 md:mr-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="city" onChange={this.handleChange} type="text" placeholder="City"/>
-                <input class="appearance-none  mb-3  w-full  h-10 md:h-14 md:ml-2 md:mr-3 block bg-white font-bold font-sans text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="state" onChange={this.handleChange} type="text" placeholder="State"/>
-                <input class="appearance-none  mb-3 w-full h-10 md:h-14 md:ml-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="zip" onChange={this.handleChange} type="text" placeholder="Zipcode"/>
+              <input className="appearance-none  w-full h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address1" onChange={this.handleChange} type="text" placeholder="Address Line 1"/>
+              <input className="appearance-none w-full  h-10 md:h-14 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 mb-3" id="address2" onChange={this.handleChange} type="text" placeholder="Address Line 2"/>
+              <div className="md:flex md:items-flex mb-2">
+                <input className="appearance-none  mb-3 w-full  h-10 md:h-14 md:mr-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="city" onChange={this.handleChange} type="text" placeholder="City"/>
+                <input className="appearance-none  mb-3  w-full  h-10 md:h-14 md:ml-2 md:mr-3 block bg-white font-bold font-sans text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="state" onChange={this.handleChange} type="text" placeholder="State"/>
+                <input className="appearance-none  mb-3 w-full h-10 md:h-14 md:ml-3 block bg-white font-bold font-sans  text-grey-darkest border border-soft-blue rounded py-2 px-3 md:mb-2" id="zip" onChange={this.handleChange} type="text" placeholder="Zipcode"/>
               </div>
               <div className="w-full ">
                 <input className="bg-soft-blue cursor-pointer rounded text-white py-3 px-4 font-sans text-xl font-bold" type="submit" value="Save changes" />

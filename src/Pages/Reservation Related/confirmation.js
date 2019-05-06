@@ -100,10 +100,10 @@ class Confirmation extends Component {
           Your Booking Details
         </p>
         <BookingDetail reservation={this.state.reservation} />
-        <hr className="pt-4 md:pt-8 border-b" />
+        <hr className="pt-4 mb-4 md:pt-8 md:mb-8 border-b" />
         {
           this.state.reservation.usePoints === false &&
-          <p className="text-sm md:text-2xl my-4 md:my-8 font-bold">
+          <p className="text-sm md:text-2xl mb-4 md:mb-8 font-bold">
             You will collect {parseInt(this.state.reservation.totalCost*0.10)} additional points upon staying.
           </p>
         }
